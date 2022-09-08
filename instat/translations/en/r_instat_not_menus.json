@@ -3688,6 +3688,7 @@
   "Display As DataFrame": "Display As DataFrame",
   "Data Frame Name": "Data Frame Name",
   "Rename With": "Rename With",
-  "Rename Columns": "Rename Columns"
-}
+  "Rename Columns": "Rename Columns",
+  "Two/Three Variables": "Two/Three Variables",
+  "Specific Tables/Graphs": "Specific Tables/Graphs"}
 
