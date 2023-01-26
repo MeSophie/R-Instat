@@ -106,6 +106,10 @@ Public Class dlgApsimx
         TestOKEnabled()
     End Sub
 
+    Private Sub lblExampleList_Click(sender As Object, e As EventArgs) Handles lblExampleList.Click
+
+    End Sub
+
     Private Sub ucrInputComboList_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputComboList.ControlValueChanged
         Dim strDataName As String = frmMain.clsRLink.MakeValidText(ucrInputComboList.GetText)
         ucrInputSaveData.SetText(strDataName)
