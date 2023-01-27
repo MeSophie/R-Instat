@@ -22,7 +22,6 @@ Partial Class dlgApsimx
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ucrChkSilent = New instat.ucrCheck()
         Me.lblExampleList = New System.Windows.Forms.Label()
         Me.ucrBase = New instat.ucrButtons()
         Me.ucrInputComboList = New instat.ucrInputComboBox()
@@ -40,20 +39,11 @@ Partial Class dlgApsimx
         Me.ucrInputSoilChildEdit = New instat.ucrInputComboBox()
         Me.lbllblSoilChildInspect = New System.Windows.Forms.Label()
         Me.lblParm = New System.Windows.Forms.Label()
-        Me.lbldigits = New System.Windows.Forms.Label()
-        Me.ucrNudMaxRowsText = New instat.ucrNud()
-        Me.ucrInputInStepsOf = New instat.ucrInputTextBox()
-        Me.UcrNud1 = New instat.ucrNud()
+        Me.ucrInputParameter = New instat.ucrInputTextBox()
+        Me.ucrNudParameterPosition = New instat.ucrNud()
+        Me.ucrChkSilent = New instat.ucrCheck()
+        Me.ucrChkPrintPath = New instat.ucrCheck()
         Me.SuspendLayout()
-        '
-        'ucrChkSilent
-        '
-        Me.ucrChkSilent.AutoSize = True
-        Me.ucrChkSilent.Checked = False
-        Me.ucrChkSilent.Location = New System.Drawing.Point(7, 179)
-        Me.ucrChkSilent.Name = "ucrChkSilent"
-        Me.ucrChkSilent.Size = New System.Drawing.Size(138, 23)
-        Me.ucrChkSilent.TabIndex = 2
         '
         'lblExampleList
         '
@@ -207,6 +197,7 @@ Partial Class dlgApsimx
         Me.ucrInputSoilChildEdit.Name = "ucrInputSoilChildEdit"
         Me.ucrInputSoilChildEdit.Size = New System.Drawing.Size(136, 30)
         Me.ucrInputSoilChildEdit.TabIndex = 44
+        Me.ucrInputSoilChildEdit.Visible = False
         '
         'lbllblSoilChildInspect
         '
@@ -216,73 +207,72 @@ Partial Class dlgApsimx
         Me.lbllblSoilChildInspect.Size = New System.Drawing.Size(71, 13)
         Me.lbllblSoilChildInspect.TabIndex = 43
         Me.lbllblSoilChildInspect.Text = "Soil Child Edit"
+        Me.lbllblSoilChildInspect.Visible = False
         '
         'lblParm
         '
         Me.lblParm.AutoSize = True
-        Me.lblParm.Location = New System.Drawing.Point(4, 205)
+        Me.lblParm.Location = New System.Drawing.Point(4, 172)
         Me.lblParm.Name = "lblParm"
         Me.lblParm.Size = New System.Drawing.Size(58, 13)
         Me.lblParm.TabIndex = 45
         Me.lblParm.Text = "Parameter:"
+        Me.lblParm.Visible = False
         '
-        'lbldigits
+        'ucrInputParameter
         '
-        Me.lbldigits.AutoSize = True
-        Me.lbldigits.Location = New System.Drawing.Point(4, 242)
-        Me.lbldigits.Name = "lbldigits"
-        Me.lbldigits.Size = New System.Drawing.Size(34, 13)
-        Me.lbldigits.TabIndex = 46
-        Me.lbldigits.Text = "digits:"
+        Me.ucrInputParameter.AddQuotesIfUnrecognised = True
+        Me.ucrInputParameter.AutoSize = True
+        Me.ucrInputParameter.IsMultiline = False
+        Me.ucrInputParameter.IsReadOnly = False
+        Me.ucrInputParameter.Location = New System.Drawing.Point(68, 172)
+        Me.ucrInputParameter.Name = "ucrInputParameter"
+        Me.ucrInputParameter.Size = New System.Drawing.Size(117, 29)
+        Me.ucrInputParameter.TabIndex = 48
+        Me.ucrInputParameter.Visible = False
         '
-        'ucrNudMaxRowsText
+        'ucrNudParameterPosition
         '
-        Me.ucrNudMaxRowsText.AutoSize = True
-        Me.ucrNudMaxRowsText.DecimalPlaces = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.ucrNudMaxRowsText.Increment = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.ucrNudMaxRowsText.Location = New System.Drawing.Point(45, 242)
-        Me.ucrNudMaxRowsText.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ucrNudMaxRowsText.Maximum = New Decimal(New Integer() {100, 0, 0, 0})
-        Me.ucrNudMaxRowsText.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.ucrNudMaxRowsText.Name = "ucrNudMaxRowsText"
-        Me.ucrNudMaxRowsText.Size = New System.Drawing.Size(33, 20)
-        Me.ucrNudMaxRowsText.TabIndex = 47
-        Me.ucrNudMaxRowsText.Value = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.ucrNudParameterPosition.AutoSize = True
+        Me.ucrNudParameterPosition.DecimalPlaces = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.ucrNudParameterPosition.Increment = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.ucrNudParameterPosition.Location = New System.Drawing.Point(200, 172)
+        Me.ucrNudParameterPosition.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ucrNudParameterPosition.Maximum = New Decimal(New Integer() {100, 0, 0, 0})
+        Me.ucrNudParameterPosition.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.ucrNudParameterPosition.Name = "ucrNudParameterPosition"
+        Me.ucrNudParameterPosition.Size = New System.Drawing.Size(33, 20)
+        Me.ucrNudParameterPosition.TabIndex = 49
+        Me.ucrNudParameterPosition.Value = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.ucrNudParameterPosition.Visible = False
         '
-        'ucrInputInStepsOf
+        'ucrChkSilent
         '
-        Me.ucrInputInStepsOf.AddQuotesIfUnrecognised = True
-        Me.ucrInputInStepsOf.AutoSize = True
-        Me.ucrInputInStepsOf.IsMultiline = False
-        Me.ucrInputInStepsOf.IsReadOnly = False
-        Me.ucrInputInStepsOf.Location = New System.Drawing.Point(68, 205)
-        Me.ucrInputInStepsOf.Name = "ucrInputInStepsOf"
-        Me.ucrInputInStepsOf.Size = New System.Drawing.Size(101, 29)
-        Me.ucrInputInStepsOf.TabIndex = 48
+        Me.ucrChkSilent.AutoSize = True
+        Me.ucrChkSilent.Checked = False
+        Me.ucrChkSilent.Location = New System.Drawing.Point(7, 234)
+        Me.ucrChkSilent.Name = "ucrChkSilent"
+        Me.ucrChkSilent.Size = New System.Drawing.Size(138, 23)
+        Me.ucrChkSilent.TabIndex = 50
         '
-        'UcrNud1
+        'ucrChkPrintPath
         '
-        Me.UcrNud1.AutoSize = True
-        Me.UcrNud1.DecimalPlaces = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.UcrNud1.Increment = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.UcrNud1.Location = New System.Drawing.Point(185, 205)
-        Me.UcrNud1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.UcrNud1.Maximum = New Decimal(New Integer() {100, 0, 0, 0})
-        Me.UcrNud1.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
-        Me.UcrNud1.Name = "UcrNud1"
-        Me.UcrNud1.Size = New System.Drawing.Size(33, 20)
-        Me.UcrNud1.TabIndex = 49
-        Me.UcrNud1.Value = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.ucrChkPrintPath.AutoSize = True
+        Me.ucrChkPrintPath.Checked = False
+        Me.ucrChkPrintPath.Location = New System.Drawing.Point(7, 205)
+        Me.ucrChkPrintPath.Name = "ucrChkPrintPath"
+        Me.ucrChkPrintPath.Size = New System.Drawing.Size(138, 23)
+        Me.ucrChkPrintPath.TabIndex = 51
         '
         'dlgApsimx
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(468, 356)
-        Me.Controls.Add(Me.UcrNud1)
-        Me.Controls.Add(Me.ucrInputInStepsOf)
-        Me.Controls.Add(Me.ucrNudMaxRowsText)
-        Me.Controls.Add(Me.lbldigits)
+        Me.Controls.Add(Me.ucrChkPrintPath)
+        Me.Controls.Add(Me.ucrChkSilent)
+        Me.Controls.Add(Me.ucrNudParameterPosition)
+        Me.Controls.Add(Me.ucrInputParameter)
         Me.Controls.Add(Me.lblParm)
         Me.Controls.Add(Me.ucrInputSoilChildEdit)
         Me.Controls.Add(Me.lbllblSoilChildInspect)
@@ -298,7 +288,6 @@ Partial Class dlgApsimx
         Me.Controls.Add(Me.ucrInputSaveData)
         Me.Controls.Add(Me.lblSaveData)
         Me.Controls.Add(Me.ucrInputComboList)
-        Me.Controls.Add(Me.ucrChkSilent)
         Me.Controls.Add(Me.lblExampleList)
         Me.Controls.Add(Me.ucrBase)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -311,7 +300,6 @@ Partial Class dlgApsimx
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ucrChkSilent As ucrCheck
     Friend WithEvents lblExampleList As Label
     Friend WithEvents ucrBase As ucrButtons
     Friend WithEvents ucrInputComboList As ucrInputComboBox
@@ -329,8 +317,8 @@ Partial Class dlgApsimx
     Friend WithEvents ucrInputSoilChildEdit As ucrInputComboBox
     Friend WithEvents lbllblSoilChildInspect As Label
     Friend WithEvents lblParm As Label
-    Friend WithEvents lbldigits As Label
-    Friend WithEvents ucrNudMaxRowsText As ucrNud
-    Friend WithEvents ucrInputInStepsOf As ucrInputTextBox
-    Friend WithEvents UcrNud1 As ucrNud
+    Friend WithEvents ucrInputParameter As ucrInputTextBox
+    Friend WithEvents ucrNudParameterPosition As ucrNud
+    Friend WithEvents ucrChkSilent As ucrCheck
+    Friend WithEvents ucrChkPrintPath As ucrCheck
 End Class

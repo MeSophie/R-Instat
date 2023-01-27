@@ -247,10 +247,6 @@
     </Compile>
     <Compile Include="Enum\RObjectFormat.vb" />
     <Compile Include="Enum\RObjectTypeLabel.vb" />
-    <Compile Include="sdgInspectParameters.Designer.vb">
-      <DependentUpon>sdgInspectParameters.vb</DependentUpon>
-    </Compile>
-    <Compile Include="sdgInspectParameters.vb" />
     <Compile Include="sdgPairPlotOptions.Designer.vb">
       <DependentUpon>sdgPairPlotOptions.vb</DependentUpon>
     </Compile>
@@ -3104,9 +3100,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dlgThreeVariablePivotTable.resx">
       <DependentUpon>dlgThreeVariablePivotTable.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="sdgInspectParameters.resx">
-      <DependentUpon>sdgInspectParameters.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="sdgPairPlotOptions.resx">
       <DependentUpon>sdgPairPlotOptions.vb</DependentUpon>

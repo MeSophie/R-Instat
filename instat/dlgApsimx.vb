@@ -21,7 +21,9 @@ Public Class dlgApsimx
     Public bFirstLoad As Boolean = True
     Private bReset As Boolean = True
     Private clsApsimxExampleFunction As New RFunction
-    Private clsBaseFunction, clsDataListFunction As New RFunction
+    Private clsInspectApsimxFunction As New RFunction
+    'Private clsEditApsimxFunction As New RFunction
+    Private clsBaseFunction, clsDataListFunction, clsNodeListFunction, clsSoilChildInspectListFunction, clsSoilChildEditListFunction As New RFunction
     Private clsReportOperator As New ROperator
     Private Sub dlgApsimx_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If bFirstLoad Then
@@ -41,6 +43,16 @@ Public Class dlgApsimx
         ucrBase.iHelpTopicID = 479
 
         ucrInputComboList.IsReadOnly = True
+        ucrInputNode.IsReadOnly = True
+        ucrInputSoilChildInspect.IsReadOnly = True
+        ucrInputSoilChildEdit.IsReadOnly = True
+        ucrInputSoilChildEdit.IsReadOnly = True
+
+        ucrInputFilePath.SetParameter(New RParameter("src.dir", 1))
+
+        ucrInputParameter.SetParameter(New RParameter("parm", 4))
+        ucrInputParameter.AddQuotesIfUnrecognised = False
+
 
         ucrChkSilent.SetText("Silent")
         ucrChkSilent.SetParameter(New RParameter("silent", 1))
@@ -59,9 +71,47 @@ Public Class dlgApsimx
            {"Sugarcane", Chr(34) & "Sugarcane" & Chr(34)},
            {"Wheat", Chr(34) & "Wheat" & Chr(34)}}
 
+        Dim dctNodeElements As New Dictionary(Of String, String) From {
+           {"Clock", Chr(34) & "Clock" & Chr(34)},
+           {"Weather", Chr(34) & "Weather" & Chr(34)},
+           {"Soil", Chr(34) & "Soil" & Chr(34)},
+           {"Surface Organic Matter", Chr(34) & "SurfaceOrganicMatter" & Chr(34)},
+           {"Micro Climate", Chr(34) & "MicroClimate" & Chr(34)},
+           {"Crop", Chr(34) & "Crop" & Chr(34)},
+           {"Manager", Chr(34) & "Manager" & Chr(34)},
+           {"Report", Chr(34) & "Report" & Chr(34)},
+           {"Other", Chr(34) & "Other" & Chr(34)}}
+
+        Dim dctSoilChildInspectElements As New Dictionary(Of String, String) From {
+           {"Meta data", Chr(34) & "Metadata" & Chr(34)},
+           {"Water", Chr(34) & "Water" & Chr(34)},
+           {"Initia lWater", Chr(34) & "InitialWater" & Chr(34)},
+           {"Chemical", Chr(34) & "Chemical" & Chr(34)},
+           {"Physical", Chr(34) & "Physical" & Chr(34)},
+           {"Analysis", Chr(34) & "Analysis" & Chr(34)},
+           {"Soil Water", Chr(34) & "SoilWater" & Chr(34)},
+           {"Initial N", Chr(34) & "InitialN" & Chr(34)},
+           {"Sample", Chr(34) & "Sample" & Chr(34)},
+           {"Nutrient", Chr(34) & "Nutrient" & Chr(34)},
+           {"Organic", Chr(34) & "Organic" & Chr(34)}}
+
         ucrInputComboList.SetParameter(New RParameter("example", 0))
         ucrInputComboList.SetItems(dctExamplesModels)
         ucrInputComboList.SetDropDownStyleAsNonEditable()
+
+        ucrInputNode.SetParameter(New RParameter("node", 2))
+        ucrInputNode.SetItems(dctNodeElements)
+        ucrInputComboList.SetDropDownStyleAsNonEditable()
+
+        ucrInputSoilChildInspect.SetParameter(New RParameter("soil.child", 3))
+        ucrInputSoilChildInspect.SetItems(dctSoilChildInspectElements)
+        ucrInputSoilChildInspect.SetDropDownStyleAsNonEditable()
+
+        'ucrNudParameterPosition.SetParameter(New RParameter("p", 2))
+        'ucrNudParameterPosition.SetLinkedDisplayControl(lbldigits)
+        'ucrNudParameterPosition.SetMinMax(1, 10)
+        'ucrNudParameterPosition.Increment = 1
+        'ucrNudParameterPosition.SetRDefault(3)
 
     End Sub
 
@@ -70,6 +120,9 @@ Public Class dlgApsimx
         clsBaseFunction = New RFunction
         clsDataListFunction = New RFunction
         clsReportOperator = New ROperator
+        clsNodeListFunction = New RFunction
+        clsInspectApsimxFunction = New RFunction
+        clsSoilChildEditListFunction = New RFunction
 
         clsReportOperator.SetOperation("$")
         clsReportOperator.AddParameter("left", "Rotation", iPosition:=0)
@@ -84,7 +137,20 @@ Public Class dlgApsimx
         clsApsimxExampleFunction.SetRCommand("apsimx_example")
         clsApsimxExampleFunction.AddParameter("example", Chr(34) & "Barley" & Chr(34), iPosition:=0)
 
+        clsNodeListFunction.SetRCommand("list")
+        clsInspectApsimxFunction.SetPackageName("apsimx")
+        clsInspectApsimxFunction.SetRCommand("inspect_apsimx")
+        clsInspectApsimxFunction.AddParameter("node", Chr(34) & "Clock" & Chr(34), iPosition:=2)
+
+        clsSoilChildInspectListFunction.SetRCommand("list")
+        clsInspectApsimxFunction.SetPackageName("apsimx")
+        clsInspectApsimxFunction.SetRCommand("inspect_apsimx")
+        clsInspectApsimxFunction.AddParameter("soil.child", Chr(34) & "Physical" & Chr(34), iPosition:=3)
+
         ucrBase.clsRsyntax.SetBaseRFunction(clsBaseFunction)
+
+
+
     End Sub
 
     Private Sub SetRCodeForControls(bReset As Boolean)
@@ -102,7 +168,7 @@ Public Class dlgApsimx
         TestOKEnabled()
     End Sub
 
-    Private Sub ucrInputPath_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrChkSilent.ControlContentsChanged
+    Private Sub ucrInputPath_ControlContentsChanged(ucrChangedControl As ucrCore)
         TestOKEnabled()
     End Sub
 
