@@ -24,6 +24,9 @@ Public Class dlgApsimx
     Private clsInspectApsimxFunction As New RFunction
     'Private clsEditApsimxFunction As New RFunction
     Private clsBaseFunction, clsDataListFunction, clsNodeListFunction, clsSoilChildInspectListFunction, clsSoilChildEditListFunction As New RFunction
+    Private strFilePath As String = ""
+    Private bFromLibrary As Boolean = False
+    Private strLibraryPath As String = Path.Combine(frmMain.strStaticPath, "Library", "Climatic", "Apsimxfiles/")
     Private clsReportOperator As New ROperator
     Private Sub dlgApsimx_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If bFirstLoad Then
@@ -49,6 +52,7 @@ Public Class dlgApsimx
         ucrInputSoilChildEdit.IsReadOnly = True
 
         ucrInputFilePath.SetParameter(New RParameter("src.dir", 1))
+        ucrInputFilePath.IsReadOnly = True
 
         ucrInputParameter.SetParameter(New RParameter("parm", 4))
         ucrInputParameter.AddQuotesIfUnrecognised = False
@@ -124,6 +128,8 @@ Public Class dlgApsimx
         clsInspectApsimxFunction = New RFunction
         clsSoilChildEditListFunction = New RFunction
 
+        ucrInputFilePath.SetName("")
+
         clsReportOperator.SetOperation("$")
         clsReportOperator.AddParameter("left", "Rotation", iPosition:=0)
         clsReportOperator.AddParameter("right", "Report", iPosition:=1)
@@ -174,6 +180,38 @@ Public Class dlgApsimx
 
     Private Sub lblExampleList_Click(sender As Object, e As EventArgs) Handles lblExampleList.Click
 
+    End Sub
+
+    Public Sub GetFileFromOpenDialog()
+        Dim strFileName As String = ""
+        Dim strFileExt As String = ""
+
+        Using dlgOpen As New OpenFileDialog
+            dlgOpen.Filter = "Apsimxfiles|*.apsimx|All Apsimxfiles|*.apsimx"
+            dlgOpen.Title = "Import Shape File"
+            If bFromLibrary Then
+                dlgOpen.InitialDirectory = Path.GetDirectoryName(Replace(strLibraryPath, "/", "\"))
+            ElseIf Not ucrInputFilePath.IsEmpty() Then
+                dlgOpen.InitialDirectory = Path.GetDirectoryName(Replace(ucrInputFilePath.GetText(), "/", "\"))
+            Else
+                dlgOpen.InitialDirectory = frmMain.clsInstatOptions.strWorkingDirectory
+            End If
+
+            If dlgOpen.ShowDialog() = DialogResult.OK Then
+                clsApsimxExampleFunction.RemoveParameterByName("path")
+                If dlgOpen.FileName <> "" Then
+                    strFileName = Path.GetFileNameWithoutExtension(dlgOpen.FileName)
+                    strFilePath = dlgOpen.FileName
+                    strFileExt = Path.GetExtension(strFilePath)
+                    ucrInputFilePath.SetName(Replace(strFilePath, "\", "/"))
+                    If strFileExt = ".apsimx" Then
+                        ucrBase.clsRsyntax.SetBaseRFunction(clsApsimxExampleFunction)
+                        ucrInputSaveData.SetPrefix(strFileName)
+                        clsApsimxExampleFunction.AddParameter("example", Chr(34) & strFileName & Chr(34), iPosition:=0)
+                    End If
+                End If
+            End If
+        End Using
     End Sub
 
     Private Sub ucrInputComboList_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputComboList.ControlValueChanged
