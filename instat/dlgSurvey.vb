@@ -119,7 +119,7 @@ Public Class dlgSurvey
         ucrChkTests.SetValuesCheckedAndUnchecked("True", "False")
         ucrChkTests.SetRDefault("FALSE")
 
-        ucrInputSummaryStat.SetParameter(New RParameter("x", 13))
+        ucrInputSummaryStat.SetParameter(New RParameter("x", 13, bNewIncludeArgumentName:=False))
         dctInputSummaryStat.Add("total", Chr(34) & "total" & Chr(34))
         dctInputSummaryStat.Add("mean", Chr(34) & "mean" & Chr(34))
         dctInputSummaryStat.Add("variance", Chr(34) & "variance" & Chr(34))
@@ -128,7 +128,7 @@ Public Class dlgSurvey
         ucrInputSummaryStat.SetItems(dctInputSummaryStat)
         ucrInputSummaryStat.SetDropDownStyleAsNonEditable()
 
-        ucrInputModelType.SetParameter(New RParameter("y", 13))
+        ucrInputModelType.SetParameter(New RParameter("y", 14))
         dctInputModelType.Add("linear regression", Chr(34) & "linear regression" & Chr(34))
         dctInputModelType.Add("multiple regression", Chr(34) & "multiple regression" & Chr(34))
         dctInputModelType.Add("logistic regression", Chr(34) & "logitic regression" & Chr(34))
@@ -138,7 +138,7 @@ Public Class dlgSurvey
         ucrInputModelType.SetDropDownStyleAsNonEditable()
         ucrInputModelType.SetLinkedDisplayControl(lblModelType)
 
-        ucrInputPlotType.SetParameter(New RParameter("z", 14))
+        ucrInputPlotType.SetParameter(New RParameter("z", 15))
         dtcInputPlotType.Add("boxplot", Chr(34) & "boxplot" & Chr(34))
         dtcInputPlotType.Add("histogram", Chr(34) & "histogram" & Chr(34))
         dtcInputPlotType.Add("smooth plots", Chr(34) & "smooth plots" & Chr(34))
@@ -299,6 +299,7 @@ Public Class dlgSurvey
         clsSvymeanFunction.SetRCommand("svymean")
         clsSvymeanFunction.AddParameter("x", clsROperatorParameter:=clsXOperator, iPosition:=0)
         clsSvymeanFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
+        clsSvymeanFunction.AddParameter("x", Chr(34) & "mean" & Chr(34), bIncludeArgumentName:=False, iPosition:=2)
         clsSvymeanFunction.iCallType = 2
 
         'clsSvyContrastFunction.SetPackageName("survey")
@@ -355,6 +356,11 @@ Public Class dlgSurvey
         ucrVariablesAsFactorforVar.AddAdditionalCodeParameterPair(clsSvyqqPlotFunction, New RParameter("formula", 0), iAdditionalPairNo:=11)
         ucrVariablesAsFactorforVar.AddAdditionalCodeParameterPair(clsSvySDFunction, New RParameter("formula", 0), iAdditionalPairNo:=12)
 
+        'ucrInputSummaryStat.AddAdditionalCodeParameterPair(clsSvyQuantileFunction, New RParameter("x", 13, bNewIncludeArgumentName:=False), iAdditionalPairNo:=1)
+        'ucrInputSummaryStat.AddAdditionalCodeParameterPair(clsVarFunction, New RParameter("x", 13, bNewIncludeArgumentName:=False), iAdditionalPairNo:=2)
+        'ucrInputSummaryStat.AddAdditionalCodeParameterPair(clsSvySDFunction, New RParameter("x", 13, bNewIncludeArgumentName:=False), iAdditionalPairNo:=3)
+        'ucrInputSummaryStat.AddAdditionalCodeParameterPair(clsSvyTotalFunction, New RParameter("x", 13, bNewIncludeArgumentName:=False), iAdditionalPairNo:=4)
+
         ucrReceiverFPC.SetRCode(clsFpcOperator, bReset)
         ucrInputId.SetRCode(clsIdOperator, bReset)
         ucrReceiverStrata.SetRCode(clsStrataOperator, bReset)
@@ -366,7 +372,7 @@ Public Class dlgSurvey
         ucrChkContingencyTables.SetRCode(clsSvychisqFunction, bReset)
         ucrPnlMethod.SetRCode(clsDummyFunction, bReset)
         ucrChkModel.SetRCode(clsDummyFunction, bReset)
-        'ucrInputSummaryStat.SetRCode(clsSummaryStatFunc, bReset)
+        'ucrInputSummaryStat.SetRCode(clsSvymeanFunction, bReset)
 
         ucrVariablesAsFactorforVar.SetRCode(clsSvymeanFunction, bReset)
     End Sub
@@ -411,14 +417,28 @@ Public Class dlgSurvey
     Private Sub AddSummaryStatParameters()
         If ucrInputSummaryStat.GetText = "mean" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvymeanFunction, iPosition:=0)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyQuantileFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
         ElseIf ucrInputSummaryStat.GetText = "variance" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsVarFunction, iPosition:=0)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
         ElseIf ucrInputSummaryStat.GetText = "total" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvyTotalFunction, iPosition:=0)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
         ElseIf ucrInputSummaryStat.GetText = "standard deviation" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvySDFunction, iPosition:=0)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
         Else
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvyQuantileFunction, iPosition:=0)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
         End If
     End Sub
 
