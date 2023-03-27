@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class dlgSurvey
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class dlgSurvey
     'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
     'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
     'Ne la modifiez pas à l'aide de l'éditeur de code.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.rdoClustered = New System.Windows.Forms.RadioButton()
         Me.rdoStratified = New System.Windows.Forms.RadioButton()
@@ -29,29 +29,24 @@ Partial Class dlgSurvey
         Me.lblId = New System.Windows.Forms.Label()
         Me.lblStrata = New System.Windows.Forms.Label()
         Me.lblSummaryStatistics = New System.Windows.Forms.Label()
-        Me.lblPlotType = New System.Windows.Forms.Label()
-        Me.lblModelType = New System.Windows.Forms.Label()
         Me.lblWeights = New System.Windows.Forms.Label()
         Me.lblVar1 = New System.Windows.Forms.Label()
+        Me.lblXFormular = New System.Windows.Forms.Label()
+        Me.ucrReceiverMultipleVar2 = New instat.ucrReceiverMultiple()
         Me.ucrReceiverVar1 = New instat.ucrReceiverSingle()
-        Me.ucrVariablesAsFactorforVar = New instat.ucrVariablesAsFactor()
         Me.ucrInputId = New instat.ucrInputTextBox()
         Me.ucrSelectorSurvey = New instat.ucrSelectorByDataFrameAddRemove()
         Me.ucrReceiverWeights = New instat.ucrReceiverSingle()
         Me.ucrReceiverStrata = New instat.ucrReceiverSingle()
         Me.ucrBase = New instat.ucrButtons()
-        Me.ucrChkModelPlot = New instat.ucrCheck()
-        Me.ucrChkModel = New instat.ucrCheck()
         Me.ucrChkSummary = New instat.ucrCheck()
         Me.ucrChkContingencyTables = New instat.ucrCheck()
         Me.ucrChkRatios = New instat.ucrCheck()
         Me.ucrChkTests = New instat.ucrCheck()
-        Me.ucrChkModelSummary = New instat.ucrCheck()
-        Me.ucrInputPlotType = New instat.ucrInputComboBox()
-        Me.ucrInputModelType = New instat.ucrInputComboBox()
         Me.ucrInputSummaryStat = New instat.ucrInputComboBox()
         Me.ucrReceiverFPC = New instat.ucrReceiverSingle()
         Me.ucrPnlMethod = New instat.UcrPanel()
+        Me.ucrVariablesAsFactorForSurvey = New instat.ucrVariablesAsFactor()
         Me.SuspendLayout()
         '
         'rdoClustered
@@ -147,24 +142,6 @@ Partial Class dlgSurvey
         Me.lblSummaryStatistics.TabIndex = 26
         Me.lblSummaryStatistics.Text = "Summary Statistics"
         '
-        'lblPlotType
-        '
-        Me.lblPlotType.AutoSize = True
-        Me.lblPlotType.Location = New System.Drawing.Point(12, 448)
-        Me.lblPlotType.Name = "lblPlotType"
-        Me.lblPlotType.Size = New System.Drawing.Size(52, 13)
-        Me.lblPlotType.TabIndex = 27
-        Me.lblPlotType.Text = "Plot Type"
-        '
-        'lblModelType
-        '
-        Me.lblModelType.AutoSize = True
-        Me.lblModelType.Location = New System.Drawing.Point(275, 410)
-        Me.lblModelType.Name = "lblModelType"
-        Me.lblModelType.Size = New System.Drawing.Size(63, 13)
-        Me.lblModelType.TabIndex = 28
-        Me.lblModelType.Text = "Model Type"
-        '
         'lblWeights
         '
         Me.lblWeights.AutoSize = True
@@ -183,6 +160,28 @@ Partial Class dlgSurvey
         Me.lblVar1.TabIndex = 36
         Me.lblVar1.Text = "Var1:"
         '
+        'lblXFormular
+        '
+        Me.lblXFormular.AutoSize = True
+        Me.lblXFormular.Location = New System.Drawing.Point(272, 252)
+        Me.lblXFormular.Name = "lblXFormular"
+        Me.lblXFormular.Size = New System.Drawing.Size(59, 13)
+        Me.lblXFormular.TabIndex = 39
+        Me.lblXFormular.Text = "X/Formula:"
+        '
+        'ucrReceiverMultipleVar2
+        '
+        Me.ucrReceiverMultipleVar2.AutoSize = True
+        Me.ucrReceiverMultipleVar2.frmParent = Me
+        Me.ucrReceiverMultipleVar2.Location = New System.Drawing.Point(272, 265)
+        Me.ucrReceiverMultipleVar2.Margin = New System.Windows.Forms.Padding(0)
+        Me.ucrReceiverMultipleVar2.Name = "ucrReceiverMultipleVar2"
+        Me.ucrReceiverMultipleVar2.Selector = Nothing
+        Me.ucrReceiverMultipleVar2.Size = New System.Drawing.Size(137, 100)
+        Me.ucrReceiverMultipleVar2.strNcFilePath = ""
+        Me.ucrReceiverMultipleVar2.TabIndex = 38
+        Me.ucrReceiverMultipleVar2.ucrSelector = Nothing
+        '
         'ucrReceiverVar1
         '
         Me.ucrReceiverVar1.AutoSize = True
@@ -195,20 +194,6 @@ Partial Class dlgSurvey
         Me.ucrReceiverVar1.strNcFilePath = ""
         Me.ucrReceiverVar1.TabIndex = 37
         Me.ucrReceiverVar1.ucrSelector = Nothing
-        '
-        'ucrVariablesAsFactorforVar
-        '
-        Me.ucrVariablesAsFactorforVar.AutoSize = True
-        Me.ucrVariablesAsFactorforVar.frmParent = Me
-        Me.ucrVariablesAsFactorforVar.Location = New System.Drawing.Point(275, 261)
-        Me.ucrVariablesAsFactorforVar.Margin = New System.Windows.Forms.Padding(5)
-        Me.ucrVariablesAsFactorforVar.Name = "ucrVariablesAsFactorforVar"
-        Me.ucrVariablesAsFactorforVar.Selector = Nothing
-        Me.ucrVariablesAsFactorforVar.Size = New System.Drawing.Size(137, 108)
-        Me.ucrVariablesAsFactorforVar.strNcFilePath = ""
-        Me.ucrVariablesAsFactorforVar.TabIndex = 35
-        Me.ucrVariablesAsFactorforVar.ucrSelector = Nothing
-        Me.ucrVariablesAsFactorforVar.ucrVariableSelector = Nothing
         '
         'ucrInputId
         '
@@ -268,24 +253,6 @@ Partial Class dlgSurvey
         Me.ucrBase.Size = New System.Drawing.Size(408, 52)
         Me.ucrBase.TabIndex = 22
         '
-        'ucrChkModelPlot
-        '
-        Me.ucrChkModelPlot.AutoSize = True
-        Me.ucrChkModelPlot.Checked = False
-        Me.ucrChkModelPlot.Location = New System.Drawing.Point(275, 491)
-        Me.ucrChkModelPlot.Name = "ucrChkModelPlot"
-        Me.ucrChkModelPlot.Size = New System.Drawing.Size(137, 23)
-        Me.ucrChkModelPlot.TabIndex = 21
-        '
-        'ucrChkModel
-        '
-        Me.ucrChkModel.AutoSize = True
-        Me.ucrChkModel.Checked = False
-        Me.ucrChkModel.Location = New System.Drawing.Point(275, 384)
-        Me.ucrChkModel.Name = "ucrChkModel"
-        Me.ucrChkModel.Size = New System.Drawing.Size(100, 23)
-        Me.ucrChkModel.TabIndex = 20
-        '
         'ucrChkSummary
         '
         Me.ucrChkSummary.AutoSize = True
@@ -322,37 +289,6 @@ Partial Class dlgSurvey
         Me.ucrChkTests.Size = New System.Drawing.Size(137, 23)
         Me.ucrChkTests.TabIndex = 16
         '
-        'ucrChkModelSummary
-        '
-        Me.ucrChkModelSummary.AutoSize = True
-        Me.ucrChkModelSummary.Checked = False
-        Me.ucrChkModelSummary.Location = New System.Drawing.Point(275, 464)
-        Me.ucrChkModelSummary.Name = "ucrChkModelSummary"
-        Me.ucrChkModelSummary.Size = New System.Drawing.Size(137, 23)
-        Me.ucrChkModelSummary.TabIndex = 15
-        '
-        'ucrInputPlotType
-        '
-        Me.ucrInputPlotType.AddQuotesIfUnrecognised = True
-        Me.ucrInputPlotType.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputPlotType.GetSetSelectedIndex = -1
-        Me.ucrInputPlotType.IsReadOnly = False
-        Me.ucrInputPlotType.Location = New System.Drawing.Point(12, 464)
-        Me.ucrInputPlotType.Name = "ucrInputPlotType"
-        Me.ucrInputPlotType.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputPlotType.TabIndex = 14
-        '
-        'ucrInputModelType
-        '
-        Me.ucrInputModelType.AddQuotesIfUnrecognised = True
-        Me.ucrInputModelType.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputModelType.GetSetSelectedIndex = -1
-        Me.ucrInputModelType.IsReadOnly = False
-        Me.ucrInputModelType.Location = New System.Drawing.Point(275, 426)
-        Me.ucrInputModelType.Name = "ucrInputModelType"
-        Me.ucrInputModelType.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputModelType.TabIndex = 13
-        '
         'ucrInputSummaryStat
         '
         Me.ucrInputSummaryStat.AddQuotesIfUnrecognised = True
@@ -385,35 +321,43 @@ Partial Class dlgSurvey
         Me.ucrPnlMethod.Size = New System.Drawing.Size(375, 29)
         Me.ucrPnlMethod.TabIndex = 0
         '
+        'ucrVariablesAsFactorForSurvey
+        '
+        Me.ucrVariablesAsFactorForSurvey.AutoSize = True
+        Me.ucrVariablesAsFactorForSurvey.frmParent = Me
+        Me.ucrVariablesAsFactorForSurvey.Location = New System.Drawing.Point(272, 256)
+        Me.ucrVariablesAsFactorForSurvey.Name = "ucrVariablesAsFactorForSurvey"
+        Me.ucrVariablesAsFactorForSurvey.Selector = Nothing
+        Me.ucrVariablesAsFactorForSurvey.Size = New System.Drawing.Size(137, 113)
+        Me.ucrVariablesAsFactorForSurvey.strNcFilePath = ""
+        Me.ucrVariablesAsFactorForSurvey.TabIndex = 40
+        Me.ucrVariablesAsFactorForSurvey.ucrSelector = Nothing
+        Me.ucrVariablesAsFactorForSurvey.ucrVariableSelector = Nothing
+        '
         'dlgSurvey
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(434, 625)
+        Me.Controls.Add(Me.ucrVariablesAsFactorForSurvey)
+        Me.Controls.Add(Me.lblXFormular)
+        Me.Controls.Add(Me.ucrReceiverMultipleVar2)
         Me.Controls.Add(Me.ucrReceiverVar1)
         Me.Controls.Add(Me.lblVar1)
-        Me.Controls.Add(Me.ucrVariablesAsFactorforVar)
         Me.Controls.Add(Me.ucrInputId)
         Me.Controls.Add(Me.ucrSelectorSurvey)
         Me.Controls.Add(Me.ucrReceiverWeights)
         Me.Controls.Add(Me.lblWeights)
         Me.Controls.Add(Me.ucrReceiverStrata)
-        Me.Controls.Add(Me.lblModelType)
-        Me.Controls.Add(Me.lblPlotType)
         Me.Controls.Add(Me.lblSummaryStatistics)
         Me.Controls.Add(Me.lblStrata)
         Me.Controls.Add(Me.lblId)
         Me.Controls.Add(Me.lblFPC)
         Me.Controls.Add(Me.ucrBase)
-        Me.Controls.Add(Me.ucrChkModelPlot)
-        Me.Controls.Add(Me.ucrChkModel)
         Me.Controls.Add(Me.ucrChkSummary)
         Me.Controls.Add(Me.ucrChkContingencyTables)
         Me.Controls.Add(Me.ucrChkRatios)
         Me.Controls.Add(Me.ucrChkTests)
-        Me.Controls.Add(Me.ucrChkModelSummary)
-        Me.Controls.Add(Me.ucrInputPlotType)
-        Me.Controls.Add(Me.ucrInputModelType)
         Me.Controls.Add(Me.ucrInputSummaryStat)
         Me.Controls.Add(Me.ucrReceiverFPC)
         Me.Controls.Add(Me.rdoClustered)
@@ -436,19 +380,12 @@ Partial Class dlgSurvey
     Friend WithEvents rdoStratified As RadioButton
     Friend WithEvents rdoSRS As RadioButton
     Friend WithEvents ucrReceiverFPC As ucrReceiverSingle
-    Friend WithEvents ucrChkModelPlot As ucrCheck
-    Friend WithEvents ucrChkModel As ucrCheck
     Friend WithEvents ucrChkSummary As ucrCheck
     Friend WithEvents ucrChkContingencyTables As ucrCheck
     Friend WithEvents ucrChkRatios As ucrCheck
     Friend WithEvents ucrChkTests As ucrCheck
-    Friend WithEvents ucrChkModelSummary As ucrCheck
-    Friend WithEvents ucrInputPlotType As ucrInputComboBox
-    Friend WithEvents ucrInputModelType As ucrInputComboBox
     Friend WithEvents ucrInputSummaryStat As ucrInputComboBox
     Friend WithEvents ucrReceiverStrata As ucrReceiverSingle
-    Friend WithEvents lblModelType As Label
-    Friend WithEvents lblPlotType As Label
     Friend WithEvents lblSummaryStatistics As Label
     Friend WithEvents lblStrata As Label
     Friend WithEvents lblId As Label
@@ -458,7 +395,9 @@ Partial Class dlgSurvey
     Friend WithEvents lblWeights As Label
     Friend WithEvents ucrSelectorSurvey As ucrSelectorByDataFrameAddRemove
     Friend WithEvents ucrInputId As ucrInputTextBox
-    Friend WithEvents ucrVariablesAsFactorforVar As ucrVariablesAsFactor
     Friend WithEvents ucrReceiverVar1 As ucrReceiverSingle
     Friend WithEvents lblVar1 As Label
+    Friend WithEvents lblXFormular As Label
+    Friend WithEvents ucrReceiverMultipleVar2 As ucrReceiverMultiple
+    Friend WithEvents ucrVariablesAsFactorForSurvey As ucrVariablesAsFactor
 End Class
