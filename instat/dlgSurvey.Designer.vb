@@ -325,7 +325,7 @@ Partial Class dlgSurvey
         '
         Me.ucrVariablesAsFactorForSurvey.AutoSize = True
         Me.ucrVariablesAsFactorForSurvey.frmParent = Me
-        Me.ucrVariablesAsFactorForSurvey.Location = New System.Drawing.Point(272, 256)
+        Me.ucrVariablesAsFactorForSurvey.Location = New System.Drawing.Point(40, 252)
         Me.ucrVariablesAsFactorForSurvey.Name = "ucrVariablesAsFactorForSurvey"
         Me.ucrVariablesAsFactorForSurvey.Selector = Nothing
         Me.ucrVariablesAsFactorForSurvey.Size = New System.Drawing.Size(137, 113)
