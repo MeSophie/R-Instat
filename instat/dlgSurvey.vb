@@ -20,10 +20,14 @@ Public Class dlgSurvey
     Private bFirstLoad As Boolean = True
     Private bReset As Boolean = True
     Public bRCodeSet As Boolean = True
+    Private iBasicHeight As Integer
+    Private iBaseMaxY As Integer
+    Private iSaveMaxY As Integer
+    Private iucrID As Integer
     Private clsSvydesignFunction As New RFunction
-    Private clsSvrepDesignFunction, clsSvyTotalFunction, clsSvymeanFunction, clsVarFunction, clsSvyContrastFunction, clsSvyQuantileFunction, clsSvySDFunction As New RFunction
-    Private clsSummaryFunction, clsDummyFunction, clsRatioFunction, clsSvychisqFunction As New RFunction
-    Private clsDCastLeftContextFormula, clsWeightsOperator, clsIdOperator, clsFpcOperator, clsStrataOperator, clsXOperator, clsVar1operator As New ROperator
+    Private clsSvrepDesignFunction, clsSvyTotalFunction, ClsTableFunction, clsSvycoFunction, clsSvymeanFunction, clsVarFunction, clsSvyContrastFunction, clsSvyQuantileFunction, clsSvySDFunction As New RFunction
+    Private clsSummaryFunction, clsDummyFunction, clsRatioFunction, clsSvygofchisqFunction, clsSvychisqFunction As New RFunction
+    Private clsDCastLeftContextFormula, clsVar2Operator, clsDollarOperator, clsWeightsOperator, clsIdOperator, clsFpcOperator, clsStrataOperator, clsXOperator, clsVar1operator As New ROperator
 
 
     Private Sub dlgSurvey_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -42,11 +46,9 @@ Public Class dlgSurvey
 
     Private Sub InitialiseDialog()
         Dim dctInputSummaryStat As New Dictionary(Of String, String)
-        'Dim dctInputModelType As New Dictionary(Of String, String)
-        'Dim dtcInputPlotType As New Dictionary(Of String, String)
 
         ucrSelectorSurvey.SetParameter(New RParameter("data", 0))
-        ucrSelectorSurvey.SetParameterIsrfunction()
+        ucrSelectorSurvey.SetParameterIsString()
 
         ucrReceiverFPC.SetParameter(New RParameter("fpc", 1))
         ucrReceiverFPC.Selector = ucrSelectorSurvey
@@ -54,22 +56,34 @@ Public Class dlgSurvey
         ucrReceiverFPC.SetParameterIsString()
         ucrReceiverFPC.SetMeAsReceiver()
 
+        ucrReceiverSingleID.SetParameter(New RParameter("ids", 11))
+        ucrReceiverSingleID.Selector = ucrSelectorSurvey
+        ucrReceiverSingleID.bWithQuotes = False
+        ucrReceiverSingleID.SetParameterIsString()
+        ucrReceiverSingleID.SetMeAsReceiver()
+
+        ucrReceiverMultipleId.SetParameter(New RParameter("ids", 13))
+        ucrReceiverMultipleId.SetParameterIsString()
+        ucrReceiverMultipleId.bWithQuotes = False
+        ucrReceiverMultipleId.Selector = ucrSelectorSurvey
+        ucrReceiverMultipleId.SetLinkedDisplayControl(lblMultipleId)
+
         ucrInputId.SetParameter(New RParameter("ids", 2))
         ucrInputId.AddQuotesIfUnrecognised = False
-        ucrInputId.SetLinkedDisplayControl(lblId)
+        ucrInputId.SetLinkedDisplayControl(lblInputID)
 
-        ucrReceiverVar1.SetParameter(New RParameter("denominator", 6))
-        ucrReceiverVar1.Selector = ucrSelectorSurvey
-        ucrReceiverVar1.bWithQuotes = False
-        ucrReceiverVar1.SetParameterIsString()
-        ucrReceiverVar1.SetMeAsReceiver()
-        ucrReceiverVar1.SetLinkedDisplayControl(lblVar1)
+        ucrReceiverMultipleFPC.SetParameter(New RParameter("fpc", 12))
+        ucrReceiverMultipleFPC.SetParameterIsString()
+        ucrReceiverMultipleFPC.bWithQuotes = False
+        ucrReceiverMultipleFPC.Selector = ucrSelectorSurvey
+        ucrReceiverMultipleFPC.SetLinkedDisplayControl(lblMultipleFPC)
 
         ucrReceiverStrata.SetParameter(New RParameter("strata", 4))
         ucrReceiverStrata.Selector = ucrSelectorSurvey
         ucrReceiverStrata.bWithQuotes = False
         ucrReceiverStrata.SetParameterIsString()
         ucrReceiverStrata.SetMeAsReceiver()
+        ucrReceiverStrata.SetLinkedDisplayControl(lblStrata)
 
         ucrReceiverWeights.SetParameter(New RParameter("weights", 3))
         ucrReceiverWeights.Selector = ucrSelectorSurvey
@@ -78,46 +92,19 @@ Public Class dlgSurvey
         ucrReceiverWeights.SetMeAsReceiver()
 
         ucrReceiverMultipleVar2.SetParameter(New RParameter("x", 5))
-        'ucrReceiverMultipleVar2.SetOptionsByContextTypesAllOptionsContextsBlockings()
         ucrReceiverMultipleVar2.SetParameterIsString()
         ucrReceiverMultipleVar2.bWithQuotes = False
         ucrReceiverMultipleVar2.Selector = ucrSelectorSurvey
-        'ucrReceiverMultipleVar2.SetItemType("Data frame")
-        'ucrReceiverMultipleVar2.strSelectorHeading = "Variables"
-        'ucrReceiverMultipleVar2.strSelectorHeading = "Data Frames"
-
-
-        'ucrVariablesAsFactorForSurvey.SetParameter(New RParameter("y", 1))
-        ''ucrVariablesAsFactorForSurvey.SetFactorReceiver(ucrFactorOptionalReceiver)
-        'ucrVariablesAsFactorForSurvey.Selector = ucrSelectorSurvey
-        'ucrVariablesAsFactorForSurvey.strSelectorHeading = "Variables"
-        'ucrVariablesAsFactorForSurvey.SetParameterIsString()
-        'ucrVariablesAsFactorForSurvey.bWithQuotes = False
-        'ucrVariablesAsFactorForSurvey.SetValuesToIgnore({Chr(34) & Chr(34)})
-        'ucrVariablesAsFactorForSurvey.bAddParameterIfEmpty = True
-
 
         ucrChkSummary.SetText("Summary")
         ucrChkSummary.SetParameter(New RParameter("check", 7))
         ucrChkSummary.SetValuesCheckedAndUnchecked("True", "False")
         ucrChkSummary.SetRDefault("TRUE")
 
-        ucrChkContingencyTables.SetText("Contingency Tables")
-        ucrChkContingencyTables.SetParameter(New RParameter("check", 8))
-        ucrChkContingencyTables.SetValuesCheckedAndUnchecked("True", "False")
-        ucrChkContingencyTables.SetRDefault("FALSE")
-
-        ucrChkRatios.SetText("Ratios")
-        ucrChkRatios.SetParameter(New RParameter("check", 9))
-        ucrChkRatios.SetValuesCheckedAndUnchecked("True", "False")
-        ucrChkRatios.SetRDefault("FALSE")
-        ucrChkRatios.AddToLinkedControls(ucrReceiverVar1, {True}, bNewLinkedHideIfParameterMissing:=True)
-
-
-        ucrChkTests.SetText("Tests")
-        ucrChkTests.SetParameter(New RParameter("check", 10))
-        ucrChkTests.SetValuesCheckedAndUnchecked("True", "False")
-        ucrChkTests.SetRDefault("FALSE")
+        ucrChkMultistageSampling.SetText("Multistage Sampling")
+        ucrChkMultistageSampling.AddParameterValuesCondition(True, "Sampling", "False")
+        ucrChkMultistageSampling.AddParameterValuesCondition(False, "Sampling", "True")
+        ucrChkMultistageSampling.AddToLinkedControls({ucrReceiverMultipleFPC, ucrReceiverMultipleId}, {True}, bNewLinkedHideIfParameterMissing:=True)
 
         ucrInputSummaryStat.SetParameter(New RParameter("x", 11, bNewIncludeArgumentName:=False))
         dctInputSummaryStat.Add("total", Chr(34) & "total" & Chr(34))
@@ -125,6 +112,7 @@ Public Class dlgSurvey
         dctInputSummaryStat.Add("variance", Chr(34) & "variance" & Chr(34))
         dctInputSummaryStat.Add("quantile", Chr(34) & "quantile" & Chr(34))
         dctInputSummaryStat.Add("standard deviation", Chr(34) & "standard deviation" & Chr(34))
+        dctInputSummaryStat.Add("correlation", Chr(34) & "correlation" & Chr(34))
         ucrInputSummaryStat.SetItems(dctInputSummaryStat)
         ucrInputSummaryStat.SetDropDownStyleAsNonEditable()
 
@@ -134,8 +122,10 @@ Public Class dlgSurvey
         ucrPnlMethod.AddRadioButton(rdoStratified, "strati")
         ucrPnlMethod.AddRadioButton(rdoClustered, "cluster")
 
+        'ucrPnlMethod.AddToLinkedControls(ucrReceiverFPC, {rdoStratified, rdoClustered, rdoSRS}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
+        ucrPnlMethod.AddToLinkedControls(ucrInputId, {rdoSRS, rdoStratified}, bNewLinkedHideIfParameterMissing:=True)
+        ucrPnlMethod.AddToLinkedControls({ucrChkMultistageSampling, ucrReceiverSingleID}, {rdoClustered}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
         ucrPnlMethod.AddToLinkedControls(ucrReceiverStrata, {rdoStratified}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
-
         ucrBase.clsRsyntax.iCallType = 2
     End Sub
 
@@ -148,26 +138,27 @@ Public Class dlgSurvey
         clsSvyTotalFunction = New RFunction
         clsSvyQuantileFunction = New RFunction
         clsSvySDFunction = New RFunction
+        clsSvycoFunction = New RFunction
         clsDummyFunction = New RFunction
+        ClsTableFunction = New RFunction
+        clsSvygofchisqFunction = New RFunction
 
         clsWeightsOperator = New ROperator
-        clsRatioFunction = New RFunction
         clsSvychisqFunction = New RFunction
 
         clsIdOperator = New ROperator
         clsFpcOperator = New ROperator
         clsStrataOperator = New ROperator
         clsXOperator = New ROperator
+        clsVar2Operator = New ROperator
         clsDCastLeftContextFormula = New ROperator
-        'clsDCastLeftFormula = New ROperator
+        clsDollarOperator = New ROperator
 
         ucrInputSummaryStat.SetName("mean")
 
         clsDummyFunction.AddParameter("checked", "srs", iPosition:=0)
-        clsDummyFunction.AddParameter("model", "True", iPosition:=1)
-
-        'clsDCastLeftFormula.SetOperation("+")
-        'clsDCastLeftFormula.bBrackets = False
+        clsDummyFunction.AddParameter("...", "True", iPosition:=1)
+        clsDummyFunction.AddParameter("Sampling", "True", iPosition:=2)
 
         clsDCastLeftContextFormula.SetOperation("+")
         clsDCastLeftContextFormula.bBrackets = False
@@ -192,13 +183,16 @@ Public Class dlgSurvey
         clsXOperator.AddParameter(strParameterValue:="", iPosition:=0, bIncludeArgumentName:=False)
         clsXOperator.bSpaceAroundOperation = False
 
+        clsVar2Operator.SetOperation("~")
+        clsVar2Operator.AddParameter(strParameterValue:="", iPosition:=0, bIncludeArgumentName:=False)
+        clsVar2Operator.bSpaceAroundOperation = False
+
         clsVar1operator.SetOperation("~")
         clsVar1operator.AddParameter(strParameterValue:="", iPosition:=0, bIncludeArgumentName:=False)
         clsVar1operator.bSpaceAroundOperation = False
 
         ucrSelectorSurvey.Reset()
         ucrReceiverMultipleVar2.SetMeAsReceiver()
-        'ucrVariablesAsFactorForSurvey.SetMeAsReceiver()
 
         clsSvydesignFunction.SetPackageName("survey")
         clsSvydesignFunction.SetRCommand("svydesign")
@@ -206,17 +200,17 @@ Public Class dlgSurvey
         clsSvydesignFunction.AddParameter("weights", clsROperatorParameter:=clsWeightsOperator, iPosition:=3)
         clsSvydesignFunction.AddParameter("fpc", clsROperatorParameter:=clsFpcOperator, iPosition:=2)
         clsSvydesignFunction.AddParameter("ids", clsROperatorParameter:=clsIdOperator, iPosition:=0)
-        clsSvydesignFunction.AddParameter("strata", clsROperatorParameter:=clsStrataOperator, iPosition:=1)
+        'clsSvydesignFunction.AddParameter("strata", clsROperatorParameter:=clsStrataOperator, iPosition:=1)
 
         clsSummaryFunction.SetRCommand("summary")
         clsSummaryFunction.iCallType = 2
 
-        clsRatioFunction.SetPackageName("survey")
-        clsRatioFunction.SetRCommand("svyratio")
-        clsRatioFunction.AddParameter("formula", clsROperatorParameter:=clsXOperator, iPosition:=0)
-        clsRatioFunction.AddParameter("denominator", clsROperatorParameter:=clsVar1operator, iPosition:=1)
-        clsRatioFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=2)
-        clsRatioFunction.iCallType = 2
+        'clsRatioFunction.SetPackageName("survey")
+        'clsRatioFunction.SetRCommand("svyratio")
+        'clsRatioFunction.AddParameter("formula", clsROperatorParameter:=clsXOperator, iPosition:=0)
+        'clsRatioFunction.AddParameter("denominator", clsROperatorParameter:=clsVar1operator, iPosition:=1)
+        'clsRatioFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=2)
+        'clsRatioFunction.iCallType = 2
 
         clsSvychisqFunction.SetPackageName("survey")
         clsSvychisqFunction.SetRCommand("svychisq")
@@ -228,12 +222,12 @@ Public Class dlgSurvey
         clsSvrepDesignFunction.SetPackageName("survey")
         clsSvrepDesignFunction.SetRCommand("as.svrepdesign")
         clsSvrepDesignFunction.AddParameter("design", clsRFunctionParameter:=clsSvydesignFunction, iPosition:=0)
+        clsSvrepDesignFunction.iCallType = 2
 
         clsSvymeanFunction.SetPackageName("survey")
         clsSvymeanFunction.SetRCommand("svymean")
         clsSvymeanFunction.AddParameter("x", clsROperatorParameter:=clsXOperator, iPosition:=0)
         clsSvymeanFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
-        'clsSvymeanFunction.AddParameter("x", Chr(34) & "mean" & Chr(34), bIncludeArgumentName:=False, iPosition:=2)
         clsSvymeanFunction.iCallType = 2
 
         clsSvyQuantileFunction.SetPackageName("survey")
@@ -241,23 +235,32 @@ Public Class dlgSurvey
         clsSvyQuantileFunction.AddParameter("x", clsROperatorParameter:=clsXOperator, iPosition:=0)
         clsSvyQuantileFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
         clsSvyQuantileFunction.AddParameter("quantiles", "c(.25,.5,.75)", iPosition:=2, bIncludeArgumentName:=False)
+        clsSvyQuantileFunction.iCallType = 2
 
-        clsSvySDFunction.SetPackageName("survey")
+        clsSvySDFunction.SetPackageName("jtools")
         clsSvySDFunction.SetRCommand("svysd")
         clsSvySDFunction.AddParameter("formula", clsROperatorParameter:=clsXOperator, iPosition:=0)
         clsSvySDFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
+        clsSvySDFunction.iCallType = 2
 
+        clsSvycoFunction.SetPackageName("jtools")
+        clsSvycoFunction.SetRCommand("svycor")
+        clsSvycoFunction.AddParameter("formula", clsROperatorParameter:=clsXOperator, iPosition:=0)
+        clsSvycoFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
+        clsSvycoFunction.iCallType = 2
 
         clsSvyTotalFunction.SetPackageName("survey")
         clsSvyTotalFunction.SetRCommand("svytotal")
         clsSvyTotalFunction.AddParameter("x", clsROperatorParameter:=clsXOperator, iPosition:=0)
         clsSvyTotalFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
-
+        clsSvyTotalFunction.iCallType = 2
 
         clsVarFunction.SetPackageName("survey")
         clsVarFunction.SetRCommand("svyvar")
         clsVarFunction.AddParameter("x", clsROperatorParameter:=clsXOperator, iPosition:=0)
         clsVarFunction.AddParameter("design", clsRFunctionParameter:=clsSvrepDesignFunction, iPosition:=1)
+        clsVarFunction.iCallType = 2
+
 
         ucrBase.clsRsyntax.ClearCodes()
         ucrBase.clsRsyntax.SetBaseRFunction(clsSvydesignFunction)
@@ -266,41 +269,32 @@ Public Class dlgSurvey
     End Sub
 
     Private Sub SetRCodeForControls(bReset As Boolean)
-        'ucrReceiverMultipleVar2.AddAdditionalCodeParameterPair(clsXOperator, New RParameter("x", 5), iAdditionalPairNo:=1)
-        'ucrReceiverMultipleVar2.AddAdditionalCodeParameterPair(clsSvyQuantileFunction, New RParameter("x", 0), iAdditionalPairNo:=2)
-        'ucrReceiverMultipleVar2.AddAdditionalCodeParameterPair(clsSvyTotalFunction, New RParameter("x", 0), iAdditionalPairNo:=3)
-        'ucrReceiverMultipleVar2.AddAdditionalCodeParameterPair(clsVarFunction, New RParameter("x", 0), iAdditionalPairNo:=4)
-        'ucrReceiverMultipleVar2.AddAdditionalCodeParameterPair(clsSvySDFunction, New RParameter("formula", 0), iAdditionalPairNo:=5)
-        bRCodeSet = False
-
         ucrReceiverFPC.SetRCode(clsFpcOperator, bReset)
+        ucrReceiverMultipleFPC.SetRCode(clsFpcOperator, bReset)
         ucrInputId.SetRCode(clsIdOperator, bReset)
+        ucrReceiverMultipleId.SetRCode(clsIdOperator, bReset)
+        ucrReceiverSingleID.SetRCode(clsIdOperator, bReset)
         ucrReceiverStrata.SetRCode(clsStrataOperator, bReset)
-        ucrReceiverVar1.SetRCode(clsVar1operator, bReset)
+        'ucrReceiverSingleVar2.SetRCode(clsVar2Operator, bReset)
         ucrReceiverWeights.SetRCode(clsWeightsOperator, bReset)
         ucrChkSummary.SetRCode(clsSummaryFunction, bReset)
-        ucrChkRatios.SetRCode(clsRatioFunction, bReset)
-        ucrChkContingencyTables.SetRCode(clsSvychisqFunction, bReset)
+        'ucrChkRatios.SetRCode(clsRatioFunction, bReset)
+        'ucrChkTests.SetRCode(clsDummyFunction, bReset)
+        'ucrChkContingencyTables.SetRCode(clsSvychisqFunction, bReset)
+        ucrChkMultistageSampling.SetRCode(clsDummyFunction, bReset)
         ucrPnlMethod.SetRCode(clsDummyFunction, bReset)
 
-        'ucrReceiverFPC.SetRCode(clsDCastLeftFormula, bReset)
 
-        'ucrReceiverMultipleVar2.SetRCode(clsDCastLeftContextFormula, bReset)
-        'ucrVariablesAsFactorForSurvey.SetRCode(clsXOperator, bReset)
 
-        bRCodeSet = True
 
-        'UpdateContextVariables()
         AddSummaryStatParameters()
     End Sub
 
     Private Sub TestOkEnabled()
-        'If Not ucrReceiverFPC.IsEmpty AndAlso Not ucrReceiverId.IsEmpty AndAlso Not ucrReceiverWeights.IsEmpty Then
-        '    ucrBase.OKEnabled(True)
-        'Else
-        '    ucrBase.OKEnabled(False)
-        'End If
+
     End Sub
+
+
 
     Private Sub ucrBase_ClickReset(sender As Object, e As EventArgs) Handles ucrBase.ClickReset
         SetDefaults()
@@ -309,13 +303,33 @@ Public Class dlgSurvey
     End Sub
 
     Private Sub ucrPnlMethod_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrPnlMethod.ControlValueChanged
+        RemoveStrata()
+        'ucrBase.clsRsyntax.SetBaseRFunction(clsSummaryFunction)
+
         If rdoStratified.Checked Then
-            ucrReceiverStrata.Visible = True
-            lblStrata.Visible = True
+            'ucrReceiverStrata.Visible = True
+            ucrInputId.Visible = True
+            ucrChkMultistageSampling.Visible = False
+            'clsSvydesignFunction.AddParameter("strata")
+        ElseIf rdoClustered.Checked Then
+            ucrChkMultistageSampling.Visible = True
+            'clsSvydesignFunction.RemoveParameterByName("strata")
+            ucrInputId.Visible = False
+            'ucrReceiverStrata.Visible = False
+            If ucrChkMultistageSampling.Checked Then
+                ucrReceiverMultipleFPC.Visible = True
+                ucrReceiverMultipleId.Visible = True
+                ucrReceiverSingleID.Visible = False
+            Else
+                ucrReceiverMultipleFPC.Visible = False
+                ucrReceiverMultipleId.Visible = False
+                ucrReceiverSingleID.Visible = True
+            End If
         Else
-            ucrReceiverStrata.Visible = False
-            lblStrata.Visible = False
-            clsSvydesignFunction.RemoveParameterByName("strata")
+            ucrInputId.Visible = True
+            'ucrReceiverStrata.Visible = False
+            ucrChkMultistageSampling.Visible = False
+            'clsSvydesignFunction.RemoveParameterByName("strata")
         End If
     End Sub
 
@@ -330,30 +344,42 @@ Public Class dlgSurvey
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvycoFunction)
         ElseIf ucrInputSummaryStat.GetText = "variance" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsVarFunction, iPosition:=0)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyQuantileFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvycoFunction)
         ElseIf ucrInputSummaryStat.GetText = "total" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvyTotalFunction, iPosition:=0)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyQuantileFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvycoFunction)
         ElseIf ucrInputSummaryStat.GetText = "standard deviation" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvySDFunction, iPosition:=0)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyQuantileFunction)
-        Else
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvycoFunction)
+        ElseIf ucrInputSummaryStat.GetText = "quantile" Then
             ucrBase.clsRsyntax.AddToAfterCodes(clsSvyQuantileFunction, iPosition:=0)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
             ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvycoFunction)
+        Else
+            ucrBase.clsRsyntax.AddToAfterCodes(clsSvycoFunction, iPosition:=0)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvymeanFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsVarFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyTotalFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvySDFunction)
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvyQuantileFunction)
         End If
     End Sub
 
@@ -365,32 +391,32 @@ Public Class dlgSurvey
         End If
     End Sub
 
-    Private Sub ucrChkRatios_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkRatios.ControlValueChanged
-        If ucrChkRatios.Checked Then
-            ucrBase.clsRsyntax.AddToAfterCodes(clsRatioFunction, iPosition:=0)
-            ucrReceiverVar1.Visible = True
+    Private Sub Sampling()
+        If ucrChkMultistageSampling.Checked Then
+            ucrReceiverMultipleFPC.Visible = True
+            ucrReceiverMultipleId.Visible = True
+            ucrReceiverFPC.Visible = False
+            ucrReceiverSingleID.Visible = False
         Else
-            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsRatioFunction)
-            ucrReceiverVar1.Visible = False
+            ucrReceiverMultipleFPC.Visible = False
+            ucrReceiverMultipleId.Visible = False
+            ucrReceiverFPC.Visible = True
+            ucrReceiverSingleID.Visible = True
         End If
     End Sub
 
-    Private Sub ucrChkContingencyTables_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkContingencyTables.ControlValueChanged
-        If ucrChkContingencyTables.Checked Then
-            ucrBase.clsRsyntax.AddToAfterCodes(clsSvychisqFunction, iPosition:=0)
-        Else
-            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsSvychisqFunction)
-        End If
+    Private Sub ucrChkMultistageSampling_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkMultistageSampling.ControlValueChanged
+        Sampling()
     End Sub
 
     Private Sub ucrInputSummaryStat_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputSummaryStat.ControlValueChanged
         AddSummaryStatParameters()
     End Sub
 
+
+
     Private Sub UpdateContextVariables()
         Dim i As Integer = 0
-
-        'If bRCodeSet Then
 
         If Not ucrReceiverMultipleVar2.IsEmpty Then
             clsDCastLeftContextFormula.ClearParameters()
@@ -400,15 +426,34 @@ Public Class dlgSurvey
             Next
             clsXOperator.AddParameter("right", clsROperatorParameter:=clsDCastLeftContextFormula)
         End If
-        'If clsDCastLeftContextFormula.clsParameters.Count = 0 Then
-        '    clsDCastLeftFormula.RemoveParameterByName("1")
-        'Else
-        '    clsDCastLeftFormula.AddParameter("1", clsROperatorParameter:=clsDCastLeftContextFormula, iPosition:=1)
-        'End If
-        'End If
     End Sub
+
+
 
     Private Sub ucrReceiverMultipleVar2_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverMultipleVar2.ControlValueChanged
         UpdateContextVariables()
+    End Sub
+
+
+
+    Private Sub RemoveStrata()
+        clsSvydesignFunction.RemoveParameterByName("strata")
+        If rdoStratified.Checked Then
+            clsSvydesignFunction.AddParameter("strata", clsROperatorParameter:=clsStrataOperator, iPosition:=1)
+        Else
+            clsSvydesignFunction.RemoveParameterByName("strata")
+            'ucrInputIDColName.bAddRemoveParameter = False
+        End If
+    End Sub
+
+    Private Sub ucrReceiverStrata_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverStrata.ControlValueChanged
+        RemoveStrata()
+        'clsSvydesignFunction.RemoveParameterByName("strata")
+        'If rdoStratified.Checked Then
+        '    clsSvydesignFunction.AddParameter("strata", clsROperatorParameter:=clsStrataOperator, iPosition:=1)
+        'Else
+        '    clsSvydesignFunction.RemoveParameterByName("strata")
+        '    'ucrInputIDColName.bAddRemoveParameter = False
+        'End If
     End Sub
 End Class
