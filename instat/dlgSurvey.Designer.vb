@@ -26,17 +26,12 @@ Partial Class dlgSurvey
         Me.rdoClustered = New System.Windows.Forms.RadioButton()
         Me.rdoStratified = New System.Windows.Forms.RadioButton()
         Me.rdoSRS = New System.Windows.Forms.RadioButton()
-        Me.lblFPC = New System.Windows.Forms.Label()
         Me.lblId = New System.Windows.Forms.Label()
         Me.lblStrata = New System.Windows.Forms.Label()
         Me.lblSummaryStatistics = New System.Windows.Forms.Label()
         Me.lblWeights = New System.Windows.Forms.Label()
         Me.lblXFormular = New System.Windows.Forms.Label()
-        Me.lblFactor = New System.Windows.Forms.Label()
-        Me.lblMultipleId = New System.Windows.Forms.Label()
-        Me.lblMultipleFPC = New System.Windows.Forms.Label()
         Me.lblInputID = New System.Windows.Forms.Label()
-        Me.ucrChkMultistageSampling = New instat.ucrCheck()
         Me.ucrSelectorSurvey = New instat.ucrSelectorByDataFrameAddRemove()
         Me.ucrReceiverWeights = New instat.ucrReceiverSingle()
         Me.ucrReceiverStrata = New instat.ucrReceiverSingle()
@@ -46,10 +41,9 @@ Partial Class dlgSurvey
         Me.ucrReceiverFPC = New instat.ucrReceiverSingle()
         Me.ucrPnlMethod = New instat.UcrPanel()
         Me.ucrReceiverMultipleVar2 = New instat.ucrReceiverMultiple()
-        Me.ucrReceiverMultipleId = New instat.ucrReceiverMultiple()
         Me.ucrInputId = New instat.ucrInputTextBox()
         Me.ucrReceiverSingleID = New instat.ucrReceiverSingle()
-        Me.ucrReceiverMultipleFPC = New instat.ucrReceiverMultiple()
+        Me.lblFPC = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'rdoClustered
@@ -88,11 +82,6 @@ Partial Class dlgSurvey
         Me.rdoSRS.Tag = "linepathstep"
         Me.rdoSRS.UseVisualStyleBackColor = False
         '
-        'lblFPC
-        '
-        resources.ApplyResources(Me.lblFPC, "lblFPC")
-        Me.lblFPC.Name = "lblFPC"
-        '
         'lblId
         '
         resources.ApplyResources(Me.lblId, "lblId")
@@ -118,31 +107,10 @@ Partial Class dlgSurvey
         resources.ApplyResources(Me.lblXFormular, "lblXFormular")
         Me.lblXFormular.Name = "lblXFormular"
         '
-        'lblFactor
-        '
-        resources.ApplyResources(Me.lblFactor, "lblFactor")
-        Me.lblFactor.Name = "lblFactor"
-        '
-        'lblMultipleId
-        '
-        resources.ApplyResources(Me.lblMultipleId, "lblMultipleId")
-        Me.lblMultipleId.Name = "lblMultipleId"
-        '
-        'lblMultipleFPC
-        '
-        resources.ApplyResources(Me.lblMultipleFPC, "lblMultipleFPC")
-        Me.lblMultipleFPC.Name = "lblMultipleFPC"
-        '
         'lblInputID
         '
         resources.ApplyResources(Me.lblInputID, "lblInputID")
         Me.lblInputID.Name = "lblInputID"
-        '
-        'ucrChkMultistageSampling
-        '
-        resources.ApplyResources(Me.ucrChkMultistageSampling, "ucrChkMultistageSampling")
-        Me.ucrChkMultistageSampling.Checked = False
-        Me.ucrChkMultistageSampling.Name = "ucrChkMultistageSampling"
         '
         'ucrSelectorSurvey
         '
@@ -212,15 +180,6 @@ Partial Class dlgSurvey
         Me.ucrReceiverMultipleVar2.strNcFilePath = ""
         Me.ucrReceiverMultipleVar2.ucrSelector = Nothing
         '
-        'ucrReceiverMultipleId
-        '
-        resources.ApplyResources(Me.ucrReceiverMultipleId, "ucrReceiverMultipleId")
-        Me.ucrReceiverMultipleId.frmParent = Me
-        Me.ucrReceiverMultipleId.Name = "ucrReceiverMultipleId"
-        Me.ucrReceiverMultipleId.Selector = Nothing
-        Me.ucrReceiverMultipleId.strNcFilePath = ""
-        Me.ucrReceiverMultipleId.ucrSelector = Nothing
-        '
         'ucrInputId
         '
         Me.ucrInputId.AddQuotesIfUnrecognised = True
@@ -238,28 +197,21 @@ Partial Class dlgSurvey
         Me.ucrReceiverSingleID.strNcFilePath = ""
         Me.ucrReceiverSingleID.ucrSelector = Nothing
         '
-        'ucrReceiverMultipleFPC
+        'lblFPC
         '
-        resources.ApplyResources(Me.ucrReceiverMultipleFPC, "ucrReceiverMultipleFPC")
-        Me.ucrReceiverMultipleFPC.frmParent = Me
-        Me.ucrReceiverMultipleFPC.Name = "ucrReceiverMultipleFPC"
-        Me.ucrReceiverMultipleFPC.Selector = Nothing
-        Me.ucrReceiverMultipleFPC.strNcFilePath = ""
-        Me.ucrReceiverMultipleFPC.ucrSelector = Nothing
+        resources.ApplyResources(Me.lblFPC, "lblFPC")
+        Me.lblFPC.Name = "lblFPC"
         '
         'dlgSurvey
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.ucrChkMultistageSampling)
         Me.Controls.Add(Me.lblXFormular)
         Me.Controls.Add(Me.ucrSelectorSurvey)
         Me.Controls.Add(Me.ucrReceiverWeights)
         Me.Controls.Add(Me.lblWeights)
         Me.Controls.Add(Me.ucrReceiverStrata)
         Me.Controls.Add(Me.lblSummaryStatistics)
-        Me.Controls.Add(Me.lblStrata)
-        Me.Controls.Add(Me.lblFPC)
         Me.Controls.Add(Me.ucrBase)
         Me.Controls.Add(Me.ucrChkSummary)
         Me.Controls.Add(Me.ucrInputSummaryStat)
@@ -269,15 +221,12 @@ Partial Class dlgSurvey
         Me.Controls.Add(Me.rdoSRS)
         Me.Controls.Add(Me.ucrPnlMethod)
         Me.Controls.Add(Me.ucrReceiverMultipleVar2)
-        Me.Controls.Add(Me.lblFactor)
         Me.Controls.Add(Me.ucrInputId)
         Me.Controls.Add(Me.ucrReceiverSingleID)
+        Me.Controls.Add(Me.lblFPC)
         Me.Controls.Add(Me.lblId)
-        Me.Controls.Add(Me.lblMultipleFPC)
         Me.Controls.Add(Me.lblInputID)
-        Me.Controls.Add(Me.ucrReceiverMultipleFPC)
-        Me.Controls.Add(Me.ucrReceiverMultipleId)
-        Me.Controls.Add(Me.lblMultipleId)
+        Me.Controls.Add(Me.lblStrata)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -298,7 +247,6 @@ Partial Class dlgSurvey
     Friend WithEvents lblSummaryStatistics As Label
     Friend WithEvents lblStrata As Label
     Friend WithEvents lblId As Label
-    Friend WithEvents lblFPC As Label
     Friend WithEvents ucrBase As ucrButtons
     Friend WithEvents ucrReceiverWeights As ucrReceiverSingle
     Friend WithEvents lblWeights As Label
@@ -306,12 +254,7 @@ Partial Class dlgSurvey
     Friend WithEvents ucrInputId As ucrInputTextBox
     Friend WithEvents lblXFormular As Label
     Friend WithEvents ucrReceiverMultipleVar2 As ucrReceiverMultiple
-    Friend WithEvents lblFactor As Label
-    Friend WithEvents ucrChkMultistageSampling As ucrCheck
-    Friend WithEvents ucrReceiverMultipleId As ucrReceiverMultiple
-    Friend WithEvents ucrReceiverMultipleFPC As ucrReceiverMultiple
     Friend WithEvents ucrReceiverSingleID As ucrReceiverSingle
-    Friend WithEvents lblMultipleId As Label
-    Friend WithEvents lblMultipleFPC As Label
     Friend WithEvents lblInputID As Label
+    Friend WithEvents lblFPC As Label
 End Class
