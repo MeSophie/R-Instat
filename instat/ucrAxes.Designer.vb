@@ -45,6 +45,21 @@ Partial Class ucrAxes
         Me.rdoTitleAuto = New System.Windows.Forms.RadioButton()
         Me.ucrInputTitle = New instat.ucrInputTextBox()
         Me.ucrPnlAxisTitle = New instat.UcrPanel()
+        Me.grpMajorBreaksDiscrete = New System.Windows.Forms.GroupBox()
+        Me.ucrChkLabelsDiscrete = New instat.ucrCheck()
+        Me.ucrInputMajorBreaksLabelsDiscrete = New instat.ucrInputTextBox()
+        Me.rdoMajorBreaksSeqDiscrete = New System.Windows.Forms.RadioButton()
+        Me.rdoMajorBreaksCustomDiscrete = New System.Windows.Forms.RadioButton()
+        Me.ucrInputMajorBreaksInStepsOfDiscrete = New instat.ucrInputTextBox()
+        Me.rdoMajorBreaksNoneDiscrete = New System.Windows.Forms.RadioButton()
+        Me.ucrInputMajorBreaksToDiscrete = New instat.ucrInputTextBox()
+        Me.ucrInputMajorBreaksFromDiscrete = New instat.ucrInputTextBox()
+        Me.rdoMajorBreaksAutoDiscrete = New System.Windows.Forms.RadioButton()
+        Me.lblMajorBreaksInStepsOfDiscrete = New System.Windows.Forms.Label()
+        Me.lblMajorBreaksFromDiscrete = New System.Windows.Forms.Label()
+        Me.lblMajorBreaksToDiscrete = New System.Windows.Forms.Label()
+        Me.ucrPnlMajorBreaksDiscrete = New instat.UcrPanel()
+        Me.ucrInputMajorBreaksCustomDiscrete = New instat.ucrInputTextBox()
         Me.grpMajorBreaks = New System.Windows.Forms.GroupBox()
         Me.ucrChkLabels = New instat.ucrCheck()
         Me.ucrInputMajorBreaksLabels = New instat.ucrInputTextBox()
@@ -117,12 +132,27 @@ Partial Class ucrAxes
         Me.grpMinorBreaks = New System.Windows.Forms.GroupBox()
         Me.lblMinorBreaksFrom = New System.Windows.Forms.Label()
         Me.rdoMinorBreaksNone = New System.Windows.Forms.RadioButton()
+        Me.grpMinorBreaksDiscrete = New System.Windows.Forms.GroupBox()
+        Me.lblMinorBreaksFromDiscrete = New System.Windows.Forms.Label()
+        Me.rdoMinorBreaksNoneDiscrete = New System.Windows.Forms.RadioButton()
+        Me.rdoMinorBreaksAutoDiscrete = New System.Windows.Forms.RadioButton()
+        Me.lblMinorBreaksInStepsOfDiscrete = New System.Windows.Forms.Label()
+        Me.rdoMinorBreaksSeqDiscrete = New System.Windows.Forms.RadioButton()
+        Me.lblMinorBreaksToDiscrete = New System.Windows.Forms.Label()
+        Me.rdoMinorBreaksCustomDiscrete = New System.Windows.Forms.RadioButton()
+        Me.ucrPnlMinorBreaksDiscrete = New instat.UcrPanel()
+        Me.ucrInputMinorBreaksFromDiscrete = New instat.ucrInputTextBox()
+        Me.ucrInputMinorBreaksInStepsOfDiscrete = New instat.ucrInputTextBox()
+        Me.ucrInputMinorBreaksToDiscrete = New instat.ucrInputTextBox()
+        Me.ucrInputMinorBreaksCustomDiscrete = New instat.ucrInputTextBox()
         Me.grpAxisTitle.SuspendLayout()
+        Me.grpMajorBreaksDiscrete.SuspendLayout()
         Me.grpMajorBreaks.SuspendLayout()
         Me.grpScales.SuspendLayout()
         Me.grpScaleDiscrete.SuspendLayout()
         Me.grpScaleXDate.SuspendLayout()
         Me.grpMinorBreaks.SuspendLayout()
+        Me.grpMinorBreaksDiscrete.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpAxisTitle
@@ -201,6 +231,172 @@ Partial Class ucrAxes
         Me.ucrPnlAxisTitle.Size = New System.Drawing.Size(290, 23)
         Me.ucrPnlAxisTitle.TabIndex = 19
         '
+        'grpMajorBreaksDiscrete
+        '
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrChkLabelsDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrInputMajorBreaksLabelsDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.rdoMajorBreaksSeqDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.rdoMajorBreaksCustomDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrInputMajorBreaksInStepsOfDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.rdoMajorBreaksNoneDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrInputMajorBreaksToDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrInputMajorBreaksFromDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.rdoMajorBreaksAutoDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.lblMajorBreaksInStepsOfDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.lblMajorBreaksFromDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.lblMajorBreaksToDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrPnlMajorBreaksDiscrete)
+        Me.grpMajorBreaksDiscrete.Controls.Add(Me.ucrInputMajorBreaksCustomDiscrete)
+        Me.grpMajorBreaksDiscrete.Location = New System.Drawing.Point(310, 34)
+        Me.grpMajorBreaksDiscrete.Name = "grpMajorBreaksDiscrete"
+        Me.grpMajorBreaksDiscrete.Size = New System.Drawing.Size(354, 162)
+        Me.grpMajorBreaksDiscrete.TabIndex = 23
+        Me.grpMajorBreaksDiscrete.TabStop = False
+        Me.grpMajorBreaksDiscrete.Text = "Major Tick Marks"
+        '
+        'ucrChkLabelsDiscrete
+        '
+        Me.ucrChkLabelsDiscrete.AutoSize = True
+        Me.ucrChkLabelsDiscrete.Checked = False
+        Me.ucrChkLabelsDiscrete.Location = New System.Drawing.Point(5, 133)
+        Me.ucrChkLabelsDiscrete.Name = "ucrChkLabelsDiscrete"
+        Me.ucrChkLabelsDiscrete.Size = New System.Drawing.Size(87, 23)
+        Me.ucrChkLabelsDiscrete.TabIndex = 22
+        '
+        'ucrInputMajorBreaksLabelsDiscrete
+        '
+        Me.ucrInputMajorBreaksLabelsDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMajorBreaksLabelsDiscrete.AutoSize = True
+        Me.ucrInputMajorBreaksLabelsDiscrete.IsMultiline = False
+        Me.ucrInputMajorBreaksLabelsDiscrete.IsReadOnly = False
+        Me.ucrInputMajorBreaksLabelsDiscrete.Location = New System.Drawing.Point(98, 132)
+        Me.ucrInputMajorBreaksLabelsDiscrete.Name = "ucrInputMajorBreaksLabelsDiscrete"
+        Me.ucrInputMajorBreaksLabelsDiscrete.Size = New System.Drawing.Size(146, 21)
+        Me.ucrInputMajorBreaksLabelsDiscrete.TabIndex = 4
+        '
+        'rdoMajorBreaksSeqDiscrete
+        '
+        Me.rdoMajorBreaksSeqDiscrete.AutoSize = True
+        Me.rdoMajorBreaksSeqDiscrete.Location = New System.Drawing.Point(98, 21)
+        Me.rdoMajorBreaksSeqDiscrete.Name = "rdoMajorBreaksSeqDiscrete"
+        Me.rdoMajorBreaksSeqDiscrete.Size = New System.Drawing.Size(74, 17)
+        Me.rdoMajorBreaksSeqDiscrete.TabIndex = 21
+        Me.rdoMajorBreaksSeqDiscrete.TabStop = True
+        Me.rdoMajorBreaksSeqDiscrete.Text = "Sequence"
+        Me.rdoMajorBreaksSeqDiscrete.UseVisualStyleBackColor = True
+        '
+        'rdoMajorBreaksCustomDiscrete
+        '
+        Me.rdoMajorBreaksCustomDiscrete.AutoSize = True
+        Me.rdoMajorBreaksCustomDiscrete.Location = New System.Drawing.Point(179, 21)
+        Me.rdoMajorBreaksCustomDiscrete.Name = "rdoMajorBreaksCustomDiscrete"
+        Me.rdoMajorBreaksCustomDiscrete.Size = New System.Drawing.Size(60, 17)
+        Me.rdoMajorBreaksCustomDiscrete.TabIndex = 20
+        Me.rdoMajorBreaksCustomDiscrete.TabStop = True
+        Me.rdoMajorBreaksCustomDiscrete.Text = "Custom"
+        Me.rdoMajorBreaksCustomDiscrete.UseVisualStyleBackColor = True
+        '
+        'ucrInputMajorBreaksInStepsOfDiscrete
+        '
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.AutoSize = True
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.IsMultiline = False
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.IsReadOnly = False
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.Location = New System.Drawing.Point(114, 99)
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.Name = "ucrInputMajorBreaksInStepsOfDiscrete"
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.Size = New System.Drawing.Size(47, 21)
+        Me.ucrInputMajorBreaksInStepsOfDiscrete.TabIndex = 19
+        '
+        'rdoMajorBreaksNoneDiscrete
+        '
+        Me.rdoMajorBreaksNoneDiscrete.AutoSize = True
+        Me.rdoMajorBreaksNoneDiscrete.Location = New System.Drawing.Point(278, 21)
+        Me.rdoMajorBreaksNoneDiscrete.Name = "rdoMajorBreaksNoneDiscrete"
+        Me.rdoMajorBreaksNoneDiscrete.Size = New System.Drawing.Size(56, 17)
+        Me.rdoMajorBreaksNoneDiscrete.TabIndex = 3
+        Me.rdoMajorBreaksNoneDiscrete.TabStop = True
+        Me.rdoMajorBreaksNoneDiscrete.Text = "Aucun"
+        Me.rdoMajorBreaksNoneDiscrete.UseVisualStyleBackColor = True
+        '
+        'ucrInputMajorBreaksToDiscrete
+        '
+        Me.ucrInputMajorBreaksToDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMajorBreaksToDiscrete.AutoSize = True
+        Me.ucrInputMajorBreaksToDiscrete.IsMultiline = False
+        Me.ucrInputMajorBreaksToDiscrete.IsReadOnly = False
+        Me.ucrInputMajorBreaksToDiscrete.Location = New System.Drawing.Point(114, 72)
+        Me.ucrInputMajorBreaksToDiscrete.Name = "ucrInputMajorBreaksToDiscrete"
+        Me.ucrInputMajorBreaksToDiscrete.Size = New System.Drawing.Size(47, 21)
+        Me.ucrInputMajorBreaksToDiscrete.TabIndex = 19
+        '
+        'ucrInputMajorBreaksFromDiscrete
+        '
+        Me.ucrInputMajorBreaksFromDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMajorBreaksFromDiscrete.AutoSize = True
+        Me.ucrInputMajorBreaksFromDiscrete.IsMultiline = False
+        Me.ucrInputMajorBreaksFromDiscrete.IsReadOnly = False
+        Me.ucrInputMajorBreaksFromDiscrete.Location = New System.Drawing.Point(114, 46)
+        Me.ucrInputMajorBreaksFromDiscrete.Name = "ucrInputMajorBreaksFromDiscrete"
+        Me.ucrInputMajorBreaksFromDiscrete.Size = New System.Drawing.Size(47, 21)
+        Me.ucrInputMajorBreaksFromDiscrete.TabIndex = 19
+        '
+        'rdoMajorBreaksAutoDiscrete
+        '
+        Me.rdoMajorBreaksAutoDiscrete.AutoSize = True
+        Me.rdoMajorBreaksAutoDiscrete.Location = New System.Drawing.Point(6, 21)
+        Me.rdoMajorBreaksAutoDiscrete.Name = "rdoMajorBreaksAutoDiscrete"
+        Me.rdoMajorBreaksAutoDiscrete.Size = New System.Drawing.Size(47, 17)
+        Me.rdoMajorBreaksAutoDiscrete.TabIndex = 2
+        Me.rdoMajorBreaksAutoDiscrete.TabStop = True
+        Me.rdoMajorBreaksAutoDiscrete.Text = "Auto"
+        Me.rdoMajorBreaksAutoDiscrete.UseVisualStyleBackColor = True
+        '
+        'lblMajorBreaksInStepsOfDiscrete
+        '
+        Me.lblMajorBreaksInStepsOfDiscrete.AutoSize = True
+        Me.lblMajorBreaksInStepsOfDiscrete.Location = New System.Drawing.Point(9, 103)
+        Me.lblMajorBreaksInStepsOfDiscrete.Name = "lblMajorBreaksInStepsOfDiscrete"
+        Me.lblMajorBreaksInStepsOfDiscrete.Size = New System.Drawing.Size(61, 13)
+        Me.lblMajorBreaksInStepsOfDiscrete.TabIndex = 9
+        Me.lblMajorBreaksInStepsOfDiscrete.Text = "In Steps of:"
+        '
+        'lblMajorBreaksFromDiscrete
+        '
+        Me.lblMajorBreaksFromDiscrete.AutoSize = True
+        Me.lblMajorBreaksFromDiscrete.Location = New System.Drawing.Point(9, 50)
+        Me.lblMajorBreaksFromDiscrete.Name = "lblMajorBreaksFromDiscrete"
+        Me.lblMajorBreaksFromDiscrete.Size = New System.Drawing.Size(33, 13)
+        Me.lblMajorBreaksFromDiscrete.TabIndex = 5
+        Me.lblMajorBreaksFromDiscrete.Text = "From:"
+        '
+        'lblMajorBreaksToDiscrete
+        '
+        Me.lblMajorBreaksToDiscrete.AutoSize = True
+        Me.lblMajorBreaksToDiscrete.Location = New System.Drawing.Point(9, 75)
+        Me.lblMajorBreaksToDiscrete.Name = "lblMajorBreaksToDiscrete"
+        Me.lblMajorBreaksToDiscrete.Size = New System.Drawing.Size(23, 13)
+        Me.lblMajorBreaksToDiscrete.TabIndex = 6
+        Me.lblMajorBreaksToDiscrete.Text = "To:"
+        '
+        'ucrPnlMajorBreaksDiscrete
+        '
+        Me.ucrPnlMajorBreaksDiscrete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrPnlMajorBreaksDiscrete.Location = New System.Drawing.Point(3, 19)
+        Me.ucrPnlMajorBreaksDiscrete.Name = "ucrPnlMajorBreaksDiscrete"
+        Me.ucrPnlMajorBreaksDiscrete.Size = New System.Drawing.Size(335, 23)
+        Me.ucrPnlMajorBreaksDiscrete.TabIndex = 18
+        '
+        'ucrInputMajorBreaksCustomDiscrete
+        '
+        Me.ucrInputMajorBreaksCustomDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMajorBreaksCustomDiscrete.AutoSize = True
+        Me.ucrInputMajorBreaksCustomDiscrete.IsMultiline = False
+        Me.ucrInputMajorBreaksCustomDiscrete.IsReadOnly = False
+        Me.ucrInputMajorBreaksCustomDiscrete.Location = New System.Drawing.Point(6, 46)
+        Me.ucrInputMajorBreaksCustomDiscrete.Name = "ucrInputMajorBreaksCustomDiscrete"
+        Me.ucrInputMajorBreaksCustomDiscrete.Size = New System.Drawing.Size(238, 21)
+        Me.ucrInputMajorBreaksCustomDiscrete.TabIndex = 15
+        '
         'grpMajorBreaks
         '
         Me.grpMajorBreaks.Controls.Add(Me.ucrChkLabels)
@@ -217,7 +413,7 @@ Partial Class ucrAxes
         Me.grpMajorBreaks.Controls.Add(Me.lblMajorBreaksTo)
         Me.grpMajorBreaks.Controls.Add(Me.ucrPnlMajorBreaks)
         Me.grpMajorBreaks.Controls.Add(Me.ucrInputMajorBreaksCustom)
-        Me.grpMajorBreaks.Location = New System.Drawing.Point(310, 29)
+        Me.grpMajorBreaks.Location = New System.Drawing.Point(310, 35)
         Me.grpMajorBreaks.Name = "grpMajorBreaks"
         Me.grpMajorBreaks.Size = New System.Drawing.Size(354, 162)
         Me.grpMajorBreaks.TabIndex = 1
@@ -994,6 +1190,150 @@ Partial Class ucrAxes
         Me.rdoMinorBreaksNone.Text = "None"
         Me.rdoMinorBreaksNone.UseVisualStyleBackColor = True
         '
+        'grpMinorBreaksDiscrete
+        '
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.lblMinorBreaksFromDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.rdoMinorBreaksNoneDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.rdoMinorBreaksAutoDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.lblMinorBreaksInStepsOfDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.rdoMinorBreaksSeqDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.lblMinorBreaksToDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.rdoMinorBreaksCustomDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.ucrPnlMinorBreaksDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.ucrInputMinorBreaksFromDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.ucrInputMinorBreaksInStepsOfDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.ucrInputMinorBreaksToDiscrete)
+        Me.grpMinorBreaksDiscrete.Controls.Add(Me.ucrInputMinorBreaksCustomDiscrete)
+        Me.grpMinorBreaksDiscrete.Location = New System.Drawing.Point(310, 197)
+        Me.grpMinorBreaksDiscrete.Name = "grpMinorBreaksDiscrete"
+        Me.grpMinorBreaksDiscrete.Size = New System.Drawing.Size(354, 121)
+        Me.grpMinorBreaksDiscrete.TabIndex = 35
+        Me.grpMinorBreaksDiscrete.TabStop = False
+        Me.grpMinorBreaksDiscrete.Text = "Minor Tick Marks"
+        '
+        'lblMinorBreaksFromDiscrete
+        '
+        Me.lblMinorBreaksFromDiscrete.AutoSize = True
+        Me.lblMinorBreaksFromDiscrete.Location = New System.Drawing.Point(9, 48)
+        Me.lblMinorBreaksFromDiscrete.Name = "lblMinorBreaksFromDiscrete"
+        Me.lblMinorBreaksFromDiscrete.Size = New System.Drawing.Size(33, 13)
+        Me.lblMinorBreaksFromDiscrete.TabIndex = 34
+        Me.lblMinorBreaksFromDiscrete.Text = "From:"
+        '
+        'rdoMinorBreaksNoneDiscrete
+        '
+        Me.rdoMinorBreaksNoneDiscrete.AutoSize = True
+        Me.rdoMinorBreaksNoneDiscrete.Location = New System.Drawing.Point(278, 20)
+        Me.rdoMinorBreaksNoneDiscrete.Name = "rdoMinorBreaksNoneDiscrete"
+        Me.rdoMinorBreaksNoneDiscrete.Size = New System.Drawing.Size(51, 17)
+        Me.rdoMinorBreaksNoneDiscrete.TabIndex = 22
+        Me.rdoMinorBreaksNoneDiscrete.TabStop = True
+        Me.rdoMinorBreaksNoneDiscrete.Text = "None"
+        Me.rdoMinorBreaksNoneDiscrete.UseVisualStyleBackColor = True
+        '
+        'rdoMinorBreaksAutoDiscrete
+        '
+        Me.rdoMinorBreaksAutoDiscrete.AutoSize = True
+        Me.rdoMinorBreaksAutoDiscrete.Location = New System.Drawing.Point(6, 19)
+        Me.rdoMinorBreaksAutoDiscrete.Name = "rdoMinorBreaksAutoDiscrete"
+        Me.rdoMinorBreaksAutoDiscrete.Size = New System.Drawing.Size(47, 17)
+        Me.rdoMinorBreaksAutoDiscrete.TabIndex = 22
+        Me.rdoMinorBreaksAutoDiscrete.TabStop = True
+        Me.rdoMinorBreaksAutoDiscrete.Text = "Auto"
+        Me.rdoMinorBreaksAutoDiscrete.UseVisualStyleBackColor = True
+        '
+        'lblMinorBreaksInStepsOfDiscrete
+        '
+        Me.lblMinorBreaksInStepsOfDiscrete.AutoSize = True
+        Me.lblMinorBreaksInStepsOfDiscrete.Location = New System.Drawing.Point(9, 101)
+        Me.lblMinorBreaksInStepsOfDiscrete.Name = "lblMinorBreaksInStepsOfDiscrete"
+        Me.lblMinorBreaksInStepsOfDiscrete.Size = New System.Drawing.Size(61, 13)
+        Me.lblMinorBreaksInStepsOfDiscrete.TabIndex = 25
+        Me.lblMinorBreaksInStepsOfDiscrete.Text = "In Steps of:"
+        '
+        'rdoMinorBreaksSeqDiscrete
+        '
+        Me.rdoMinorBreaksSeqDiscrete.AutoSize = True
+        Me.rdoMinorBreaksSeqDiscrete.Location = New System.Drawing.Point(98, 20)
+        Me.rdoMinorBreaksSeqDiscrete.Name = "rdoMinorBreaksSeqDiscrete"
+        Me.rdoMinorBreaksSeqDiscrete.Size = New System.Drawing.Size(74, 17)
+        Me.rdoMinorBreaksSeqDiscrete.TabIndex = 32
+        Me.rdoMinorBreaksSeqDiscrete.TabStop = True
+        Me.rdoMinorBreaksSeqDiscrete.Text = "Sequence"
+        Me.rdoMinorBreaksSeqDiscrete.UseVisualStyleBackColor = True
+        '
+        'lblMinorBreaksToDiscrete
+        '
+        Me.lblMinorBreaksToDiscrete.AutoSize = True
+        Me.lblMinorBreaksToDiscrete.Location = New System.Drawing.Point(9, 75)
+        Me.lblMinorBreaksToDiscrete.Name = "lblMinorBreaksToDiscrete"
+        Me.lblMinorBreaksToDiscrete.Size = New System.Drawing.Size(23, 13)
+        Me.lblMinorBreaksToDiscrete.TabIndex = 24
+        Me.lblMinorBreaksToDiscrete.Text = "To:"
+        '
+        'rdoMinorBreaksCustomDiscrete
+        '
+        Me.rdoMinorBreaksCustomDiscrete.AutoSize = True
+        Me.rdoMinorBreaksCustomDiscrete.Location = New System.Drawing.Point(179, 20)
+        Me.rdoMinorBreaksCustomDiscrete.Name = "rdoMinorBreaksCustomDiscrete"
+        Me.rdoMinorBreaksCustomDiscrete.Size = New System.Drawing.Size(60, 17)
+        Me.rdoMinorBreaksCustomDiscrete.TabIndex = 31
+        Me.rdoMinorBreaksCustomDiscrete.TabStop = True
+        Me.rdoMinorBreaksCustomDiscrete.Text = "Custom"
+        Me.rdoMinorBreaksCustomDiscrete.UseVisualStyleBackColor = True
+        '
+        'ucrPnlMinorBreaksDiscrete
+        '
+        Me.ucrPnlMinorBreaksDiscrete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrPnlMinorBreaksDiscrete.Location = New System.Drawing.Point(6, 16)
+        Me.ucrPnlMinorBreaksDiscrete.Name = "ucrPnlMinorBreaksDiscrete"
+        Me.ucrPnlMinorBreaksDiscrete.Size = New System.Drawing.Size(332, 23)
+        Me.ucrPnlMinorBreaksDiscrete.TabIndex = 27
+        '
+        'ucrInputMinorBreaksFromDiscrete
+        '
+        Me.ucrInputMinorBreaksFromDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMinorBreaksFromDiscrete.AutoSize = True
+        Me.ucrInputMinorBreaksFromDiscrete.IsMultiline = False
+        Me.ucrInputMinorBreaksFromDiscrete.IsReadOnly = False
+        Me.ucrInputMinorBreaksFromDiscrete.Location = New System.Drawing.Point(125, 43)
+        Me.ucrInputMinorBreaksFromDiscrete.Name = "ucrInputMinorBreaksFromDiscrete"
+        Me.ucrInputMinorBreaksFromDiscrete.Size = New System.Drawing.Size(47, 21)
+        Me.ucrInputMinorBreaksFromDiscrete.TabIndex = 30
+        '
+        'ucrInputMinorBreaksInStepsOfDiscrete
+        '
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.AutoSize = True
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.IsMultiline = False
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.IsReadOnly = False
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.Location = New System.Drawing.Point(126, 97)
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.Name = "ucrInputMinorBreaksInStepsOfDiscrete"
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.Size = New System.Drawing.Size(47, 21)
+        Me.ucrInputMinorBreaksInStepsOfDiscrete.TabIndex = 28
+        '
+        'ucrInputMinorBreaksToDiscrete
+        '
+        Me.ucrInputMinorBreaksToDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMinorBreaksToDiscrete.AutoSize = True
+        Me.ucrInputMinorBreaksToDiscrete.IsMultiline = False
+        Me.ucrInputMinorBreaksToDiscrete.IsReadOnly = False
+        Me.ucrInputMinorBreaksToDiscrete.Location = New System.Drawing.Point(126, 71)
+        Me.ucrInputMinorBreaksToDiscrete.Name = "ucrInputMinorBreaksToDiscrete"
+        Me.ucrInputMinorBreaksToDiscrete.Size = New System.Drawing.Size(47, 21)
+        Me.ucrInputMinorBreaksToDiscrete.TabIndex = 29
+        '
+        'ucrInputMinorBreaksCustomDiscrete
+        '
+        Me.ucrInputMinorBreaksCustomDiscrete.AddQuotesIfUnrecognised = True
+        Me.ucrInputMinorBreaksCustomDiscrete.AutoSize = True
+        Me.ucrInputMinorBreaksCustomDiscrete.IsMultiline = False
+        Me.ucrInputMinorBreaksCustomDiscrete.IsReadOnly = False
+        Me.ucrInputMinorBreaksCustomDiscrete.Location = New System.Drawing.Point(6, 44)
+        Me.ucrInputMinorBreaksCustomDiscrete.Name = "ucrInputMinorBreaksCustomDiscrete"
+        Me.ucrInputMinorBreaksCustomDiscrete.Size = New System.Drawing.Size(238, 21)
+        Me.ucrInputMinorBreaksCustomDiscrete.TabIndex = 26
+        '
         'ucrAxes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1004,11 +1344,15 @@ Partial Class ucrAxes
         Me.Controls.Add(Me.grpMinorBreaks)
         Me.Controls.Add(Me.ucrInputAxisType)
         Me.Controls.Add(Me.grpMajorBreaks)
+        Me.Controls.Add(Me.grpMajorBreaksDiscrete)
         Me.Controls.Add(Me.grpAxisTitle)
+        Me.Controls.Add(Me.grpMinorBreaksDiscrete)
         Me.Name = "ucrAxes"
         Me.Size = New System.Drawing.Size(667, 337)
         Me.grpAxisTitle.ResumeLayout(False)
         Me.grpAxisTitle.PerformLayout()
+        Me.grpMajorBreaksDiscrete.ResumeLayout(False)
+        Me.grpMajorBreaksDiscrete.PerformLayout()
         Me.grpMajorBreaks.ResumeLayout(False)
         Me.grpMajorBreaks.PerformLayout()
         Me.grpScales.ResumeLayout(False)
@@ -1019,6 +1363,8 @@ Partial Class ucrAxes
         Me.grpScaleXDate.PerformLayout()
         Me.grpMinorBreaks.ResumeLayout(False)
         Me.grpMinorBreaks.PerformLayout()
+        Me.grpMinorBreaksDiscrete.ResumeLayout(False)
+        Me.grpMinorBreaksDiscrete.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1103,4 +1449,32 @@ Partial Class ucrAxes
     Friend WithEvents ucrPnlScaleDiscrete As UcrPanel
     Friend WithEvents ucrChkDropUnusedLevels As ucrCheck
     Friend WithEvents ucrInputDropUnusedLevels As ucrInputComboBox
+    Friend WithEvents grpMajorBreaksDiscrete As GroupBox
+    Friend WithEvents ucrChkLabelsDiscrete As ucrCheck
+    Friend WithEvents ucrInputMajorBreaksLabelsDiscrete As ucrInputTextBox
+    Friend WithEvents rdoMajorBreaksSeqDiscrete As RadioButton
+    Friend WithEvents rdoMajorBreaksCustomDiscrete As RadioButton
+    Friend WithEvents ucrInputMajorBreaksInStepsOfDiscrete As ucrInputTextBox
+    Friend WithEvents rdoMajorBreaksNoneDiscrete As RadioButton
+    Friend WithEvents ucrInputMajorBreaksToDiscrete As ucrInputTextBox
+    Friend WithEvents ucrInputMajorBreaksFromDiscrete As ucrInputTextBox
+    Friend WithEvents rdoMajorBreaksAutoDiscrete As RadioButton
+    Friend WithEvents lblMajorBreaksInStepsOfDiscrete As Label
+    Friend WithEvents lblMajorBreaksFromDiscrete As Label
+    Friend WithEvents lblMajorBreaksToDiscrete As Label
+    Friend WithEvents ucrPnlMajorBreaksDiscrete As UcrPanel
+    Friend WithEvents ucrInputMajorBreaksCustomDiscrete As ucrInputTextBox
+    Friend WithEvents grpMinorBreaksDiscrete As GroupBox
+    Friend WithEvents lblMinorBreaksFromDiscrete As Label
+    Friend WithEvents rdoMinorBreaksNoneDiscrete As RadioButton
+    Friend WithEvents rdoMinorBreaksAutoDiscrete As RadioButton
+    Friend WithEvents lblMinorBreaksInStepsOfDiscrete As Label
+    Friend WithEvents rdoMinorBreaksSeqDiscrete As RadioButton
+    Friend WithEvents lblMinorBreaksToDiscrete As Label
+    Friend WithEvents rdoMinorBreaksCustomDiscrete As RadioButton
+    Friend WithEvents ucrPnlMinorBreaksDiscrete As UcrPanel
+    Friend WithEvents ucrInputMinorBreaksFromDiscrete As ucrInputTextBox
+    Friend WithEvents ucrInputMinorBreaksInStepsOfDiscrete As ucrInputTextBox
+    Friend WithEvents ucrInputMinorBreaksToDiscrete As ucrInputTextBox
+    Friend WithEvents ucrInputMinorBreaksCustomDiscrete As ucrInputTextBox
 End Class
