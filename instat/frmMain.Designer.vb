@@ -383,24 +383,28 @@ Partial Class frmMain
         Me.mnuSaveScript = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSaveLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.separator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTbLast10Dialogs = New System.Windows.Forms.ToolStripSplitButton()
         Me.separator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTbDataView = New System.Windows.Forms.ToolStripButton()
         Me.mnuTbOutput = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator74 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuLastGraph = New System.Windows.Forms.ToolStripSplitButton()
         Me.mnuNormalViewer = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuploty = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuRViewer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator75 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTbLogScript = New System.Windows.Forms.ToolStripSplitButton()
         Me.mnuLogScript = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMetadata = New System.Windows.Forms.ToolStripSplitButton()
         Me.mnuColumnMetadat = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDataFrameMetadat = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator76 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTbResetLayout = New System.Windows.Forms.ToolStripButton()
         Me.separator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTbHelp = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator77 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuTbLan = New System.Windows.Forms.ToolStripButton()
+        Me.separator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuBar = New System.Windows.Forms.MenuStrip()
         Me.mnuFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFileNewDataFrame = New System.Windows.Forms.ToolStripMenuItem()
@@ -671,10 +675,7 @@ Partial Class frmMain
         Me.mnuDataFrameMetadata = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuScriptFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLogFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator74 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator75 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator76 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator77 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuStructuredSurveyTool = New System.Windows.Forms.ToolStripMenuItem()
         Me.stsStrip.SuspendLayout()
         Me.Tool_strip.SuspendLayout()
         Me.mnuBar.SuspendLayout()
@@ -3034,11 +3035,6 @@ Partial Class frmMain
         Me.toolStripSeparator.Name = "toolStripSeparator"
         Me.toolStripSeparator.Size = New System.Drawing.Size(6, 37)
         '
-        'separator1
-        '
-        Me.separator1.Name = "separator1"
-        Me.separator1.Size = New System.Drawing.Size(6, 37)
-        '
         'mnuTbLast10Dialogs
         '
         Me.mnuTbLast10Dialogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -3077,6 +3073,11 @@ Partial Class frmMain
         Me.mnuTbOutput.Size = New System.Drawing.Size(34, 34)
         Me.mnuTbOutput.ToolTipText = "Toggle Output window open and closed"
         '
+        'ToolStripSeparator74
+        '
+        Me.ToolStripSeparator74.Name = "ToolStripSeparator74"
+        Me.ToolStripSeparator74.Size = New System.Drawing.Size(6, 37)
+        '
         'mnuLastGraph
         '
         Me.mnuLastGraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -3106,6 +3107,11 @@ Partial Class frmMain
         Me.mnuRViewer.Name = "mnuRViewer"
         Me.mnuRViewer.Size = New System.Drawing.Size(128, 22)
         Me.mnuRViewer.Text = "R Viewer..."
+        '
+        'ToolStripSeparator75
+        '
+        Me.ToolStripSeparator75.Name = "ToolStripSeparator75"
+        Me.ToolStripSeparator75.Size = New System.Drawing.Size(6, 37)
         '
         'mnuTbLogScript
         '
@@ -3152,6 +3158,11 @@ Partial Class frmMain
         Me.mnuDataFrameMetadat.Size = New System.Drawing.Size(202, 22)
         Me.mnuDataFrameMetadat.Text = "  Data Frame Metadata..."
         '
+        'ToolStripSeparator76
+        '
+        Me.ToolStripSeparator76.Name = "ToolStripSeparator76"
+        Me.ToolStripSeparator76.Size = New System.Drawing.Size(6, 37)
+        '
         'mnuTbResetLayout
         '
         Me.mnuTbResetLayout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -3177,6 +3188,11 @@ Partial Class frmMain
         Me.mnuTbHelp.Size = New System.Drawing.Size(34, 34)
         Me.mnuTbHelp.Text = "He&lp"
         '
+        'ToolStripSeparator77
+        '
+        Me.ToolStripSeparator77.Name = "ToolStripSeparator77"
+        Me.ToolStripSeparator77.Size = New System.Drawing.Size(6, 37)
+        '
         'mnuTbLan
         '
         Me.mnuTbLan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -3186,6 +3202,11 @@ Partial Class frmMain
         Me.mnuTbLan.Name = "mnuTbLan"
         Me.mnuTbLan.Size = New System.Drawing.Size(34, 34)
         Me.mnuTbLan.ToolTipText = "Changes the menu language to English, and from English"
+        '
+        'separator1
+        '
+        Me.separator1.Name = "separator1"
+        Me.separator1.Size = New System.Drawing.Size(6, 37)
         '
         'mnuBar
         '
@@ -4174,7 +4195,7 @@ Partial Class frmMain
         '
         'mnuStructured
         '
-        Me.mnuStructured.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuStructuredCircular, Me.mnuStructuredLow_Flow, Me.mnuStructuredSurvival, Me.mnuStructuredTimeSeries, Me.ToolStripSeparator63, Me.mnuStructuredClimatic, Me.mnuStructuredProcurement, Me.mnuStructuredOptionByContext})
+        Me.mnuStructured.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuStructuredCircular, Me.mnuStructuredLow_Flow, Me.mnuStructuredSurvival, Me.mnuStructuredTimeSeries, Me.ToolStripSeparator63, Me.mnuStructuredClimatic, Me.mnuStructuredProcurement, Me.mnuStructuredOptionByContext, Me.mnuStructuredSurveyTool})
         Me.mnuStructured.Name = "mnuStructured"
         Me.mnuStructured.Size = New System.Drawing.Size(74, 22)
         Me.mnuStructured.Text = "Structured"
@@ -5038,25 +5059,11 @@ Partial Class frmMain
         Me.mnuLogFile.Text = "Log Window..."
         Me.mnuLogFile.ToolTipText = "Log Window"
         '
-        'ToolStripSeparator74
+        'mnuStructuredSurveyTool
         '
-        Me.ToolStripSeparator74.Name = "ToolStripSeparator74"
-        Me.ToolStripSeparator74.Size = New System.Drawing.Size(6, 37)
-        '
-        'ToolStripSeparator75
-        '
-        Me.ToolStripSeparator75.Name = "ToolStripSeparator75"
-        Me.ToolStripSeparator75.Size = New System.Drawing.Size(6, 37)
-        '
-        'ToolStripSeparator76
-        '
-        Me.ToolStripSeparator76.Name = "ToolStripSeparator76"
-        Me.ToolStripSeparator76.Size = New System.Drawing.Size(6, 37)
-        '
-        'ToolStripSeparator77
-        '
-        Me.ToolStripSeparator77.Name = "ToolStripSeparator77"
-        Me.ToolStripSeparator77.Size = New System.Drawing.Size(6, 37)
+        Me.mnuStructuredSurveyTool.Name = "mnuStructuredSurveyTool"
+        Me.mnuStructuredSurveyTool.Size = New System.Drawing.Size(186, 22)
+        Me.mnuStructuredSurveyTool.Text = "Survey"
         '
         'frmMain
         '
@@ -5746,4 +5753,5 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator75 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator76 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator77 As ToolStripSeparator
+    Friend WithEvents mnuStructuredSurveyTool As ToolStripMenuItem
 End Class
