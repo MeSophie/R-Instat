@@ -377,7 +377,9 @@ Public Class DlgDefineClimaticData
     End Sub
 
     Private Sub ucrSelectorLinkedDataFrame_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrSelectorLinkedDataFrame.ControlValueChanged
-
+        clsGetColFunction.AddParameter("data_name", Chr(34) & ucrSelectorLinkedDataFrame.strCurrentDataFrame & Chr(34), iPosition:=1)
+        NewAutoFillReceivers()
+        NewSetRSelector()
     End Sub
 
     Private Sub Controls_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrReceiverDate.ControlContentsChanged
@@ -385,6 +387,22 @@ Public Class DlgDefineClimaticData
     End Sub
 
     Private Sub ucrChkLinkedMetaData_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkLinkedMetaData.ControlValueChanged, ucrReceiverAltMeta.ControlValueChanged, ucrReceiverLatMeta.ControlValueChanged, ucrReceiverLonMeta.ControlValueChanged, ucrReceiverStationMeta.ControlValueChanged
-
+        If ucrChkLinkedMetaData.Checked Then
+            ucrSelectorLinkedDataFrame.Visible = True
+            grpMeta.Visible = True
+            grpStation.Visible = False
+            ucrBase.clsRsyntax.AddToAfterCodes(clsNewDefautFunction, iPosition:=0)
+            clsNewDefautFunction.iCallType = 2
+        Else
+            ucrSelectorLinkedDataFrame.Visible = False
+            grpMeta.Visible = False
+            grpStation.Visible = True
+            ucrBase.clsRsyntax.RemoveFromAfterCodes(clsNewDefautFunction)
+        End If
+        If Not ucrReceiverStationMeta.IsEmpty Then
+            clsNewConcFunction.AddParameter("x1", ucrReceiverStationMeta.GetVariableNames, bIncludeArgumentName:=False)
+        Else
+            clsNewConcFunction.RemoveParameterByName("x1")
+        End If
     End Sub
 End Class
