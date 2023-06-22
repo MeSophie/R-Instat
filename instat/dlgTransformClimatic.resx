@@ -495,6 +495,21 @@
   <data name="&gt;&gt;lblCountOver.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
+  <data name="ucrNudWB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrNudWB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 81</value>
+  </data>
+  <data name="ucrNudWB.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrNudWB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="ucrNudWB.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
   <data name="&gt;&gt;ucrNudWB.Name" xml:space="preserve">
     <value>ucrNudWB</value>
   </data>
@@ -506,6 +521,21 @@
   </data>
   <data name="&gt;&gt;ucrNudWB.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="ucrChkWB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrChkWB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 81</value>
+  </data>
+  <data name="ucrChkWB.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="ucrChkWB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
+  </data>
+  <data name="ucrChkWB.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
   </data>
   <data name="&gt;&gt;ucrChkWB.Name" xml:space="preserve">
     <value>ucrChkWB</value>
@@ -519,6 +549,21 @@
   <data name="&gt;&gt;ucrChkWB.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="ucrInputSpellLower.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrInputSpellLower.Location" type="System.Drawing.Point, System.Drawing">
+    <value>71, 51</value>
+  </data>
+  <data name="ucrInputSpellLower.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputSpellLower.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 21</value>
+  </data>
+  <data name="ucrInputSpellLower.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
   <data name="&gt;&gt;ucrInputSpellLower.Name" xml:space="preserve">
     <value>ucrInputSpellLower</value>
   </data>
@@ -530,6 +575,24 @@
   </data>
   <data name="&gt;&gt;ucrInputSpellLower.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="ucrChkOptions.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrChkOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>266, 112</value>
+  </data>
+  <data name="ucrChkOptions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrChkOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 34</value>
+  </data>
+  <data name="ucrChkOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="ucrChkOptions.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;ucrChkOptions.Name" xml:space="preserve">
     <value>ucrChkOptions</value>
@@ -543,6 +606,21 @@
   <data name="&gt;&gt;ucrChkOptions.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="ucrReceiverEvap.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrReceiverEvap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>310, 53</value>
+  </data>
+  <data name="ucrReceiverEvap.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="ucrReceiverEvap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 20</value>
+  </data>
+  <data name="ucrReceiverEvap.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
   <data name="&gt;&gt;ucrReceiverEvap.Name" xml:space="preserve">
     <value>ucrReceiverEvap</value>
   </data>
@@ -554,6 +632,21 @@
   </data>
   <data name="&gt;&gt;ucrReceiverEvap.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="ucrInputEvaporation.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrInputEvaporation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>151, 53</value>
+  </data>
+  <data name="ucrInputEvaporation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputEvaporation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 21</value>
+  </data>
+  <data name="ucrInputEvaporation.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
   </data>
   <data name="&gt;&gt;ucrInputEvaporation.Name" xml:space="preserve">
     <value>ucrInputEvaporation</value>
@@ -567,6 +660,21 @@
   <data name="&gt;&gt;ucrInputEvaporation.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="ucrChkGroupByYear.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrChkGroupByYear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 112</value>
+  </data>
+  <data name="ucrChkGroupByYear.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrChkGroupByYear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 34</value>
+  </data>
+  <data name="ucrChkGroupByYear.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
   <data name="&gt;&gt;ucrChkGroupByYear.Name" xml:space="preserve">
     <value>ucrChkGroupByYear</value>
   </data>
@@ -578,258 +686,6 @@
   </data>
   <data name="&gt;&gt;ucrChkGroupByYear.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapVariable.Name" xml:space="preserve">
-    <value>rdoEvapVariable</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapVariable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapVariable.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapVariable.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapValue.Name" xml:space="preserve">
-    <value>rdoEvapValue</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapValue.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;rdoEvapValue.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.Name" xml:space="preserve">
-    <value>ucrPnlEvap</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.Type" xml:space="preserve">
-    <value>instat.UcrPanel, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.Name" xml:space="preserve">
-    <value>ucrInputCircularPosition</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;lblPosition.Name" xml:space="preserve">
-    <value>lblPosition</value>
-  </data>
-  <data name="&gt;&gt;lblPosition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPosition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;lblPosition.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.Name" xml:space="preserve">
-    <value>ucrInputPosition</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.Name" xml:space="preserve">
-    <value>ucrChkCircular</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.Type" xml:space="preserve">
-    <value>instat.ucrCheck, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.Name" xml:space="preserve">
-    <value>ucrNudMultSpells</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;lblRowsMultSpells.Name" xml:space="preserve">
-    <value>lblRowsMultSpells</value>
-  </data>
-  <data name="&gt;&gt;lblRowsMultSpells.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblRowsMultSpells.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;lblRowsMultSpells.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.Name" xml:space="preserve">
-    <value>ucrInputSpellUpper</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.Type" xml:space="preserve">
-    <value>instat.ucrInputTextBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.Name" xml:space="preserve">
-    <value>ucrInputCondition</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;lblCondition.Name" xml:space="preserve">
-    <value>lblCondition</value>
-  </data>
-  <data name="&gt;&gt;lblCondition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCondition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;lblCondition.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;lblWBEvaporation.Name" xml:space="preserve">
-    <value>lblWBEvaporation</value>
-  </data>
-  <data name="&gt;&gt;lblWBEvaporation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblWBEvaporation.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;lblWBEvaporation.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.Name" xml:space="preserve">
-    <value>ucrNudSumOver</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;lblWBCapacity.Name" xml:space="preserve">
-    <value>lblWBCapacity</value>
-  </data>
-  <data name="&gt;&gt;lblWBCapacity.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblWBCapacity.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;lblWBCapacity.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.Name" xml:space="preserve">
-    <value>ucrNudWBCapacity</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.Name" xml:space="preserve">
-    <value>ucrInputSum</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.Name" xml:space="preserve">
-    <value>ucrNudCountOver</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.Name" xml:space="preserve">
-    <value>ucrInputCumulative</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.ZOrder" xml:space="preserve">
-    <value>28</value>
-  </data>
-  <data name="grpTransform.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 261</value>
-  </data>
-  <data name="grpTransform.Size" type="System.Drawing.Size, System.Drawing">
-    <value>428, 151</value>
-  </data>
-  <data name="grpTransform.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="grpTransform.Text" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="&gt;&gt;grpTransform.Name" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;grpTransform.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpTransform.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpTransform.ZOrder" xml:space="preserve">
-    <value>27</value>
   </data>
   <data name="rdoEvapVariable.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -891,6 +747,60 @@
   <data name="&gt;&gt;rdoEvapValue.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="ucrPnlEvap.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrPnlEvap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 47</value>
+  </data>
+  <data name="ucrPnlEvap.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrPnlEvap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 29</value>
+  </data>
+  <data name="ucrPnlEvap.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;ucrPnlEvap.Name" xml:space="preserve">
+    <value>ucrPnlEvap</value>
+  </data>
+  <data name="&gt;&gt;ucrPnlEvap.Type" xml:space="preserve">
+    <value>instat.UcrPanel, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrPnlEvap.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrPnlEvap.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="ucrInputCircularPosition.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrInputCircularPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>199, 55</value>
+  </data>
+  <data name="ucrInputCircularPosition.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputCircularPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 21</value>
+  </data>
+  <data name="ucrInputCircularPosition.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCircularPosition.Name" xml:space="preserve">
+    <value>ucrInputCircularPosition</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCircularPosition.Type" xml:space="preserve">
+    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCircularPosition.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCircularPosition.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
   <data name="lblPosition.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -921,6 +831,87 @@
   <data name="&gt;&gt;lblPosition.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <data name="ucrInputPosition.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrInputPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>199, 55</value>
+  </data>
+  <data name="ucrInputPosition.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 21</value>
+  </data>
+  <data name="ucrInputPosition.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;ucrInputPosition.Name" xml:space="preserve">
+    <value>ucrInputPosition</value>
+  </data>
+  <data name="&gt;&gt;ucrInputPosition.Type" xml:space="preserve">
+    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrInputPosition.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrInputPosition.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="ucrChkCircular.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrChkCircular.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 58</value>
+  </data>
+  <data name="ucrChkCircular.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrChkCircular.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 34</value>
+  </data>
+  <data name="ucrChkCircular.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;ucrChkCircular.Name" xml:space="preserve">
+    <value>ucrChkCircular</value>
+  </data>
+  <data name="&gt;&gt;ucrChkCircular.Type" xml:space="preserve">
+    <value>instat.ucrCheck, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrChkCircular.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrChkCircular.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="ucrNudMultSpells.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrNudMultSpells.Location" type="System.Drawing.Point, System.Drawing">
+    <value>194, 21</value>
+  </data>
+  <data name="ucrNudMultSpells.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrNudMultSpells.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="ucrNudMultSpells.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;ucrNudMultSpells.Name" xml:space="preserve">
+    <value>ucrNudMultSpells</value>
+  </data>
+  <data name="&gt;&gt;ucrNudMultSpells.Type" xml:space="preserve">
+    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrNudMultSpells.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrNudMultSpells.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
   <data name="lblRowsMultSpells.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -950,6 +941,60 @@
   </data>
   <data name="&gt;&gt;lblRowsMultSpells.ZOrder" xml:space="preserve">
     <value>15</value>
+  </data>
+  <data name="ucrInputSpellUpper.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrInputSpellUpper.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 50</value>
+  </data>
+  <data name="ucrInputSpellUpper.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputSpellUpper.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 21</value>
+  </data>
+  <data name="ucrInputSpellUpper.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSpellUpper.Name" xml:space="preserve">
+    <value>ucrInputSpellUpper</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSpellUpper.Type" xml:space="preserve">
+    <value>instat.ucrInputTextBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSpellUpper.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSpellUpper.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="ucrInputCondition.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrInputCondition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 50</value>
+  </data>
+  <data name="ucrInputCondition.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputCondition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 21</value>
+  </data>
+  <data name="ucrInputCondition.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCondition.Name" xml:space="preserve">
+    <value>ucrInputCondition</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCondition.Type" xml:space="preserve">
+    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCondition.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCondition.ZOrder" xml:space="preserve">
+    <value>18</value>
   </data>
   <data name="lblCondition.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1011,6 +1056,33 @@
   <data name="&gt;&gt;lblWBEvaporation.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
+  <data name="ucrNudSumOver.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrNudSumOver.Location" type="System.Drawing.Point, System.Drawing">
+    <value>193, 21</value>
+  </data>
+  <data name="ucrNudSumOver.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrNudSumOver.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="ucrNudSumOver.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;ucrNudSumOver.Name" xml:space="preserve">
+    <value>ucrNudSumOver</value>
+  </data>
+  <data name="&gt;&gt;ucrNudSumOver.Type" xml:space="preserve">
+    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrNudSumOver.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrNudSumOver.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
   <data name="lblWBCapacity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1040,6 +1112,138 @@
   </data>
   <data name="&gt;&gt;lblWBCapacity.ZOrder" xml:space="preserve">
     <value>23</value>
+  </data>
+  <data name="ucrNudWBCapacity.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrNudWBCapacity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 21</value>
+  </data>
+  <data name="ucrNudWBCapacity.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrNudWBCapacity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="ucrNudWBCapacity.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ucrNudWBCapacity.Name" xml:space="preserve">
+    <value>ucrNudWBCapacity</value>
+  </data>
+  <data name="&gt;&gt;ucrNudWBCapacity.Type" xml:space="preserve">
+    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrNudWBCapacity.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrNudWBCapacity.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="ucrInputSum.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrInputSum.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 21</value>
+  </data>
+  <data name="ucrInputSum.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputSum.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 21</value>
+  </data>
+  <data name="ucrInputSum.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSum.Name" xml:space="preserve">
+    <value>ucrInputSum</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSum.Type" xml:space="preserve">
+    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSum.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrInputSum.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="ucrNudCountOver.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrNudCountOver.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 21</value>
+  </data>
+  <data name="ucrNudCountOver.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ucrNudCountOver.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="ucrNudCountOver.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;ucrNudCountOver.Name" xml:space="preserve">
+    <value>ucrNudCountOver</value>
+  </data>
+  <data name="&gt;&gt;ucrNudCountOver.Type" xml:space="preserve">
+    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrNudCountOver.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrNudCountOver.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="ucrInputCumulative.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="ucrInputCumulative.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 21</value>
+  </data>
+  <data name="ucrInputCumulative.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="ucrInputCumulative.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 21</value>
+  </data>
+  <data name="ucrInputCumulative.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCumulative.Name" xml:space="preserve">
+    <value>ucrInputCumulative</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCumulative.Type" xml:space="preserve">
+    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCumulative.Parent" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;ucrInputCumulative.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="grpTransform.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 261</value>
+  </data>
+  <data name="grpTransform.Size" type="System.Drawing.Size, System.Drawing">
+    <value>428, 151</value>
+  </data>
+  <data name="grpTransform.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="grpTransform.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="&gt;&gt;grpTransform.Name" xml:space="preserve">
+    <value>grpTransform</value>
+  </data>
+  <data name="&gt;&gt;grpTransform.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpTransform.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpTransform.ZOrder" xml:space="preserve">
+    <value>27</value>
   </data>
   <data name="lblTMin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1477,7 +1681,7 @@
     <value>13</value>
   </data>
   <data name="grpDegree.Location" type="System.Drawing.Point, System.Drawing">
-    <value>389, 99</value>
+    <value>10, 253</value>
   </data>
   <data name="grpDegree.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 151</value>
@@ -1768,7 +1972,7 @@
     <value>True</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>596, 490</value>
+    <value>508, 490</value>
   </data>
   <data name="ucrReceiverStation.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1780,7 +1984,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverStation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverStation.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1864,7 +2068,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverTMin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverTMin.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -1891,7 +2095,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverTMean.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverTMean.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -1918,7 +2122,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverTMax.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverTMax.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -1945,7 +2149,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverData.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -1972,7 +2176,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverYear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverYear.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1999,7 +2203,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="ucrChkUseMaxMin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 24</value>
+    <value>144, 24</value>
   </data>
   <data name="ucrChkUseMaxMin.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -2015,6 +2219,9 @@
   </data>
   <data name="&gt;&gt;ucrChkUseMaxMin.ZOrder" xml:space="preserve">
     <value>24</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
@@ -2065,7 +2272,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="ucrReceiverDate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 20</value>
+    <value>123, 20</value>
   </data>
   <data name="ucrReceiverDate.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -2081,521 +2288,5 @@
   </data>
   <data name="&gt;&gt;ucrReceiverDate.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="ucrNudWB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrNudWB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 81</value>
-  </data>
-  <data name="ucrNudWB.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrNudWB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="ucrNudWB.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWB.Name" xml:space="preserve">
-    <value>ucrNudWB</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWB.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWB.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWB.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ucrChkWB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrChkWB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 81</value>
-  </data>
-  <data name="ucrChkWB.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="ucrChkWB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 23</value>
-  </data>
-  <data name="ucrChkWB.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="&gt;&gt;ucrChkWB.Name" xml:space="preserve">
-    <value>ucrChkWB</value>
-  </data>
-  <data name="&gt;&gt;ucrChkWB.Type" xml:space="preserve">
-    <value>instat.ucrCheck, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrChkWB.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrChkWB.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ucrInputSpellLower.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrInputSpellLower.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 51</value>
-  </data>
-  <data name="ucrInputSpellLower.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputSpellLower.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 21</value>
-  </data>
-  <data name="ucrInputSpellLower.TabIndex" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellLower.Name" xml:space="preserve">
-    <value>ucrInputSpellLower</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellLower.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellLower.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellLower.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ucrChkOptions.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrChkOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>266, 112</value>
-  </data>
-  <data name="ucrChkOptions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrChkOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 34</value>
-  </data>
-  <data name="ucrChkOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="ucrChkOptions.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;ucrChkOptions.Name" xml:space="preserve">
-    <value>ucrChkOptions</value>
-  </data>
-  <data name="&gt;&gt;ucrChkOptions.Type" xml:space="preserve">
-    <value>instat.ucrCheck, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrChkOptions.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrChkOptions.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="ucrReceiverEvap.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrReceiverEvap.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 53</value>
-  </data>
-  <data name="ucrReceiverEvap.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="ucrReceiverEvap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 20</value>
-  </data>
-  <data name="ucrReceiverEvap.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverEvap.Name" xml:space="preserve">
-    <value>ucrReceiverEvap</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverEvap.Type" xml:space="preserve">
-    <value>instat.ucrReceiverSingle, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverEvap.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverEvap.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="ucrInputEvaporation.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrInputEvaporation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 53</value>
-  </data>
-  <data name="ucrInputEvaporation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputEvaporation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 21</value>
-  </data>
-  <data name="ucrInputEvaporation.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;ucrInputEvaporation.Name" xml:space="preserve">
-    <value>ucrInputEvaporation</value>
-  </data>
-  <data name="&gt;&gt;ucrInputEvaporation.Type" xml:space="preserve">
-    <value>instat.ucrInputTextBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputEvaporation.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputEvaporation.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="ucrChkGroupByYear.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrChkGroupByYear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 112</value>
-  </data>
-  <data name="ucrChkGroupByYear.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrChkGroupByYear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 34</value>
-  </data>
-  <data name="ucrChkGroupByYear.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;ucrChkGroupByYear.Name" xml:space="preserve">
-    <value>ucrChkGroupByYear</value>
-  </data>
-  <data name="&gt;&gt;ucrChkGroupByYear.Type" xml:space="preserve">
-    <value>instat.ucrCheck, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrChkGroupByYear.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrChkGroupByYear.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="ucrPnlEvap.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrPnlEvap.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 47</value>
-  </data>
-  <data name="ucrPnlEvap.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrPnlEvap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 29</value>
-  </data>
-  <data name="ucrPnlEvap.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.Name" xml:space="preserve">
-    <value>ucrPnlEvap</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.Type" xml:space="preserve">
-    <value>instat.UcrPanel, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrPnlEvap.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="ucrInputCircularPosition.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrInputCircularPosition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>199, 55</value>
-  </data>
-  <data name="ucrInputCircularPosition.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputCircularPosition.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 21</value>
-  </data>
-  <data name="ucrInputCircularPosition.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.Name" xml:space="preserve">
-    <value>ucrInputCircularPosition</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCircularPosition.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="ucrInputPosition.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrInputPosition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>199, 55</value>
-  </data>
-  <data name="ucrInputPosition.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputPosition.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 21</value>
-  </data>
-  <data name="ucrInputPosition.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.Name" xml:space="preserve">
-    <value>ucrInputPosition</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputPosition.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="ucrChkCircular.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrChkCircular.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 58</value>
-  </data>
-  <data name="ucrChkCircular.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrChkCircular.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 34</value>
-  </data>
-  <data name="ucrChkCircular.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.Name" xml:space="preserve">
-    <value>ucrChkCircular</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.Type" xml:space="preserve">
-    <value>instat.ucrCheck, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrChkCircular.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="ucrNudMultSpells.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrNudMultSpells.Location" type="System.Drawing.Point, System.Drawing">
-    <value>194, 21</value>
-  </data>
-  <data name="ucrNudMultSpells.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrNudMultSpells.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="ucrNudMultSpells.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.Name" xml:space="preserve">
-    <value>ucrNudMultSpells</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudMultSpells.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="ucrInputSpellUpper.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrInputSpellUpper.Location" type="System.Drawing.Point, System.Drawing">
-    <value>285, 50</value>
-  </data>
-  <data name="ucrInputSpellUpper.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputSpellUpper.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 21</value>
-  </data>
-  <data name="ucrInputSpellUpper.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.Name" xml:space="preserve">
-    <value>ucrInputSpellUpper</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.Type" xml:space="preserve">
-    <value>instat.ucrInputTextBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSpellUpper.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="ucrInputCondition.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrInputCondition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 50</value>
-  </data>
-  <data name="ucrInputCondition.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputCondition.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 21</value>
-  </data>
-  <data name="ucrInputCondition.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.Name" xml:space="preserve">
-    <value>ucrInputCondition</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCondition.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="ucrNudSumOver.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrNudSumOver.Location" type="System.Drawing.Point, System.Drawing">
-    <value>193, 21</value>
-  </data>
-  <data name="ucrNudSumOver.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrNudSumOver.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="ucrNudSumOver.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.Name" xml:space="preserve">
-    <value>ucrNudSumOver</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudSumOver.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="ucrNudWBCapacity.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrNudWBCapacity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 21</value>
-  </data>
-  <data name="ucrNudWBCapacity.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrNudWBCapacity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="ucrNudWBCapacity.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.Name" xml:space="preserve">
-    <value>ucrNudWBCapacity</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudWBCapacity.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="ucrInputSum.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrInputSum.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 21</value>
-  </data>
-  <data name="ucrInputSum.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputSum.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 21</value>
-  </data>
-  <data name="ucrInputSum.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.Name" xml:space="preserve">
-    <value>ucrInputSum</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputSum.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="ucrNudCountOver.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrNudCountOver.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 21</value>
-  </data>
-  <data name="ucrNudCountOver.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ucrNudCountOver.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="ucrNudCountOver.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.Name" xml:space="preserve">
-    <value>ucrNudCountOver</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.Type" xml:space="preserve">
-    <value>instat.ucrNud, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrNudCountOver.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="ucrInputCumulative.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="ucrInputCumulative.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 21</value>
-  </data>
-  <data name="ucrInputCumulative.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="ucrInputCumulative.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 21</value>
-  </data>
-  <data name="ucrInputCumulative.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.Name" xml:space="preserve">
-    <value>ucrInputCumulative</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.Type" xml:space="preserve">
-    <value>instat.ucrInputComboBox, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.Parent" xml:space="preserve">
-    <value>grpTransform</value>
-  </data>
-  <data name="&gt;&gt;ucrInputCumulative.ZOrder" xml:space="preserve">
-    <value>28</value>
   </data>
 </root>
