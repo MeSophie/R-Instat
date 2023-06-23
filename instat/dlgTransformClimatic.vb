@@ -230,9 +230,10 @@ Public Class dlgTransformClimatic
         ucrChkWB.SetValuesCheckedAndUnchecked("TRUE", "FALSE")
         ucrChkWB.SetText("Reducing")
 
-        ucrNudWB.SetParameter(New RParameter("WB_evap_value"))
+        ucrNudWB.SetParameter(New RParameter("WB_evap_value", 2))
         ucrNudWB.SetMinMax(0, 1)
         ucrNudWB.Increment = 0.01
+        'ucrChkWB.SetRDefault("0.50")
 
         ' Count
         ucrNudCountOver.SetParameter(New RParameter("width", 1))
@@ -322,7 +323,7 @@ Public Class dlgTransformClimatic
         ucrPnlDegree.AddToLinkedControls(ucrNudHDD, {rdoHeatingDegreeDays}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:=15.0)
         ucrPnlDegree.AddToLinkedControls(ucrNudLimit, {rdoModifiedGDD}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:=30.0)
 
-        ucrChkWB.AddToLinkedControls(ucrNudWB, {True}, bNewLinkedHideIfParameterMissing:=True)
+        ucrChkWB.AddToLinkedControls(ucrNudWB, {True}, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:=0.5)
 
         ucrPnlTransform.AddToLinkedControls({ucrInputCumulative}, {rdoCumulative}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Sum")
         ucrPnlTransform.AddToLinkedControls({ucrNudCountOver}, {rdoCount}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:=1)
@@ -337,7 +338,6 @@ Public Class dlgTransformClimatic
         ucrPnlTransform.AddToLinkedControls({ucrReceiverYear, ucrReceiverData, ucrChkOptions}, {rdoCumulative, rdoCount, rdoMoving, rdoMultSpells, rdoSpell, rdoWaterBalance}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
         ucrPnlTransform.AddToLinkedControls({ucrChkUseMaxMin, ucrPnlDegree}, {rdoDegree}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
         ucrPnlTransform.AddToLinkedControls({ucrChkWB}, {rdoWaterBalance}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
-
         ucrChkCircular.AddToLinkedControls(ucrInputCircularPosition, {True}, bNewLinkedHideIfParameterMissing:=True)
         ucrChkCircular.AddToLinkedControls(ucrInputPosition, {False}, bNewLinkedHideIfParameterMissing:=True)
 
@@ -494,6 +494,7 @@ Public Class dlgTransformClimatic
         clsPMaxOperatorMax.AddParameter("evaporation.value", 5, iPosition:=1)
         clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
         clsPMinFunctionMax.AddParameter("capacity", 60, iPosition:=1, bIncludeArgumentName:=False)
+        clsPMinFunctionMax.AddParameter("WB_evap_value", 0.5, iPosition:=2, bIncludeArgumentName:=False)
         clsRWaterBalanceFunction.AddParameter("replace_na", iPosition:=1, bIncludeArgumentName:=False)
         clsRWaterBalanceFunction.AddParameter("accumulate", "TRUE", iPosition:=2)
         '"Reduce(function(x, y) pmin(pmax(x + y - " & ucrInputEvaporation.GetText & ", 0), " & ucrNudCapacity.Value & "), Rain, accumulate=TRUE)" & Chr(34))
