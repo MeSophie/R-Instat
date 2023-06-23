@@ -233,6 +233,7 @@ Public Class dlgTransformClimatic
         ucrNudWB.SetParameter(New RParameter("WB_evap_value", 2))
         ucrNudWB.SetMinMax(0, 1)
         ucrNudWB.Increment = 0.01
+        ucrNudWB.DecimalPlaces = 2
         'ucrChkWB.SetRDefault("0.50")
 
         ' Count
