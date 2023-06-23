@@ -234,7 +234,6 @@ Public Class dlgTransformClimatic
         ucrNudWB.SetMinMax(0, 1)
         ucrNudWB.Increment = 0.01
         ucrNudWB.DecimalPlaces = 2
-        'ucrChkWB.SetRDefault("0.50")
 
         ' Count
         ucrNudCountOver.SetParameter(New RParameter("width", 1))

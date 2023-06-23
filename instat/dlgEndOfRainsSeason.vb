@@ -305,15 +305,17 @@ Public Class dlgEndOfRainsSeason
 
         ucrNudWB.SetParameter(New RParameter("WB_evap_value"))
         ucrNudWB.SetMinMax(0, 1)
-        ucrNudWB.DecimalPlaces = 0.01
+        'ucrNudWB.DecimalPlaces = 0.01
         ucrNudWB.Increment = 0.01
+        ucrNudWB.DecimalPlaces = 2
+
 
         'linking controls
         ucrChkEndofRainsDoy.AddToLinkedControls(ucrInputEndRainDoy, {True}, bNewLinkedHideIfParameterMissing:=True)
         ucrChkEndofSeasonOccurence.AddToLinkedControls(ucrInputEndofSeasonOccurence, {True}, bNewLinkedHideIfParameterMissing:=True)
         ucrChkEndofSeasonDate.AddToLinkedControls(ucrInputEndofSeasonDate, {True}, bNewLinkedHideIfParameterMissing:=True)
         ucrChkEndofSeasonDoy.AddToLinkedControls(ucrInputSeasonDoy, {True}, bNewLinkedHideIfParameterMissing:=True)
-        ucrChkWB.AddToLinkedControls(ucrNudWB, {True}, bNewLinkedHideIfParameterMissing:=True)
+        ucrChkWB.AddToLinkedControls(ucrNudWB, {True}, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:=0.5)
         ucrPnlEvaporation.AddToLinkedControls(ucrInputEvaporation, {rdoValueEvaporation}, bNewLinkedHideIfParameterMissing:=True)
         ucrPnlEvaporation.AddToLinkedControls(ucrReceiverEvaporation, {rdoVariableEvaporation}, bNewLinkedHideIfParameterMissing:=True)
         ucrPnlEvaporation.AddToLinkedControls(ucrInputReplaceNA, {rdoVariableEvaporation}, bNewLinkedHideIfParameterMissing:=True)
