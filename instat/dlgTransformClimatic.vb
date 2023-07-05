@@ -796,7 +796,8 @@ Public Class dlgTransformClimatic
             clsRTransform.RemoveParameterByName("sub_calculations")
             clsTransformCheck = clsRTransform
         End If
-        Evaporation()
+        ReduceWaterBalance()
+        'Evaporation()
         AddCalculate()
         SetAssignName()
         GroupByStation()
@@ -918,28 +919,29 @@ Public Class dlgTransformClimatic
         clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")", iPosition:=3)
     End Sub
 
-    Private Sub Evaporation()
-        If rdoWaterBalance.Checked Then
-            If rdoEvapValue.Checked Then
-                ucrReceiverData.SetMeAsReceiver()
-                clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
-                clsPMaxOperatorMax.AddParameter("evaporation.value", 5, iPosition:=1, bIncludeArgumentName:=False)
-            ElseIf rdoEvapVariable.Checked Then
-                ucrReceiverEvap.SetMeAsReceiver()
-                clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ", " & strCurrDataName & "=" & ucrReceiverEvap.GetVariableNames & ")")
-                clsReduceOpEvapValue.SetOperation("-")
-                clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
-                clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-            End If
-        End If
-    End Sub
+    'Private Sub Evaporation()
+    '    If rdoWaterBalance.Checked Then
+    '        If rdoEvapValue.Checked Then
+    '            ucrReceiverData.SetMeAsReceiver()
+    '            clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
+    '            clsPMaxOperatorMax.AddParameter("evaporation.value", 5, iPosition:=1, bIncludeArgumentName:=False)
+    '        ElseIf rdoEvapVariable.Checked Then
+    '            ucrReceiverEvap.SetMeAsReceiver()
+    '            clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ", " & strCurrDataName & "=" & ucrReceiverEvap.GetVariableNames & ")")
+    '            clsReduceOpEvapValue.SetOperation("-")
+    '            clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
+    '            clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
+    '        End If
+    '    End If
+    'End Sub
 
     Private Sub ucrSelectorTransform_ControlValueChanged(ucrchangedControl As ucrCore) Handles ucrSelectorTransform.ControlValueChanged
         strCurrDataName = Chr(34) & ucrSelectorTransform.ucrAvailableDataFrames.cboAvailableDataFrames.SelectedItem & Chr(34)
         RainDays()
         GroupByYear()
         GroupByStation()
-        Evaporation()
+        'Evaporation()
+        ReduceWaterBalance()
         ChangeFunctions()
         AddCalculate()
     End Sub
@@ -950,7 +952,8 @@ Public Class dlgTransformClimatic
 
     Private Sub ucrReceiverData_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverData.ControlValueChanged, ucrReceiverEvap.ControlValueChanged
         RainDays()
-        Evaporation()
+        'Evaporation()
+        ReduceWaterBalance()
     End Sub
 
     Private Sub ucrReceiverStation_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverStation.ControlValueChanged
@@ -972,7 +975,8 @@ Public Class dlgTransformClimatic
     End Sub
 
     Private Sub ucrInputEvaporation_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrInputEvaporation.ControlContentsChanged, ucrPnlEvap.ControlContentsChanged
-        Evaporation()
+        'Evaporation()
+        ReduceWaterBalance()
     End Sub
 
     Private Sub RasterFunction()
@@ -1103,22 +1107,31 @@ Public Class dlgTransformClimatic
         AddRemoveMeanOperator()
         AddCalculate()
     End Sub
+    Private Sub ReduceWaterBalance()
+        If rdoWaterBalance.Checked Then
+            If ucrChkWB.Checked AndAlso rdoEvapValue.Checked Then
+                ucrReceiverData.SetMeAsReceiver()
+                clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
+                clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
+                clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
 
-    Private Sub ucrChkWB_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkWB.ControlValueChanged
-        If ucrChkWB.Checked Then
+                clsPMaxOperatorMax.RemoveParameterByName("first")
+                clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
+            ElseIf rdoEvapVariable.Checked AndAlso ucrChkWB.Checked Then
+                ucrReceiverEvap.SetMeAsReceiver()
+                clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ", " & strCurrDataName & "=" & ucrReceiverEvap.GetVariableNames & ")")
+                clsReduceOpEvapValue.SetOperation("-")
+                clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
+                clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
+                clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
 
-            ' pmax(y - WB_evaporation(x, frac, capacity, evaporation_value, y) + x, 0)
-            clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
-            clsPMaxFunctionMax.RemoveParameterByName("first")
-            clsPMaxFunctionMax.RemoveParameterByName("evaporation.value")
-            clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
-        Else
-            clsPMaxFunctionMax.RemoveParameterByName("wb")
+                clsPMaxOperatorMax.RemoveParameterByName("first")
+                clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
+            End If
         End If
     End Sub
 
-    '    group_by_station <- instat_calculation$New(type="by", calculated_from=list("Data"="Name"))
-    'transform_calculation <- instat_calculation$New(type="calculation", function_exp="Reduce(function(x, y) pmin(pmax(x + y - 5, 0), 60), rain, accumulate=TRUE)", result_name="water", manipulations=list(group_by_station), save=2, before=FALSE, calculated_from=list("Data"="rain"), adjacent_column="rain")
-    'data_book$run_instat_calculation(calc = transform_calculation, display = False)
-    'rm(list=c("transform_calculation", "group_by_station"))
+    Private Sub ucrChkWB_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkWB.ControlValueChanged
+        ReduceWaterBalance()
+    End Sub
 End Class
