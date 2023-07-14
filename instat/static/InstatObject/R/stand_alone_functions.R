@@ -2902,6 +2902,26 @@ get_vignette <- function (package = NULL, lib.loc = NULL, all = TRUE)
   else return(sprintf("file://%s", file))
 }
 
-
+WB_evaporation <- function(water_balance, frac, capacity, evaporation_value, rain){
+  if (water_balance >= frac*capacity){
+    evaporation <- evaporation_value
+  } else {
+    if (rain == 0){
+      evaporation <- evaporation_value * ((water_balance)/(frac*capacity))
+    } else {
+      if (water_balance < frac*capacity){
+        if (rain > evaporation_value){
+          evaporation <- evaporation_value
+        } else {
+          evaporation <- evaporation_value * ((water_balance)/(frac*capacity))
+          evaporation <- evaporation + ((evaporation_value - evaporation)*(rain/evaporation_value))
+        }
+      } else {
+        evaporation <- evaporation_value
+        }
+    }
+  }
+  return(evaporation)
+}
 
 

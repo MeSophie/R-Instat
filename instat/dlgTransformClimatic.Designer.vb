@@ -712,16 +712,16 @@ Partial Class dlgTransformClimatic
         Me.Controls.Add(Me.lblDate)
         Me.Controls.Add(Me.ucrReceiverTMin)
         Me.Controls.Add(Me.grpDegree)
-        Me.Controls.Add(Me.ucrReceiverTMean)
         Me.Controls.Add(Me.lblTMin)
         Me.Controls.Add(Me.lblTMax)
-        Me.Controls.Add(Me.ucrReceiverTMax)
         Me.Controls.Add(Me.ucrReceiverData)
         Me.Controls.Add(Me.ucrReceiverYear)
         Me.Controls.Add(Me.ucrChkUseMaxMin)
         Me.Controls.Add(Me.lblTMean)
         Me.Controls.Add(Me.lblData)
         Me.Controls.Add(Me.grpTransform)
+        Me.Controls.Add(Me.ucrReceiverTMean)
+        Me.Controls.Add(Me.ucrReceiverTMax)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False

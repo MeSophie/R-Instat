@@ -238,7 +238,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblData.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>24</value>
   </data>
   <data name="rdoSpell.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1243,7 +1243,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;grpTransform.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>25</value>
   </data>
   <data name="lblTMin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1273,7 +1273,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblTMin.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>18</value>
   </data>
   <data name="ucrNudLimit.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1858,7 +1858,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblTMax.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>19</value>
   </data>
   <data name="lblTMean.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1888,7 +1888,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblTMean.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>23</value>
   </data>
   <metadata name="ttRdoRange.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -2085,60 +2085,6 @@
   <data name="&gt;&gt;ucrReceiverTMin.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
-  <data name="ucrReceiverTMean.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrReceiverTMean.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 230</value>
-  </data>
-  <data name="ucrReceiverTMean.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="ucrReceiverTMean.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 20</value>
-  </data>
-  <data name="ucrReceiverTMean.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMean.Name" xml:space="preserve">
-    <value>ucrReceiverTMean</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMean.Type" xml:space="preserve">
-    <value>instat.ucrReceiverSingle, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMean.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMean.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="ucrReceiverTMax.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ucrReceiverTMax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 230</value>
-  </data>
-  <data name="ucrReceiverTMax.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="ucrReceiverTMax.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 20</value>
-  </data>
-  <data name="ucrReceiverTMax.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMax.Name" xml:space="preserve">
-    <value>ucrReceiverTMax</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMax.Type" xml:space="preserve">
-    <value>instat.ucrReceiverSingle, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMax.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ucrReceiverTMax.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
   <data name="ucrReceiverData.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2164,7 +2110,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ucrReceiverData.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>20</value>
   </data>
   <data name="ucrReceiverYear.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2191,7 +2137,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ucrReceiverYear.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>21</value>
   </data>
   <data name="ucrChkUseMaxMin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2218,7 +2164,61 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ucrChkUseMaxMin.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>22</value>
+  </data>
+  <data name="ucrReceiverTMean.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrReceiverTMean.Location" type="System.Drawing.Point, System.Drawing">
+    <value>261, 230</value>
+  </data>
+  <data name="ucrReceiverTMean.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="ucrReceiverTMean.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 20</value>
+  </data>
+  <data name="ucrReceiverTMean.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMean.Name" xml:space="preserve">
+    <value>ucrReceiverTMean</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMean.Type" xml:space="preserve">
+    <value>instat.ucrReceiverSingle, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMean.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMean.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="ucrReceiverTMax.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ucrReceiverTMax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>261, 230</value>
+  </data>
+  <data name="ucrReceiverTMax.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="ucrReceiverTMax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 20</value>
+  </data>
+  <data name="ucrReceiverTMax.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMax.Name" xml:space="preserve">
+    <value>ucrReceiverTMax</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMax.Type" xml:space="preserve">
+    <value>instat.ucrReceiverSingle, instat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMax.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ucrReceiverTMax.ZOrder" xml:space="preserve">
+    <value>27</value>
   </data>
   <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
