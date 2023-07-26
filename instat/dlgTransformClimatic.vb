@@ -1114,7 +1114,6 @@ Public Class dlgTransformClimatic
         AddCalculate()
     End Sub
     Private Sub ReduceWaterBalance()
-        'If rdoWaterBalance.Checked Then
         If rdoWaterBalance.Checked Then
             If rdoEvapValue.Checked Then
                 ucrReceiverData.SetMeAsReceiver()
@@ -1139,50 +1138,6 @@ Public Class dlgTransformClimatic
                 clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
             End If
         End If
-        'If ucrChkWB.Checked AndAlso rdoEvapValue.Checked Then
-        'ucrReceiverData.SetMeAsReceiver()
-        'clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
-        'clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
-        'clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
-        'clsPMaxOperatorMax.RemoveParameterByName("first")
-        'clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-        ''clsPMinFunctionMax.AddParameter("x", clsRFunctionParameter:=clsTailFunction, iPosition:=1)
-        ''clsRWaterBalanceFunction.AddParameter("accumulate", "TRUE", iPosition:=2)
-        'clsRWaterBalanceFunction.AddParameter("replace_na", clsRFunctionParameter:=clsTailFunction, iPosition:=2, bIncludeArgumentName:=False)
-        '    ElseIf ucrChkWB.Checked AndAlso rdoEvapVariable.Checked Then
-        '        ucrReceiverData.SetMeAsReceiver()
-        '        clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
-        '        clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
-        '        clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
-        '        clsPMaxOperatorMax.RemoveParameterByName("first")
-        '        clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-        '        'clsPMinFunctionMax.AddParameter("x", clsRFunctionParameter:=clsTailFunction, iPosition:=1)
-        '        'clsRWaterBalanceFunction.AddParameter("accumulate", "TRUE", iPosition:=2)
-        '        clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
-
-
-        '        'ucrReceiverEvap.SetMeAsReceiver()
-        '        'clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ", " & strCurrDataName & "=" & ucrReceiverEvap.GetVariableNames & ")")
-        '        'clsReduceOpEvapValue.SetOperation("-")
-        '        'clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
-        '        'clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
-        '        'clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
-
-        '        'clsPMaxOperatorMax.RemoveParameterByName("first")
-        '        'clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-        '    ElseIf Not ucrChkWB.Checked Then
-        '        ucrReceiverData.SetMeAsReceiver()
-        '        clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
-        '        clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
-        '        'clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
-        '        clsPMaxOperatorMax.RemoveParameterByName("wb")
-        '        clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-        '        'clsPMinFunctionMax.AddParameter("x", clsRFunctionParameter:=clsTailFunction, iPosition:=1)
-        '        'clsRWaterBalanceFunction.AddParameter("accumulate", "TRUE", iPosition:=2)
-        '        clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
-
-        '    End If
-        'End If
     End Sub
 
     Private Sub ucrChkWB_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkWB.ControlValueChanged
