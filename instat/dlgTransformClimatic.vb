@@ -498,7 +498,6 @@ Public Class dlgTransformClimatic
         clsPMinFunctionMax.AddParameter("capacity", 60, iPosition:=1, bIncludeArgumentName:=False)
         clsRWaterBalanceFunction.AddParameter("replace_na", iPosition:=1, bIncludeArgumentName:=False)
         clsRWaterBalanceFunction.AddParameter("accumulate", "TRUE", iPosition:=2)
-        '"Reduce(function(x, y) pmin(pmax(x + y - " & ucrInputEvaporation.GetText & ", 0), " & ucrNudCapacity.Value & "), Rain, accumulate=TRUE)" & Chr(34))
 
         clsWBOperator.SetOperation("-")
         clsWBOperator.AddParameter("left", "x + y", iPosition:=0)
@@ -512,7 +511,6 @@ Public Class dlgTransformClimatic
         clsWBEvaporation.AddParameter("capacity", 60, iPosition:=2, bIncludeArgumentName:=False)
         clsWBEvaporation.AddParameter("evaporation_value", 5, iPosition:=3, bIncludeArgumentName:=False)
         clsWBEvaporation.AddParameter("rain", "rain", iPosition:=4, bIncludeArgumentName:=False)
-        'clsWBEvaporation.AddParameter("y", "y", iPosition:=4, bIncludeArgumentName:=False)
 
         clsTailFunction.SetPackageName("utils")
         clsTailFunction.SetRCommand("tail")
@@ -925,28 +923,11 @@ Public Class dlgTransformClimatic
         clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")", iPosition:=3)
     End Sub
 
-    'Private Sub Evaporation()
-    '    If rdoWaterBalance.Checked Then
-    '        If rdoEvapValue.Checked Then
-    '            ucrReceiverData.SetMeAsReceiver()
-    '            clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
-    '            clsPMaxOperatorMax.AddParameter("evaporation.value", 5, iPosition:=1, bIncludeArgumentName:=False)
-    '        ElseIf rdoEvapVariable.Checked Then
-    '            ucrReceiverEvap.SetMeAsReceiver()
-    '            clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ", " & strCurrDataName & "=" & ucrReceiverEvap.GetVariableNames & ")")
-    '            clsReduceOpEvapValue.SetOperation("-")
-    '            clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
-    '            clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-    '        End If
-    '    End If
-    'End Sub
-
     Private Sub ucrSelectorTransform_ControlValueChanged(ucrchangedControl As ucrCore) Handles ucrSelectorTransform.ControlValueChanged
         strCurrDataName = Chr(34) & ucrSelectorTransform.ucrAvailableDataFrames.cboAvailableDataFrames.SelectedItem & Chr(34)
         RainDays()
         GroupByYear()
         GroupByStation()
-        'Evaporation()
         ReduceWaterBalance()
         ChangeFunctions()
         AddCalculate()
@@ -958,7 +939,6 @@ Public Class dlgTransformClimatic
 
     Private Sub ucrReceiverData_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverData.ControlValueChanged, ucrReceiverEvap.ControlValueChanged
         RainDays()
-        'Evaporation()
         ReduceWaterBalance()
     End Sub
 
@@ -981,7 +961,6 @@ Public Class dlgTransformClimatic
     End Sub
 
     Private Sub ucrInputEvaporation_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrInputEvaporation.ControlContentsChanged, ucrPnlEvap.ControlContentsChanged
-        'Evaporation()
         ReduceWaterBalance()
     End Sub
 

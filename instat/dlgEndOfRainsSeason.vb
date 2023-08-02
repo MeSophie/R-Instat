@@ -624,23 +624,7 @@ Public Class dlgEndOfRainsSeason
 
         clsWBEvaporationMinFunction.SetRCommand("WB_evaporation")
         clsWBEvaporationMinFunction.AddParameter("water_balance", "x", iPosition:=0, bIncludeArgumentName:=False)
-        'clsWBEvaporationMinFunction.AddParameter("WB_evap_value", 0.5, iPosition:=1, bIncludeArgumentName:=False)
-        'clsWBEvaporationMinFunction.AddParameter("yes", 100, iPosition:=2, bIncludeArgumentName:=False)
-        'clsWBEvaporationMinFunction.AddParameter("value", 5, iPosition:=3, bIncludeArgumentName:=False)
         clsWBEvaporationMinFunction.AddParameter("y", "y", iPosition:=4, bIncludeArgumentName:=False)
-
-        'clsWBOperator2.SetOperation("-")
-        'clsWBOperator2.AddParameter("left", "x + y", iPosition:=0)
-        'clsWBOperator2.AddParameter("right", clsRFunctionParameter:=clsWBEvaporationMaxFunction, iPosition:=1)
-        'clsWBOperator2.bSpaceAroundOperation = True
-        'clsWBOperator2.bBrackets = False
-
-        'clsWBEvaporationMaxFunction.SetRCommand("WB_evaporation")
-        'clsWBEvaporationMaxFunction.AddParameter("water_balance", "x", iPosition:=0, bIncludeArgumentName:=False)
-        'clsWBEvaporationMaxFunction.AddParameter("WB_evap_value", 0.5, iPosition:=1, bIncludeArgumentName:=False)
-        'clsWBEvaporationMaxFunction.AddParameter("capacity", 100, iPosition:=2, bIncludeArgumentName:=False)
-        'clsWBEvaporationMaxFunction.AddParameter("value", 5, iPosition:=3, bIncludeArgumentName:=False)
-        'clsWBEvaporationMaxFunction.AddParameter("y", "y", iPosition:=4, bIncludeArgumentName:=False)
 
         clsEndRainsCombinationSubCalcList.SetRCommand("list")
         clsEndRainsCombinationSubCalcList.AddParameter("sub1", clsRFunctionParameter:=clsEndRainsLastDoySummaryCalc, bIncludeArgumentName:=False, iPosition:=0)
@@ -1126,44 +1110,4 @@ Public Class dlgEndOfRainsSeason
     Private Sub rdoValueEvaporation_CheckedChanged(sender As Object, e As EventArgs) Handles rdoValueEvaporation.CheckedChanged, rdoVariableEvaporation.CheckedChanged
         Evaporation()
     End Sub
-
-    'Private Sub ReduceWaterBalance()
-    '    If rdoEndOfSeasons.Checked Then
-
-    '        If rdoValueEvaporation.Checked Then
-    '            ucrReceiverRainfall.SetMeAsReceiver()
-    '            clsEndRainsRollingSumCalc.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverRainfall.GetVariableNames & ")", iPosition:=3)
-    '            clsEndSeasonRainMinCalc.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverRainfall.GetVariableNames & ")", iPosition:=3)
-    '            clsEndSeasonRainMaxCalc.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverRainfall.GetVariableNames & ")", iPosition:=3)
-    '            '            clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ")")
-    '            If ucrChkWB.Checked Then
-
-    '            End If
-
-    '            '            If ucrChkWB.Checked Then
-    '            '                clsPMaxFunctionMax.AddParameter("0", 0, iPosition:=1, bIncludeArgumentName:=False)
-    '            'clsPMaxOperatorMax.AddParameter("wb", clsROperatorParameter:=clsWBOperator, iPosition:=0, bIncludeArgumentName:=False)
-    '            '                clsPMaxOperatorMax.RemoveParameterByName("first")
-    '            '                clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-    '            '                clsRWaterBalanceFunction.AddParameter("replace_na", clsRFunctionParameter:=clsTailFunction, iPosition:=2, bIncludeArgumentName:=False)
-    '            '                clsRWaterBalanceFunction.AddParameter("init", "0", iPosition:=3, bIncludeArgumentName:=False)
-    '            '            Else
-    '            '                clsPMaxOperatorMax.AddParameter("evaporation.value", 5, iPosition:=1, bIncludeArgumentName:=False)
-    '            '                clsPMaxFunctionMax.RemoveParameterByName("wb")
-    '            '            End If
-
-    '        ElseIf rdoVariableEvaporation.Checked Then
-    '            ucrReceiverRainfall.SetMeAsReceiver()
-    '            clsEndRainsRollingSumCalc.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverRainfall.GetVariableNames & ")", iPosition:=3)
-    '            clsEndSeasonRainMinCalc.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverRainfall.GetVariableNames & ")", iPosition:=3)
-    '            clsEndSeasonRainMaxCalc.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverRainfall.GetVariableNames & ")", iPosition:=3)
-    '            '            clsRTransform.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverData.GetVariableNames & ", " & strCurrDataName & "=" & ucrReceiverEvap.GetVariableNames & ")")
-    '            clsWBMinEvapOperator.SetOperation("-")
-    '            clsWBMaxEvapOperator.SetOperation("-")
-    '            '            clsRWaterBalanceFunction.AddParameter("replace_na", clsROperatorParameter:=clsReduceOpEvapValue, iPosition:=1, bIncludeArgumentName:=False)
-    '            '            clsPMaxOperatorMax.RemoveParameterByName("evaporation.value")
-    '            '        End If
-    '        End If
-    '    End If
-    'End Sub
 End Class
