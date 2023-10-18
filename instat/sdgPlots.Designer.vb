@@ -199,6 +199,17 @@ Partial Class sdgPlots
         Me.ucrReceiverY = New instat.ucrReceiverSingle()
         Me.ttCaptionTitle = New System.Windows.Forms.ToolTip(Me.components)
         Me.ucrBaseSubdialog = New instat.ucrButtonsSubdialogue()
+        Me.ucrInputColorType = New instat.ucrInputComboBox()
+        Me.lblPalette = New System.Windows.Forms.Label()
+        Me.ucrInputPalettes = New instat.ucrInputComboBox()
+        Me.rdoQualitative = New System.Windows.Forms.RadioButton()
+        Me.rdoSequential = New System.Windows.Forms.RadioButton()
+        Me.rdoDiverging = New System.Windows.Forms.RadioButton()
+        Me.ucrPnlColourPalette = New instat.UcrPanel()
+        Me.rdoGgthemes = New System.Windows.Forms.RadioButton()
+        Me.rdoViridis = New System.Windows.Forms.RadioButton()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.UcrInputComboBox1 = New instat.ucrInputComboBox()
         Me.tbpPlotsOptions.SuspendLayout()
         Me.tbpFacet.SuspendLayout()
         Me.tbpLayers.SuspendLayout()
@@ -446,7 +457,7 @@ Partial Class sdgPlots
         Me.tbpLayers.Location = New System.Drawing.Point(4, 22)
         Me.tbpLayers.Name = "tbpLayers"
         Me.tbpLayers.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpLayers.Size = New System.Drawing.Size(669, 455)
+        Me.tbpLayers.Size = New System.Drawing.Size(1375, 710)
         Me.tbpLayers.TabIndex = 4
         Me.tbpLayers.Tag = "Layers"
         Me.tbpLayers.Text = "Layers"
@@ -489,7 +500,7 @@ Partial Class sdgPlots
         Me.tbpTitles.Location = New System.Drawing.Point(4, 22)
         Me.tbpTitles.Name = "tbpTitles"
         Me.tbpTitles.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpTitles.Size = New System.Drawing.Size(669, 455)
+        Me.tbpTitles.Size = New System.Drawing.Size(1375, 710)
         Me.tbpTitles.TabIndex = 2
         Me.tbpTitles.Tag = "Titles"
         Me.tbpTitles.Text = "Titles"
@@ -833,7 +844,7 @@ Partial Class sdgPlots
         Me.tbpXAxis.Location = New System.Drawing.Point(4, 22)
         Me.tbpXAxis.Name = "tbpXAxis"
         Me.tbpXAxis.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpXAxis.Size = New System.Drawing.Size(669, 455)
+        Me.tbpXAxis.Size = New System.Drawing.Size(1375, 710)
         Me.tbpXAxis.TabIndex = 5
         Me.tbpXAxis.Text = "X-Axis"
         Me.tbpXAxis.UseVisualStyleBackColor = True
@@ -852,7 +863,7 @@ Partial Class sdgPlots
         Me.tbpYAxis.Location = New System.Drawing.Point(4, 22)
         Me.tbpYAxis.Name = "tbpYAxis"
         Me.tbpYAxis.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpYAxis.Size = New System.Drawing.Size(669, 455)
+        Me.tbpYAxis.Size = New System.Drawing.Size(1375, 710)
         Me.tbpYAxis.TabIndex = 6
         Me.tbpYAxis.Text = "Y-Axis"
         Me.tbpYAxis.UseVisualStyleBackColor = True
@@ -876,7 +887,7 @@ Partial Class sdgPlots
         Me.tbpTheme.Location = New System.Drawing.Point(4, 22)
         Me.tbpTheme.Name = "tbpTheme"
         Me.tbpTheme.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpTheme.Size = New System.Drawing.Size(669, 455)
+        Me.tbpTheme.Size = New System.Drawing.Size(1375, 710)
         Me.tbpTheme.TabIndex = 1
         Me.tbpTheme.Tag = "Theme"
         Me.tbpTheme.Text = "Themes"
@@ -1090,7 +1101,7 @@ Partial Class sdgPlots
         Me.tbpCoordinates.Location = New System.Drawing.Point(4, 22)
         Me.tbpCoordinates.Name = "tbpCoordinates"
         Me.tbpCoordinates.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpCoordinates.Size = New System.Drawing.Size(669, 455)
+        Me.tbpCoordinates.Size = New System.Drawing.Size(1375, 710)
         Me.tbpCoordinates.TabIndex = 7
         Me.tbpCoordinates.Text = "Coordinates"
         Me.tbpCoordinates.UseVisualStyleBackColor = True
@@ -1202,6 +1213,17 @@ Partial Class sdgPlots
         '
         'tbpColour
         '
+        Me.tbpColour.Controls.Add(Me.Label1)
+        Me.tbpColour.Controls.Add(Me.UcrInputComboBox1)
+        Me.tbpColour.Controls.Add(Me.rdoGgthemes)
+        Me.tbpColour.Controls.Add(Me.rdoViridis)
+        Me.tbpColour.Controls.Add(Me.lblPalette)
+        Me.tbpColour.Controls.Add(Me.ucrInputPalettes)
+        Me.tbpColour.Controls.Add(Me.rdoQualitative)
+        Me.tbpColour.Controls.Add(Me.rdoSequential)
+        Me.tbpColour.Controls.Add(Me.rdoDiverging)
+        Me.tbpColour.Controls.Add(Me.ucrPnlColourPalette)
+        Me.tbpColour.Controls.Add(Me.ucrInputColorType)
         Me.tbpColour.Controls.Add(Me.ucrChkAddColour)
         Me.tbpColour.Controls.Add(Me.ucrChkAddFillScale)
         Me.tbpColour.Controls.Add(Me.grpColourScale)
@@ -1218,7 +1240,7 @@ Partial Class sdgPlots
         '
         Me.ucrChkAddColour.AutoSize = True
         Me.ucrChkAddColour.Checked = False
-        Me.ucrChkAddColour.Location = New System.Drawing.Point(23, 210)
+        Me.ucrChkAddColour.Location = New System.Drawing.Point(23, 382)
         Me.ucrChkAddColour.Name = "ucrChkAddColour"
         Me.ucrChkAddColour.Size = New System.Drawing.Size(326, 23)
         Me.ucrChkAddColour.TabIndex = 27
@@ -1227,7 +1249,7 @@ Partial Class sdgPlots
         '
         Me.ucrChkAddFillScale.AutoSize = True
         Me.ucrChkAddFillScale.Checked = False
-        Me.ucrChkAddFillScale.Location = New System.Drawing.Point(23, 6)
+        Me.ucrChkAddFillScale.Location = New System.Drawing.Point(23, 150)
         Me.ucrChkAddFillScale.Name = "ucrChkAddFillScale"
         Me.ucrChkAddFillScale.Size = New System.Drawing.Size(326, 23)
         Me.ucrChkAddFillScale.TabIndex = 26
@@ -1244,7 +1266,7 @@ Partial Class sdgPlots
         Me.grpColourScale.Controls.Add(Me.lblColourScaleMapBegins)
         Me.grpColourScale.Controls.Add(Me.lblColourScalePalette)
         Me.grpColourScale.Controls.Add(Me.lblColourScaleTransparency)
-        Me.grpColourScale.Location = New System.Drawing.Point(13, 236)
+        Me.grpColourScale.Location = New System.Drawing.Point(13, 466)
         Me.grpColourScale.Name = "grpColourScale"
         Me.grpColourScale.Size = New System.Drawing.Size(444, 181)
         Me.grpColourScale.TabIndex = 25
@@ -1371,7 +1393,7 @@ Partial Class sdgPlots
         Me.grpFillScale.Controls.Add(Me.lblFillScaleBeginColour)
         Me.grpFillScale.Controls.Add(Me.lblFillScaleColourPalettte)
         Me.grpFillScale.Controls.Add(Me.lblFillScaleTransparency)
-        Me.grpFillScale.Location = New System.Drawing.Point(13, 30)
+        Me.grpFillScale.Location = New System.Drawing.Point(13, 192)
         Me.grpFillScale.Name = "grpFillScale"
         Me.grpFillScale.Size = New System.Drawing.Size(444, 174)
         Me.grpFillScale.TabIndex = 23
@@ -1493,7 +1515,7 @@ Partial Class sdgPlots
         Me.tbpAnnotation.Location = New System.Drawing.Point(4, 22)
         Me.tbpAnnotation.Name = "tbpAnnotation"
         Me.tbpAnnotation.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpAnnotation.Size = New System.Drawing.Size(669, 455)
+        Me.tbpAnnotation.Size = New System.Drawing.Size(1375, 710)
         Me.tbpAnnotation.TabIndex = 9
         Me.tbpAnnotation.Text = "Annotation"
         Me.tbpAnnotation.UseVisualStyleBackColor = True
@@ -2048,10 +2070,171 @@ Partial Class sdgPlots
         'ucrBaseSubdialog
         '
         Me.ucrBaseSubdialog.AutoSize = True
-        Me.ucrBaseSubdialog.Location = New System.Drawing.Point(232, 490)
+        Me.ucrBaseSubdialog.Location = New System.Drawing.Point(232, 688)
         Me.ucrBaseSubdialog.Name = "ucrBaseSubdialog"
         Me.ucrBaseSubdialog.Size = New System.Drawing.Size(224, 29)
         Me.ucrBaseSubdialog.TabIndex = 1
+        '
+        'ucrInputColorType
+        '
+        Me.ucrInputColorType.AddQuotesIfUnrecognised = True
+        Me.ucrInputColorType.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputColorType.GetSetSelectedIndex = -1
+        Me.ucrInputColorType.IsReadOnly = False
+        Me.ucrInputColorType.Location = New System.Drawing.Point(379, 26)
+        Me.ucrInputColorType.Name = "ucrInputColorType"
+        Me.ucrInputColorType.Size = New System.Drawing.Size(137, 24)
+        Me.ucrInputColorType.TabIndex = 11
+        '
+        'lblPalette
+        '
+        Me.lblPalette.AutoSize = True
+        Me.lblPalette.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblPalette.Location = New System.Drawing.Point(100, 91)
+        Me.lblPalette.Name = "lblPalette"
+        Me.lblPalette.Size = New System.Drawing.Size(43, 13)
+        Me.lblPalette.TabIndex = 33
+        Me.lblPalette.Text = "Palette:"
+        '
+        'ucrInputPalettes
+        '
+        Me.ucrInputPalettes.AddQuotesIfUnrecognised = True
+        Me.ucrInputPalettes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputPalettes.GetSetSelectedIndex = -1
+        Me.ucrInputPalettes.IsReadOnly = False
+        Me.ucrInputPalettes.Location = New System.Drawing.Point(149, 87)
+        Me.ucrInputPalettes.Name = "ucrInputPalettes"
+        Me.ucrInputPalettes.Size = New System.Drawing.Size(146, 26)
+        Me.ucrInputPalettes.TabIndex = 32
+        '
+        'rdoQualitative
+        '
+        Me.rdoQualitative.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoQualitative.BackColor = System.Drawing.SystemColors.Control
+        Me.rdoQualitative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.rdoQualitative.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoQualitative.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoQualitative.FlatAppearance.BorderSize = 2
+        Me.rdoQualitative.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoQualitative.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoQualitative.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.rdoQualitative.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.rdoQualitative.Location = New System.Drawing.Point(277, 51)
+        Me.rdoQualitative.Name = "rdoQualitative"
+        Me.rdoQualitative.Size = New System.Drawing.Size(91, 29)
+        Me.rdoQualitative.TabIndex = 31
+        Me.rdoQualitative.Text = "Qualitative"
+        Me.rdoQualitative.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoQualitative.UseVisualStyleBackColor = True
+        '
+        'rdoSequential
+        '
+        Me.rdoSequential.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoSequential.BackColor = System.Drawing.SystemColors.Control
+        Me.rdoSequential.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.rdoSequential.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoSequential.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoSequential.FlatAppearance.BorderSize = 2
+        Me.rdoSequential.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoSequential.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoSequential.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.rdoSequential.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.rdoSequential.Location = New System.Drawing.Point(99, 51)
+        Me.rdoSequential.Name = "rdoSequential"
+        Me.rdoSequential.Size = New System.Drawing.Size(91, 29)
+        Me.rdoSequential.TabIndex = 29
+        Me.rdoSequential.Text = "Sequential"
+        Me.rdoSequential.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoSequential.UseVisualStyleBackColor = True
+        '
+        'rdoDiverging
+        '
+        Me.rdoDiverging.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoDiverging.BackColor = System.Drawing.SystemColors.Control
+        Me.rdoDiverging.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.rdoDiverging.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoDiverging.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoDiverging.FlatAppearance.BorderSize = 2
+        Me.rdoDiverging.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoDiverging.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoDiverging.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.rdoDiverging.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.rdoDiverging.Location = New System.Drawing.Point(188, 51)
+        Me.rdoDiverging.Name = "rdoDiverging"
+        Me.rdoDiverging.Size = New System.Drawing.Size(91, 29)
+        Me.rdoDiverging.TabIndex = 30
+        Me.rdoDiverging.Text = "Diverging"
+        Me.rdoDiverging.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoDiverging.UseVisualStyleBackColor = True
+        '
+        'ucrPnlColourPalette
+        '
+        Me.ucrPnlColourPalette.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrPnlColourPalette.Location = New System.Drawing.Point(99, 51)
+        Me.ucrPnlColourPalette.Name = "ucrPnlColourPalette"
+        Me.ucrPnlColourPalette.Size = New System.Drawing.Size(463, 29)
+        Me.ucrPnlColourPalette.TabIndex = 28
+        '
+        'rdoGgthemes
+        '
+        Me.rdoGgthemes.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoGgthemes.BackColor = System.Drawing.SystemColors.Control
+        Me.rdoGgthemes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.rdoGgthemes.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoGgthemes.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoGgthemes.FlatAppearance.BorderSize = 2
+        Me.rdoGgthemes.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoGgthemes.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoGgthemes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.rdoGgthemes.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.rdoGgthemes.Location = New System.Drawing.Point(455, 51)
+        Me.rdoGgthemes.Name = "rdoGgthemes"
+        Me.rdoGgthemes.Size = New System.Drawing.Size(91, 29)
+        Me.rdoGgthemes.TabIndex = 35
+        Me.rdoGgthemes.Text = "ggthemes"
+        Me.rdoGgthemes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoGgthemes.UseVisualStyleBackColor = True
+        '
+        'rdoViridis
+        '
+        Me.rdoViridis.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdoViridis.BackColor = System.Drawing.SystemColors.Control
+        Me.rdoViridis.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.rdoViridis.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoViridis.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoViridis.FlatAppearance.BorderSize = 2
+        Me.rdoViridis.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.rdoViridis.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.rdoViridis.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.rdoViridis.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.rdoViridis.Location = New System.Drawing.Point(366, 51)
+        Me.rdoViridis.Name = "rdoViridis"
+        Me.rdoViridis.Size = New System.Drawing.Size(91, 29)
+        Me.rdoViridis.TabIndex = 34
+        Me.rdoViridis.Text = "Viridis"
+        Me.rdoViridis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdoViridis.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.Label1.Location = New System.Drawing.Point(590, 346)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(43, 13)
+        Me.Label1.TabIndex = 37
+        Me.Label1.Text = "Palette:"
+        '
+        'UcrInputComboBox1
+        '
+        Me.UcrInputComboBox1.AddQuotesIfUnrecognised = True
+        Me.UcrInputComboBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.UcrInputComboBox1.GetSetSelectedIndex = -1
+        Me.UcrInputComboBox1.IsReadOnly = False
+        Me.UcrInputComboBox1.Location = New System.Drawing.Point(639, 342)
+        Me.UcrInputComboBox1.Name = "UcrInputComboBox1"
+        Me.UcrInputComboBox1.Size = New System.Drawing.Size(146, 26)
+        Me.UcrInputComboBox1.TabIndex = 36
         '
         'sdgPlots
         '
@@ -2266,6 +2449,17 @@ Partial Class sdgPlots
     Friend WithEvents lblLegendSize As Label
     Friend WithEvents ucrNudLegendSize As ucrNud
     Friend WithEvents ucrChkIncludeTitles As ucrCheck
+    Friend WithEvents ucrInputColorType As ucrInputComboBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents UcrInputComboBox1 As ucrInputComboBox
+    Friend WithEvents rdoGgthemes As RadioButton
+    Friend WithEvents rdoViridis As RadioButton
+    Friend WithEvents lblPalette As Label
+    Friend WithEvents ucrInputPalettes As ucrInputComboBox
+    Friend WithEvents rdoQualitative As RadioButton
+    Friend WithEvents rdoSequential As RadioButton
+    Friend WithEvents rdoDiverging As RadioButton
+    Friend WithEvents ucrPnlColourPalette As UcrPanel
 End Class
 
 

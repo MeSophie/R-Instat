@@ -1309,4 +1309,8 @@ Public Class sdgPlots
     Private Sub ucrChkIncludeTitles_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkIncludeTitles.ControlValueChanged
         AddRemoveLabs()
     End Sub
+
+    Private Sub ucrPnlColourPalette_ControlValueChanged(ucrChangedControl As ucrCore)
+
+    End Sub
 End Class
