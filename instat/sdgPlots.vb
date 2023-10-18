@@ -45,6 +45,26 @@ Public Class sdgPlots
     Private clsPlotLegendTitleFunction As New RFunction
     Public clsBaseOperator As New ROperator
     Private bControlsInitialised As Boolean = False
+    Private clsFillPaletteFunction As New RFunction
+    Private clsColourPaletteFunction As New RFunction
+    Private clsDummyFunction As New RFunction
+    Private clsScaleColorColorblindFunction, clsScaleFillColorblindFunction As New RFunction
+    Private clsScaleColorDistillerFunction, clsScaleFillDistillerFunction As New RFunction
+    Private clsScalecolorcalcFunction, clsScalefillcalcFunction As New RFunction
+    Private clsScalecoloreconomistFunction, clsScalefilleconomistFunction As New RFunction
+    Private clsScalecolorexcelFunction, clsScalefillexcelFunction As New RFunction
+    Private clsScalecolorfivethirtyeightFunction, clsScalefillfivethirtyeightFunction As New RFunction
+    Private clsScalecolorgdocsFunction, clsScalefillgdocsFunction As New RFunction
+    Private clsScalecolorpanderFunction, clsScalefillpanderFunction As New RFunction
+    Private clsScalecolorptolFunction, clsScalefillptolFunction As New RFunction
+    Private clsScalecolorsolarizedFunction, clsScalefillsolarizedFunction As New RFunction
+    Private clsScalecolorfewFunction, clsScalefillfewFunction As New RFunction
+    Private clsScalecolorhcFunction, clsScalefillhcFunction As New RFunction
+    Private clsScalecolorstataFunction, clsScalefillstataFunction As New RFunction
+    Private clsScalecolorwsjFunction, clsScalefillwsjFunction As New RFunction
+    Private clsScalecolorcanvaFunction, clsScalefillcanvaFunction As New RFunction
+    Private clsScalecolorexcelnewFunction, clsScalefillexcelnewFunction As New RFunction
+    Private clsScalecolorgradienttableauFunction, clsScalefillgradienttableauFunction As New RFunction
     'All the previous RFunctions will eventually be stored as parameters (or parameters of parameters) within the RSyntax building the big Ggplot command "ggplot(...) + geom_..(..) + ... + theme(...) + scales(...) ..."
     'They are treated separately from the RSyntax for the sake of clarity, then sinked in eventually.
     Public bFirstLoad As Boolean = True
@@ -78,6 +98,13 @@ Public Class sdgPlots
 
     'See bLayersDefaultIsGolobal below.
     Private dctTheta As New Dictionary(Of String, String)
+    Private dctSequatailPairs As New Dictionary(Of String, String)
+    Private dctDivergingPairs As New Dictionary(Of String, String)
+    Private dctQualititivePairs As New Dictionary(Of String, String)
+    Private dctSequatailPairsContinuous As New Dictionary(Of String, String)
+    Private dctDivergingPairsContinuous As New Dictionary(Of String, String)
+    Private dctQualititivePairsContinuous As New Dictionary(Of String, String)
+    Public strAxisType As String
 
     Private Sub sdgPlots_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         autoTranslate(Me)
@@ -89,6 +116,64 @@ Public Class sdgPlots
         Dim dctFillOptions As New Dictionary(Of String, String)
         Dim dctColourOptions As New Dictionary(Of String, String)
         Dim dctAnnotationGeom As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevels As New Dictionary(Of String, String)
+        Dim dctPosition As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColor As New Dictionary(Of String, String)
+        Dim dctPositionColor As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsCal As New Dictionary(Of String, String)
+        Dim dctPositionCal As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorCal As New Dictionary(Of String, String)
+        Dim dctPositionColorCal As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsEcon As New Dictionary(Of String, String)
+        Dim dctPositionEcon As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorEcon As New Dictionary(Of String, String)
+        Dim dctPositionColorEcon As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsEx As New Dictionary(Of String, String)
+        Dim dctPositionEx As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorEx As New Dictionary(Of String, String)
+        Dim dctPositionColorEx As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsExn As New Dictionary(Of String, String)
+        Dim dctPositionExn As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorExn As New Dictionary(Of String, String)
+        Dim dctPositionColorExn As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsfew As New Dictionary(Of String, String)
+        Dim dctPositionfew As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorfew As New Dictionary(Of String, String)
+        Dim dctPositionColorfew As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsfiv As New Dictionary(Of String, String)
+        Dim dctPositionfiv As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorfiv As New Dictionary(Of String, String)
+        Dim dctPositionColorfiv As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsg As New Dictionary(Of String, String)
+        Dim dctPositiong As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorg As New Dictionary(Of String, String)
+        Dim dctPositionColorg As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelshc As New Dictionary(Of String, String)
+        Dim dctPositionhc As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorhc As New Dictionary(Of String, String)
+        Dim dctPositionColorhc As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelspan As New Dictionary(Of String, String)
+        Dim dctPositionpan As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorpan As New Dictionary(Of String, String)
+        Dim dctPositionColorpan As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelspt As New Dictionary(Of String, String)
+        Dim dctPositionpt As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorpt As New Dictionary(Of String, String)
+        Dim dctPositionColorpt As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelssol As New Dictionary(Of String, String)
+        Dim dctPositionsol As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorsol As New Dictionary(Of String, String)
+        Dim dctPositionColorsol As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsst As New Dictionary(Of String, String)
+        Dim dctPositionst As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorst As New Dictionary(Of String, String)
+        Dim dctPositionColorst As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsw As New Dictionary(Of String, String)
+        Dim dctPositionw As New Dictionary(Of String, String)
+        Dim dctDropUnusedLevelsColorw As New Dictionary(Of String, String)
+        Dim dctPositionColorw As New Dictionary(Of String, String)
+        Dim dctColorGgthemes As New Dictionary(Of String, String)
+        Dim dctFillGgthemes As New Dictionary(Of String, String)
 
         Dim strThemes As String()
 
@@ -550,12 +635,1647 @@ Public Class sdgPlots
         ucrInputAnnotationGeoms.AddToLinkedControls(ucrInputLabel, {"text", "label"}, bNewLinkedHideIfParameterMissing:=True, bNewLinkedAddRemoveParameter:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
 
         'Colour
+        ucrPnlColourPalette.AddRadioButton(rdoSequential)
+        ucrPnlColourPalette.AddRadioButton(rdoDiverging)
+        ucrPnlColourPalette.AddRadioButton(rdoQualitative)
+        ucrPnlColourPalette.AddRadioButton(rdoViridis)
+        ucrPnlColourPalette.AddRadioButton(rdoGgthemes)
+        ucrPnlColourPalette.SetRDefault(rdoSequential)
+
+        ucrInputPalettes.SetParameter(New RParameter("palette", 7))
+        ucrInputPalettes.bAllowNonConditionValues = True
+        ucrInputPalettes.SetLinkedDisplayControl(lblPalette)
+
+        ucrInputPaletteContinuous.SetParameter(New RParameter("palette", 8))
+        ucrInputPaletteContinuous.bAllowNonConditionValues = True
+        ucrInputPaletteContinuous.SetLinkedDisplayControl(lblPaletteContinuous)
+
+        dctSequatailPairs.Add("Blues", Chr(34) & "Blues" & Chr(34))
+        dctSequatailPairs.Add("Greens", Chr(34) & "Greens" & Chr(34))
+        dctSequatailPairs.Add("Greys", Chr(34) & "Greys" & Chr(34))
+        dctSequatailPairs.Add("Oranges", Chr(34) & "Oranges" & Chr(34))
+        dctSequatailPairs.Add("Purples", Chr(34) & "Purples" & Chr(34))
+        dctSequatailPairs.Add("Reds", Chr(34) & "Reds" & Chr(34))
+        dctSequatailPairs.Add("BuGn", Chr(34) & "BuGn" & Chr(34))
+        dctSequatailPairs.Add("BuPu", Chr(34) & "BuPu" & Chr(34))
+        dctSequatailPairs.Add("GnBu", Chr(34) & "GnBu" & Chr(34))
+        dctSequatailPairs.Add("OrRd", Chr(34) & "OrRd" & Chr(34))
+        dctSequatailPairs.Add("PuBu", Chr(34) & "PuBu" & Chr(34))
+        dctSequatailPairs.Add("PuBuGn", Chr(34) & "PuBuGn" & Chr(34))
+        dctSequatailPairs.Add("PuRd", Chr(34) & "PuRd" & Chr(34))
+        dctSequatailPairs.Add("RdPu", Chr(34) & "RdPu" & Chr(34))
+        dctSequatailPairs.Add("YlGn", Chr(34) & "YlGn" & Chr(34))
+        dctSequatailPairs.Add("YlGnBu", Chr(34) & "YlGnBu" & Chr(34))
+        dctSequatailPairs.Add("YlOrBr", Chr(34) & "YlOrBr" & Chr(34))
+        dctSequatailPairs.Add("YlOrRd", Chr(34) & "YlOrRd" & Chr(34))
+        ucrInputPalettes.SetItems(dctSequatailPairs)
+        ucrInputPalettes.SetDropDownStyleAsNonEditable()
+        ucrInputPalettes.SetLinkedDisplayControl(lblPalette)
+
+        dctSequatailPairsContinuous.Add("Blues", Chr(34) & "Blues" & Chr(34))
+        dctSequatailPairsContinuous.Add("Greens", Chr(34) & "Greens" & Chr(34))
+        dctSequatailPairsContinuous.Add("Greys", Chr(34) & "Greys" & Chr(34))
+        dctSequatailPairsContinuous.Add("Oranges", Chr(34) & "Oranges" & Chr(34))
+        dctSequatailPairsContinuous.Add("Purples", Chr(34) & "Purples" & Chr(34))
+        dctSequatailPairsContinuous.Add("Reds", Chr(34) & "Reds" & Chr(34))
+        dctSequatailPairsContinuous.Add("BuGn", Chr(34) & "BuGn" & Chr(34))
+        dctSequatailPairsContinuous.Add("BuPu", Chr(34) & "BuPu" & Chr(34))
+        dctSequatailPairsContinuous.Add("GnBu", Chr(34) & "GnBu" & Chr(34))
+        dctSequatailPairsContinuous.Add("OrRd", Chr(34) & "OrRd" & Chr(34))
+        dctSequatailPairsContinuous.Add("PuBu", Chr(34) & "PuBu" & Chr(34))
+        dctSequatailPairsContinuous.Add("PuBuGn", Chr(34) & "PuBuGn" & Chr(34))
+        dctSequatailPairsContinuous.Add("PuRd", Chr(34) & "PuRd" & Chr(34))
+        dctSequatailPairsContinuous.Add("RdPu", Chr(34) & "RdPu" & Chr(34))
+        dctSequatailPairsContinuous.Add("YlGn", Chr(34) & "YlGn" & Chr(34))
+        dctSequatailPairsContinuous.Add("YlGnBu", Chr(34) & "YlGnBu" & Chr(34))
+        dctSequatailPairsContinuous.Add("YlOrBr", Chr(34) & "YlOrBr" & Chr(34))
+        dctSequatailPairsContinuous.Add("YlOrRd", Chr(34) & "YlOrRd" & Chr(34))
+        ucrInputPaletteContinuous.SetItems(dctSequatailPairsContinuous)
+        ucrInputPaletteContinuous.SetDropDownStyleAsNonEditable()
+        ucrInputPaletteContinuous.SetLinkedDisplayControl(lblPaletteContinuous)
+
+        dctDivergingPairs.Add("Spectral", Chr(34) & "Spectral" & Chr(34))
+        dctDivergingPairs.Add("BrBG", Chr(34) & "BrBG" & Chr(34))
+        dctDivergingPairs.Add("PiYG", Chr(34) & "PiYG" & Chr(34))
+        dctDivergingPairs.Add("PRGn", Chr(34) & "PRGn" & Chr(34))
+        dctDivergingPairs.Add("PuOr", Chr(34) & "PuOr" & Chr(34))
+        dctDivergingPairs.Add("RdBu", Chr(34) & "RdBu" & Chr(34))
+        dctDivergingPairs.Add("RdGy", Chr(34) & "RdGy" & Chr(34))
+        dctDivergingPairs.Add("RdYlBu", Chr(34) & "RdYlBu" & Chr(34))
+        dctDivergingPairs.Add("RdYlGn", Chr(34) & "RdYlGn" & Chr(34))
+
+        dctQualititivePairs.Add("Accent", Chr(34) & "Accent" & Chr(34))
+        dctQualititivePairs.Add("Dark2", Chr(34) & "Dark2" & Chr(34))
+        dctQualititivePairs.Add("Pastel1", Chr(34) & "Pastel1" & Chr(34))
+        dctQualititivePairs.Add("Pastel2", Chr(34) & "Pastel2" & Chr(34))
+        dctQualititivePairs.Add("Set1", Chr(34) & "Set1" & Chr(34))
+        dctQualititivePairs.Add("Set2", Chr(34) & "Set2" & Chr(34))
+        dctQualititivePairs.Add("Set3", Chr(34) & "Set3" & Chr(34))
+
+        dctDivergingPairsContinuous.Add("Spectral", Chr(34) & "Spectral" & Chr(34))
+        dctDivergingPairsContinuous.Add("BrBG", Chr(34) & "BrBG" & Chr(34))
+        dctDivergingPairsContinuous.Add("PiYG", Chr(34) & "PiYG" & Chr(34))
+        dctDivergingPairsContinuous.Add("PRGn", Chr(34) & "PRGn" & Chr(34))
+        dctDivergingPairsContinuous.Add("PuOr", Chr(34) & "PuOr" & Chr(34))
+        dctDivergingPairsContinuous.Add("RdBu", Chr(34) & "RdBu" & Chr(34))
+        dctDivergingPairsContinuous.Add("RdGy", Chr(34) & "RdGy" & Chr(34))
+        dctDivergingPairsContinuous.Add("RdYlBu", Chr(34) & "RdYlBu" & Chr(34))
+        dctDivergingPairsContinuous.Add("RdYlGn", Chr(34) & "RdYlGn" & Chr(34))
+
+        dctQualititivePairsContinuous.Add("Accent", Chr(34) & "Accent" & Chr(34))
+        dctQualititivePairsContinuous.Add("Dark2", Chr(34) & "Dark2" & Chr(34))
+        dctQualititivePairsContinuous.Add("Pastel1", Chr(34) & "Pastel1" & Chr(34))
+        dctQualititivePairsContinuous.Add("Pastel2", Chr(34) & "Pastel2" & Chr(34))
+        dctQualititivePairsContinuous.Add("Set1", Chr(34) & "Set1" & Chr(34))
+        dctQualititivePairsContinuous.Add("Set2", Chr(34) & "Set2" & Chr(34))
+        dctQualititivePairsContinuous.Add("Set3", Chr(34) & "Set3" & Chr(34))
+
+        ucrChkDropUnusedLevels.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevels.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevels.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevels.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevels.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevels.AddToLinkedControls(ucrInputDropUnusedLevels, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevels.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevels.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevels.SetItems(dctDropUnusedLevels)
+
+        ucrChkPosition.SetText("Position:")
+        ucrChkPosition.AddToLinkedControls(ucrInputPosition, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPosition.SetDropDownStyleAsNonEditable()
+        ucrInputPosition.SetParameter(New RParameter("position"))
+        dctPosition.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPosition.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPosition.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPosition.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPosition.SetItems(dctPosition)
+        ucrChkPosition.AddParameterPresentCondition(True, "position")
+        ucrChkPosition.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpand.SetText("Expand")
+        ucrChkExpand.AddParameterPresentCondition(True, "expand")
+        ucrChkExpand.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpand.AddToLinkedControls(ucrInputTextExpand, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpand.SetValidationTypeAsNumericList()
+
+        ucrChkBreaks.SetText("Breaks")
+        ucrChkBreaks.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaks.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaks.AddToLinkedControls(ucrInputTextBreaks, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaks.SetValidationTypeAsList()
+
+        ucrChkLimit.SetText("Limits")
+        ucrChkLimit.AddParameterPresentCondition(True, "limit")
+        ucrChkLimit.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimit.AddToLinkedControls(ucrInputTextLimit, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimit.SetValidationTypeAsList()
+
+        ucrInputTextNaValue.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValue.SetValidationTypeAsNumeric()
+        ucrInputTextNaValue.bAddRemoveParameter = False
+        ucrInputTextNaValue.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValue.SetText("Replace Missing Values")
+        ucrChkNaValue.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValue.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValue.AddToLinkedControls(ucrInputTextNaValue, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColor.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColor.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColor.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColor.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColor.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColor.AddToLinkedControls(ucrInputDropUnusedLevelsColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColor.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColor.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColor.SetItems(dctDropUnusedLevelsColor)
+
+        ucrInputColorType.SetItems({"continuous", "discrete"})
+        ucrInputColorType.SetDropDownStyleAsNonEditable()
+
+        ucrChkPositionColor.SetText("Position:")
+        ucrChkPositionColor.AddToLinkedControls(ucrInputPositionColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColor.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColor.SetParameter(New RParameter("position"))
+        dctPositionColor.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColor.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColor.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColor.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColor.SetItems(dctPositionColor)
+        ucrChkPositionColor.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColor.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColor.SetText("Expand")
+        ucrChkExpandColor.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColor.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColor.AddToLinkedControls(ucrInputTextExpandColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColor.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColor.SetText("Breaks")
+        ucrChkBreaksColor.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColor.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColor.AddToLinkedControls(ucrInputTextBreaksColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColor.SetValidationTypeAsList()
+
+        ucrChkLimitColor.SetText("Limits")
+        ucrChkLimitColor.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColor.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColor.AddToLinkedControls(ucrInputTextLimitColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColor.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColor.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColor.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColor.bAddRemoveParameter = False
+        ucrInputTextNaValueColor.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColor.SetText("Replace Missing Values")
+        ucrChkNaValueColor.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColor.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColor.AddToLinkedControls(ucrInputTextNaValueColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsCal.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsCal.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsCal.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsCal.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsCal.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsCal.AddToLinkedControls(ucrInputDropUnusedLevelsCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsCal.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsCal.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsCal.SetItems(dctDropUnusedLevelsCal)
+
+        ucrChkPositionCal.SetText("Position:")
+        ucrChkPositionCal.AddToLinkedControls(ucrInputPositionCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionCal.SetDropDownStyleAsNonEditable()
+        ucrInputPositionCal.SetParameter(New RParameter("position"))
+        dctPositionCal.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionCal.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionCal.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionCal.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionCal.SetItems(dctPositionCal)
+        ucrChkPositionCal.AddParameterPresentCondition(True, "position")
+        ucrChkPositionCal.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandCal.SetText("Expand")
+        ucrChkExpandCal.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandCal.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandCal.AddToLinkedControls(ucrInputTextExpandCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandCal.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksCal.SetText("Breaks")
+        ucrChkBreaksCal.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksCal.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksCal.AddToLinkedControls(ucrInputTextBreaksCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksCal.SetValidationTypeAsList()
+
+        ucrChkLimitCal.SetText("Limits")
+        ucrChkLimitCal.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitCal.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitCal.AddToLinkedControls(ucrInputTextLimitCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitCal.SetValidationTypeAsList()
+
+        ucrInputTextNaValueCal.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueCal.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueCal.bAddRemoveParameter = False
+        ucrInputTextNaValueCal.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueCal.SetText("Replace Missing Values")
+        ucrChkNaValueCal.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueCal.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueCal.AddToLinkedControls(ucrInputTextNaValueCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorCal.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorCal.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorCal.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorCal.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorCal.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorCal.AddToLinkedControls(ucrInputDropUnusedLevelsColorCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorCal.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorCal.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorCal.SetItems(dctDropUnusedLevelsColorCal)
+
+        ucrChkPositionColorCal.SetText("Position:")
+        ucrChkPositionColorCal.AddToLinkedControls(ucrInputPositionColorCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorCal.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorCal.SetParameter(New RParameter("position"))
+        dctPositionColorCal.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorCal.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorCal.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorCal.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorCal.SetItems(dctPositionColorCal)
+        ucrChkPositionColorCal.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorCal.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorCal.SetText("Expand")
+        ucrChkExpandColorCal.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorCal.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorCal.AddToLinkedControls(ucrInputTextExpandColorCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorCal.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorCal.SetText("Breaks")
+        ucrChkBreaksColorCal.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorCal.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorCal.AddToLinkedControls(ucrInputTextBreaksColorCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorCal.SetValidationTypeAsList()
+
+        ucrChkLimitColorCal.SetText("Limits")
+        ucrChkLimitColorCal.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorCal.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorCal.AddToLinkedControls(ucrInputTextLimitColorCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorCal.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorCal.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorCal.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorCal.bAddRemoveParameter = False
+        ucrInputTextNaValueColorCal.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorCal.SetText("Replace Missing Values")
+        ucrChkNaValueColorCal.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorCal.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorCal.AddToLinkedControls(ucrInputTextNaValueColorCal, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsEcon.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsEcon.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsEcon.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsEcon.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsEcon.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsEcon.AddToLinkedControls(ucrInputDropUnusedLevelsEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsEcon.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsEcon.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsEcon.SetItems(dctDropUnusedLevelsEcon)
+
+        ucrChkPositionEcon.SetText("Position:")
+        ucrChkPositionEcon.AddToLinkedControls(ucrInputPositionEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionEcon.SetDropDownStyleAsNonEditable()
+        ucrInputPositionEcon.SetParameter(New RParameter("position"))
+        dctPositionEcon.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionEcon.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionEcon.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionEcon.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionEcon.SetItems(dctPositionEcon)
+        ucrChkPositionEcon.AddParameterPresentCondition(True, "position")
+        ucrChkPositionEcon.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandEcon.SetText("Expand")
+        ucrChkExpandEcon.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandEcon.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandEcon.AddToLinkedControls(ucrInputTextExpandEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandEcon.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksEcon.SetText("Breaks")
+        ucrChkBreaksEcon.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksEcon.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksEcon.AddToLinkedControls(ucrInputTextBreaksEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksEcon.SetValidationTypeAsList()
+
+        ucrChkLimitEcon.SetText("Limits")
+        ucrChkLimitEcon.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitEcon.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitEcon.AddToLinkedControls(ucrInputTextLimitEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitEcon.SetValidationTypeAsList()
+
+        ucrInputTextNaValueEcon.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueEcon.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueEcon.bAddRemoveParameter = False
+        ucrInputTextNaValueEcon.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueEcon.SetText("Replace Missing Values")
+        ucrChkNaValueEcon.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueEcon.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueEcon.AddToLinkedControls(ucrInputTextNaValueEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorEcon.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorEcon.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorEcon.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorEcon.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorEcon.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorEcon.AddToLinkedControls(ucrInputDropUnusedLevelsColorEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorEcon.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorEcon.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorEcon.SetItems(dctDropUnusedLevelsColorEcon)
+
+        ucrChkPositionColorEcon.SetText("Position:")
+        ucrChkPositionColorEcon.AddToLinkedControls(ucrInputPositionColorEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorEcon.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorEcon.SetParameter(New RParameter("position"))
+        dctPositionColorEcon.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorEcon.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorEcon.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorEcon.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorEcon.SetItems(dctPositionColorEcon)
+        ucrChkPositionColorEcon.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorEcon.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorEcon.SetText("Expand")
+        ucrChkExpandColorEcon.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorEcon.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorEcon.AddToLinkedControls(ucrInputTextExpandColorEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorEcon.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorEcon.SetText("Breaks")
+        ucrChkBreaksColorEcon.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorEcon.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorEcon.AddToLinkedControls(ucrInputTextBreaksColorEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorEcon.SetValidationTypeAsList()
+
+        ucrChkLimitColorEcon.SetText("Limits")
+        ucrChkLimitColorEcon.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorEcon.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorEcon.AddToLinkedControls(ucrInputTextLimitColorEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorEcon.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorEcon.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorEcon.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorEcon.bAddRemoveParameter = False
+        ucrInputTextNaValueColorEcon.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorEcon.SetText("Replace Missing Values")
+        ucrChkNaValueColorEcon.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorEcon.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorEcon.AddToLinkedControls(ucrInputTextNaValueColorEcon, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsEx.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsEx.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsEx.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsEx.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsEx.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsEx.AddToLinkedControls(ucrInputDropUnusedLevelsEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsEx.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsEx.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsEx.SetItems(dctDropUnusedLevelsEx)
+
+        ucrChkPositionEx.SetText("Position:")
+        ucrChkPositionEx.AddToLinkedControls(ucrInputPositionEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionEx.SetDropDownStyleAsNonEditable()
+        ucrInputPositionEx.SetParameter(New RParameter("position"))
+        dctPositionEx.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionEx.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionEx.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionEx.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionEx.SetItems(dctPositionEx)
+        ucrChkPositionEx.AddParameterPresentCondition(True, "position")
+        ucrChkPositionEx.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandEx.SetText("Expand")
+        ucrChkExpandEx.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandEx.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandEx.AddToLinkedControls(ucrInputTextExpandEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandEx.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksEx.SetText("Breaks")
+        ucrChkBreaksEx.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksEx.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksEx.AddToLinkedControls(ucrInputTextBreaksEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksEx.SetValidationTypeAsList()
+
+        ucrChkLimitEx.SetText("Limits")
+        ucrChkLimitEx.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitEx.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitEx.AddToLinkedControls(ucrInputTextLimitEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitEx.SetValidationTypeAsList()
+
+        ucrInputTextNaValueEx.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueEx.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueEx.bAddRemoveParameter = False
+        ucrInputTextNaValueEx.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueEx.SetText("Replace Missing Values")
+        ucrChkNaValueEx.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueEx.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueEx.AddToLinkedControls(ucrInputTextNaValueEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorEx.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorEx.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorEx.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorEx.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorEx.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorEx.AddToLinkedControls(ucrInputDropUnusedLevelsColorEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorEx.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorEx.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorEx.SetItems(dctDropUnusedLevelsColorEx)
+
+        ucrChkPositionColorEx.SetText("Position:")
+        ucrChkPositionColorEx.AddToLinkedControls(ucrInputPositionColorEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorEx.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorEx.SetParameter(New RParameter("position"))
+        dctPositionColorEx.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorEx.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorEx.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorEx.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorEx.SetItems(dctPositionColorEx)
+        ucrChkPositionColorEx.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorEx.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorEx.SetText("Expand")
+        ucrChkExpandColorEx.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorEx.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorEx.AddToLinkedControls(ucrInputTextExpandColorEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorEx.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorEx.SetText("Breaks")
+        ucrChkBreaksColorEx.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorEx.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorEx.AddToLinkedControls(ucrInputTextBreaksColorEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorEx.SetValidationTypeAsList()
+
+        ucrChkLimitColorEx.SetText("Limits")
+        ucrChkLimitColorEx.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorEx.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorEx.AddToLinkedControls(ucrInputTextLimitColorEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorEx.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorEx.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorEx.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorEx.bAddRemoveParameter = False
+        ucrInputTextNaValueColorEx.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorEx.SetText("Replace Missing Values")
+        ucrChkNaValueColorEx.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorEx.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorEx.AddToLinkedControls(ucrInputTextNaValueColorEx, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsExn.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsExn.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsExn.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsExn.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsExn.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsExn.AddToLinkedControls(ucrInputDropUnusedLevelsExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsExn.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsExn.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsExn.SetItems(dctDropUnusedLevelsExn)
+
+        ucrChkPositionExn.SetText("Position:")
+        ucrChkPositionExn.AddToLinkedControls(ucrInputPositionExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionExn.SetDropDownStyleAsNonEditable()
+        ucrInputPositionExn.SetParameter(New RParameter("position"))
+        dctPositionExn.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionExn.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionExn.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionExn.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionExn.SetItems(dctPositionExn)
+        ucrChkPositionExn.AddParameterPresentCondition(True, "position")
+        ucrChkPositionExn.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandExn.SetText("Expand")
+        ucrChkExpandExn.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandExn.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandExn.AddToLinkedControls(ucrInputTextExpandExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandExn.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksExn.SetText("Breaks")
+        ucrChkBreaksExn.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksExn.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksExn.AddToLinkedControls(ucrInputTextBreaksExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksExn.SetValidationTypeAsList()
+
+        ucrChkLimitExn.SetText("Limits")
+        ucrChkLimitExn.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitExn.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitExn.AddToLinkedControls(ucrInputTextLimitExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitExn.SetValidationTypeAsList()
+
+        ucrInputTextNaValueExn.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueExn.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueExn.bAddRemoveParameter = False
+        ucrInputTextNaValueExn.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueExn.SetText("Replace Missing Values")
+        ucrChkNaValueExn.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueExn.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueExn.AddToLinkedControls(ucrInputTextNaValueExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorExn.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorExn.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorExn.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorExn.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorExn.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorExn.AddToLinkedControls(ucrInputDropUnusedLevelsColorExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorExn.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorExn.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorExn.SetItems(dctDropUnusedLevelsColorExn)
+
+        ucrChkPositionColorExn.SetText("Position:")
+        ucrChkPositionColorExn.AddToLinkedControls(ucrInputPositionColorExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorExn.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorExn.SetParameter(New RParameter("position"))
+        dctPositionColorExn.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorExn.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorExn.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorExn.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorExn.SetItems(dctPositionColorExn)
+        ucrChkPositionColorExn.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorExn.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorExn.SetText("Expand")
+        ucrChkExpandColorExn.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorExn.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorExn.AddToLinkedControls(ucrInputTextExpandColorExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorExn.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorExn.SetText("Breaks")
+        ucrChkBreaksColorExn.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorExn.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorExn.AddToLinkedControls(ucrInputTextBreaksColorExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorExn.SetValidationTypeAsList()
+
+        ucrChkLimitColorExn.SetText("Limits")
+        ucrChkLimitColorExn.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorExn.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorExn.AddToLinkedControls(ucrInputTextLimitColorExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorExn.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorExn.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorExn.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorExn.bAddRemoveParameter = False
+        ucrInputTextNaValueColorExn.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorExn.SetText("Replace Missing Values")
+        ucrChkNaValueColorExn.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorExn.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorExn.AddToLinkedControls(ucrInputTextNaValueColorExn, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkThemecolor.SetText("Theme:")
+        ucrChkThemecolor.AddToLinkedControls(ucrInputThemeColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Atlas")
+        ucrInputThemeColor.SetDropDownStyleAsNonEditable()
+        ucrInputThemeColor.SetParameter(New RParameter("theme"))
+        ucrInputThemeColor.SetItems({"Atlas", "Badge", "Berlin", "Celestial", "Crop", "Depth", "Droplet", "Facet", "Feathered", "Gallery", "Headlines", "Integral", "Ion Boardroom", "Ion", "Madison", "Main Event", "Mesh", "Office Theme", "Organic", "Parallax", "Parcel",
+                                    "Retrospect", "Savon", "Slice", "Vapor Trail", "View", "Wisp", "Wood Type", "Aspect", "Blue Green", "Blue II", "Blue Warm", "Blue", "Grayscale", "Green Yellow", "Green", "Marquee", "Median", "Office 2007-2010", "Orange Red", "Orange", "Paper", "Red Orange", "Red Violet", "Red", "Slipstream", "Violet II", "Violet", "Yellow Orange", "Yellow"})
+        ucrChkThemecolor.AddParameterPresentCondition(True, "theme")
+        ucrChkThemecolor.AddParameterPresentCondition(False, "theme", False)
+
+        ucrChkThemeFill.SetText("Theme:")
+        ucrChkThemeFill.AddToLinkedControls(ucrInputThemeFill, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Atlas")
+        ucrInputThemeFill.SetDropDownStyleAsNonEditable()
+        ucrInputThemeFill.SetParameter(New RParameter("theme"))
+        ucrInputThemeFill.SetItems({"Atlas", "Badge", "Berlin", "Celestial", "Crop", "Depth", "Droplet", "Facet", "Feathered", "Gallery", "Headlines", "Integral", "Ion Boardroom", "Ion", "Madison", "Main Event", "Mesh", "Office Theme", "Organic", "Parallax", "Parcel",
+                                   "Retrospect", "Savon", "Slice", "Vapor Trail", "View", "Wisp", "Wood Type", "Aspect", "Blue Green", "Blue II", "Blue Warm", "Blue", "Grayscale", "Green Yellow", "Green", "Marquee", "Median", "Office 2007-2010", "Orange Red", "Orange", "Paper", "Red Orange", "Red Violet", "Red", "Slipstream", "Violet II", "Violet", "Yellow Orange", "Yellow"})
+        ucrChkThemeFill.AddParameterPresentCondition(True, "theme")
+        ucrChkThemeFill.AddParameterPresentCondition(False, "theme", False)
+
+        ucrChkDropUnusedLevelsfew.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsfew.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsfew.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsfew.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsfew.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsfew.AddToLinkedControls(ucrInputDropUnusedLevelsfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsfew.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsfew.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsfew.SetItems(dctDropUnusedLevelsfew)
+
+        ucrChkPositionfew.SetText("Position:")
+        ucrChkPositionfew.AddToLinkedControls(ucrInputPositionfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionfew.SetDropDownStyleAsNonEditable()
+        ucrInputPositionfew.SetParameter(New RParameter("position"))
+        dctPositionfew.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionfew.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionfew.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionfew.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionfew.SetItems(dctPositionfew)
+        ucrChkPositionfew.AddParameterPresentCondition(True, "position")
+        ucrChkPositionfew.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandfew.SetText("Expand")
+        ucrChkExpandfew.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandfew.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandfew.AddToLinkedControls(ucrInputTextExpandfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandfew.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksfew.SetText("Breaks")
+        ucrChkBreaksfew.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksfew.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksfew.AddToLinkedControls(ucrInputTextBreaksfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksfew.SetValidationTypeAsList()
+
+        ucrChkLimitfew.SetText("Limits")
+        ucrChkLimitfew.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitfew.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitfew.AddToLinkedControls(ucrInputTextLimitfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitfew.SetValidationTypeAsList()
+
+        ucrInputTextNaValuefew.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuefew.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuefew.bAddRemoveParameter = False
+        ucrInputTextNaValuefew.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuefew.SetText("Replace Missing Values")
+        ucrChkNaValuefew.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuefew.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuefew.AddToLinkedControls(ucrInputTextNaValuefew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorfew.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorfew.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorfew.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorfew.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorfew.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorfew.AddToLinkedControls(ucrInputDropUnusedLevelsColorfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorfew.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorfew.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorfew.SetItems(dctDropUnusedLevelsColorfew)
+
+        ucrChkPositionColorfew.SetText("Position:")
+        ucrChkPositionColorfew.AddToLinkedControls(ucrInputPositionColorfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorfew.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorfew.SetParameter(New RParameter("position"))
+        dctPositionColorfew.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorfew.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorfew.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorfew.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorfew.SetItems(dctPositionColorfew)
+        ucrChkPositionColorfew.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorfew.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorfew.SetText("Expand")
+        ucrChkExpandColorfew.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorfew.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorfew.AddToLinkedControls(ucrInputTextExpandColorfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorfew.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorfew.SetText("Breaks")
+        ucrChkBreaksColorfew.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorfew.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorfew.AddToLinkedControls(ucrInputTextBreaksColorfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorfew.SetValidationTypeAsList()
+
+        ucrChkLimitColorfew.SetText("Limits")
+        ucrChkLimitColorfew.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorfew.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorfew.AddToLinkedControls(ucrInputTextLimitColorfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorfew.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorfew.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorfew.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorfew.bAddRemoveParameter = False
+        ucrInputTextNaValueColorfew.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorfew.SetText("Replace Missing Values")
+        ucrChkNaValueColorfew.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorfew.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorfew.AddToLinkedControls(ucrInputTextNaValueColorfew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsfiv.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsfiv.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsfiv.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsfiv.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsfiv.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsfiv.AddToLinkedControls(ucrInputDropUnusedLevelsfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsfiv.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsfiv.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsfiv.SetItems(dctDropUnusedLevelsfiv)
+
+        ucrChkPositionfiv.SetText("Position:")
+        ucrChkPositionfiv.AddToLinkedControls(ucrInputPositionfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionfiv.SetDropDownStyleAsNonEditable()
+        ucrInputPositionfiv.SetParameter(New RParameter("position"))
+        dctPositionfiv.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionfiv.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionfiv.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionfiv.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionfiv.SetItems(dctPositionfiv)
+        ucrChkPositionfiv.AddParameterPresentCondition(True, "position")
+        ucrChkPositionfiv.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandfiv.SetText("Expand")
+        ucrChkExpandfiv.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandfiv.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandfiv.AddToLinkedControls(ucrInputTextExpandfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandfiv.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksfiv.SetText("Breaks")
+        ucrChkBreaksfiv.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksfiv.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksfiv.AddToLinkedControls(ucrInputTextBreaksfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksfiv.SetValidationTypeAsList()
+
+        ucrChkLimitfiv.SetText("Limits")
+        ucrChkLimitfiv.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitfiv.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitfiv.AddToLinkedControls(ucrInputTextLimitfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitfiv.SetValidationTypeAsList()
+
+        ucrInputTextNaValuefiv.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuefiv.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuefiv.bAddRemoveParameter = False
+        ucrInputTextNaValuefiv.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuefiv.SetText("Replace Missing Values")
+        ucrChkNaValuefiv.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuefiv.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuefiv.AddToLinkedControls(ucrInputTextNaValuefiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorfiv.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorfiv.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorfiv.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorfiv.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorfiv.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorfiv.AddToLinkedControls(ucrInputDropUnusedLevelsColorfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorfiv.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorfiv.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorfiv.SetItems(dctDropUnusedLevelsColorfiv)
+
+        ucrChkPositionColorfiv.SetText("Position:")
+        ucrChkPositionColorfiv.AddToLinkedControls(ucrInputPositionColorfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorfiv.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorfiv.SetParameter(New RParameter("position"))
+        dctPositionColorfiv.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorfiv.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorfiv.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorfiv.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorfiv.SetItems(dctPositionColorfiv)
+        ucrChkPositionColorfiv.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorfiv.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorfiv.SetText("Expand")
+        ucrChkExpandColorfiv.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorfiv.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorfiv.AddToLinkedControls(ucrInputTextExpandColorfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorfiv.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorfiv.SetText("Breaks")
+        ucrChkBreaksColorfiv.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorfiv.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorfiv.AddToLinkedControls(ucrInputTextBreaksColorfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorfiv.SetValidationTypeAsList()
+
+        ucrChkLimitColorfiv.SetText("Limits")
+        ucrChkLimitColorfiv.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorfiv.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorfiv.AddToLinkedControls(ucrInputTextLimitColorfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorfiv.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorfiv.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorfiv.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorfiv.bAddRemoveParameter = False
+        ucrInputTextNaValueColorfiv.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorfiv.SetText("Replace Missing Values")
+        ucrChkNaValueColorfiv.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorfiv.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorfiv.AddToLinkedControls(ucrInputTextNaValueColorfiv, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsg.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsg.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsg.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsg.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsg.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsg.AddToLinkedControls(ucrInputDropUnusedLevelsg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsg.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsg.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsg.SetItems(dctDropUnusedLevelsg)
+
+        ucrChkPositiong.SetText("Position:")
+        ucrChkPositiong.AddToLinkedControls(ucrInputPositiong, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositiong.SetDropDownStyleAsNonEditable()
+        ucrInputPositiong.SetParameter(New RParameter("position"))
+        dctPositiong.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositiong.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositiong.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositiong.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositiong.SetItems(dctPositiong)
+        ucrChkPositiong.AddParameterPresentCondition(True, "position")
+        ucrChkPositiong.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandg.SetText("Expand")
+        ucrChkExpandg.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandg.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandg.AddToLinkedControls(ucrInputTextExpandg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandg.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksg.SetText("Breaks")
+        ucrChkBreaksg.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksg.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksg.AddToLinkedControls(ucrInputTextBreaksg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksg.SetValidationTypeAsList()
+
+        ucrChkLimitg.SetText("Limits")
+        ucrChkLimitg.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitg.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitg.AddToLinkedControls(ucrInputTextLimitg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitg.SetValidationTypeAsList()
+
+        ucrInputTextNaValueg.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueg.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueg.bAddRemoveParameter = False
+        ucrInputTextNaValueg.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueg.SetText("Replace Missing Values")
+        ucrChkNaValueg.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueg.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueg.AddToLinkedControls(ucrInputTextNaValueg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorg.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorg.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorg.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorg.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorg.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorg.AddToLinkedControls(ucrInputDropUnusedLevelsColorg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorg.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorg.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorg.SetItems(dctDropUnusedLevelsColorg)
+
+        ucrChkPositionColorg.SetText("Position:")
+        ucrChkPositionColorg.AddToLinkedControls(ucrInputPositionColorg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorg.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorg.SetParameter(New RParameter("position"))
+        dctPositionColorg.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorg.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorg.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorg.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorg.SetItems(dctPositionColorg)
+        ucrChkPositionColorg.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorg.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorg.SetText("Expand")
+        ucrChkExpandColorg.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorg.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorg.AddToLinkedControls(ucrInputTextExpandColorg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorg.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorg.SetText("Breaks")
+        ucrChkBreaksColorg.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorg.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorg.AddToLinkedControls(ucrInputTextBreaksColorg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorg.SetValidationTypeAsList()
+
+        ucrChkLimitColorg.SetText("Limits")
+        ucrChkLimitColorg.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorg.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorg.AddToLinkedControls(ucrInputTextLimitColorg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorg.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorg.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorg.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorg.bAddRemoveParameter = False
+        ucrInputTextNaValueColorg.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorg.SetText("Replace Missing Values")
+        ucrChkNaValueColorg.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorg.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorg.AddToLinkedControls(ucrInputTextNaValueColorg, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelshc.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelshc.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelshc.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelshc.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelshc.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelshc.AddToLinkedControls(ucrInputDropUnusedLevelshc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelshc.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelshc.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelshc.SetItems(dctDropUnusedLevelshc)
+
+        ucrChkPositionhc.SetText("Position:")
+        ucrChkPositionhc.AddToLinkedControls(ucrInputPositionhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionhc.SetDropDownStyleAsNonEditable()
+        ucrInputPositionhc.SetParameter(New RParameter("position"))
+        dctPositionhc.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionhc.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionhc.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionhc.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionhc.SetItems(dctPositionhc)
+        ucrChkPositionhc.AddParameterPresentCondition(True, "position")
+        ucrChkPositionhc.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandhc.SetText("Expand")
+        ucrChkExpandhc.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandhc.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandhc.AddToLinkedControls(ucrInputTextExpandhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandhc.SetValidationTypeAsNumericList()
+
+        ucrChkBreakshc.SetText("Breaks")
+        ucrChkBreakshc.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreakshc.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreakshc.AddToLinkedControls(ucrInputTextBreakshc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreakshc.SetValidationTypeAsList()
+
+        ucrChkLimithc.SetText("Limits")
+        ucrChkLimithc.AddParameterPresentCondition(True, "limit")
+        ucrChkLimithc.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimithc.AddToLinkedControls(ucrInputTextLimithc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimithc.SetValidationTypeAsList()
+
+        ucrInputTextNaValuehc.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuehc.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuehc.bAddRemoveParameter = False
+        ucrInputTextNaValuehc.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuehc.SetText("Replace Missing Values")
+        ucrChkNaValuehc.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuehc.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuehc.AddToLinkedControls(ucrInputTextNaValuehc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorhc.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorhc.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorhc.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorhc.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorhc.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorhc.AddToLinkedControls(ucrInputDropUnusedLevelsColorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorhc.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorhc.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorhc.SetItems(dctDropUnusedLevelsColorhc)
+
+        ucrChkPositionColorhc.SetText("Position:")
+        ucrChkPositionColorhc.AddToLinkedControls(ucrInputPositionColorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorhc.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorhc.SetParameter(New RParameter("position"))
+        dctPositionColorhc.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorhc.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorhc.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorhc.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorhc.SetItems(dctPositionColorhc)
+        ucrChkPositionColorhc.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorhc.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorhc.SetText("Expand")
+        ucrChkExpandColorhc.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorhc.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorhc.AddToLinkedControls(ucrInputTextExpandColorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorhc.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorhc.SetText("Breaks")
+        ucrChkBreaksColorhc.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorhc.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorhc.AddToLinkedControls(ucrInputTextBreaksColorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorhc.SetValidationTypeAsList()
+
+        ucrChkLimitColorhc.SetText("Limits")
+        ucrChkLimitColorhc.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorhc.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorhc.AddToLinkedControls(ucrInputTextLimitColorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorhc.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorhc.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorhc.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorhc.bAddRemoveParameter = False
+        ucrInputTextNaValueColorhc.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorhc.SetText("Replace Missing Values")
+        ucrChkNaValueColorhc.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorhc.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorhc.AddToLinkedControls(ucrInputTextNaValueColorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkPalettehc.SetText("Palette:")
+        ucrChkPalettehc.AddToLinkedControls(ucrInputPalettehc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="default")
+        ucrInputPalettehc.SetDropDownStyleAsNonEditable()
+        ucrInputPalettehc.SetParameter(New RParameter("palette"))
+        ucrInputPalettehc.SetItems({"default", "darkunica"})
+        ucrChkPalettehc.AddParameterPresentCondition(True, "palette")
+        ucrChkPalettehc.AddParameterPresentCondition(False, "palette", False)
+
+        ucrChkPalettecolorhc.SetText("Palette:")
+        ucrChkPalettecolorhc.AddToLinkedControls(ucrInputPalettecolorhc, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="default")
+        ucrInputPalettecolorhc.SetDropDownStyleAsNonEditable()
+        ucrInputPalettecolorhc.SetParameter(New RParameter("palette"))
+        ucrInputPalettecolorhc.SetItems({"default", "darkunica"})
+        ucrChkPalettecolorhc.AddParameterPresentCondition(True, "palette")
+        ucrChkPalettecolorhc.AddParameterPresentCondition(False, "palette", False)
+
+        ucrChkPalettecolor.SetText("Palette:")
+        ucrChkPalettecolor.AddToLinkedControls(ucrInputPalettecolor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Light")
+        ucrInputPalettecolor.SetDropDownStyleAsNonEditable()
+        ucrInputPalettecolor.SetParameter(New RParameter("palette"))
+        ucrInputPalettecolor.SetItems({"Light", "Medium", "Dark"})
+        ucrChkPalettecolor.AddParameterPresentCondition(True, "palette")
+        ucrChkPalettecolor.AddParameterPresentCondition(False, "palette", False)
+
+        ucrChkPalettefill.SetText("Palette:")
+        ucrChkPalettefill.AddToLinkedControls(ucrInputPalettefill, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Light")
+        ucrInputPalettefill.SetDropDownStyleAsNonEditable()
+        ucrInputPalettefill.SetParameter(New RParameter("palette"))
+        ucrInputPalettefill.SetItems({"Light", "Medium", "Dark"})
+        ucrChkPalettefill.AddParameterPresentCondition(True, "palette")
+        ucrChkPalettefill.AddParameterPresentCondition(False, "palette", False)
+
+        ucrChkDropUnusedLevelspan.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelspan.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelspan.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelspan.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelspan.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelspan.AddToLinkedControls(ucrInputDropUnusedLevelspan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelspan.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelspan.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelspan.SetItems(dctDropUnusedLevelspan)
+
+        ucrChkPositionpan.SetText("Position:")
+        ucrChkPositionpan.AddToLinkedControls(ucrInputPositionpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionpan.SetDropDownStyleAsNonEditable()
+        ucrInputPositionpan.SetParameter(New RParameter("position"))
+        dctPositionpan.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionpan.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionpan.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionpan.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionpan.SetItems(dctPositionpan)
+        ucrChkPositionpan.AddParameterPresentCondition(True, "position")
+        ucrChkPositionpan.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandpan.SetText("Expand")
+        ucrChkExpandpan.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandpan.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandpan.AddToLinkedControls(ucrInputTextExpandpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandpan.SetValidationTypeAsNumericList()
+
+        ucrChkBreakspan.SetText("Breaks")
+        ucrChkBreakspan.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreakspan.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreakspan.AddToLinkedControls(ucrInputTextBreakspan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreakspan.SetValidationTypeAsList()
+
+        ucrChkLimitpan.SetText("Limits")
+        ucrChkLimitpan.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitpan.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitpan.AddToLinkedControls(ucrInputTextLimitpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitpan.SetValidationTypeAsList()
+
+        ucrInputTextNaValuepan.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuepan.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuepan.bAddRemoveParameter = False
+        ucrInputTextNaValuepan.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuepan.SetText("Replace Missing Values")
+        ucrChkNaValuepan.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuepan.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuepan.AddToLinkedControls(ucrInputTextNaValuepan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorpan.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorpan.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorpan.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorpan.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorpan.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorpan.AddToLinkedControls(ucrInputDropUnusedLevelsColorpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorpan.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorpan.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorpan.SetItems(dctDropUnusedLevelsColorpan)
+
+        ucrChkPositionColorpan.SetText("Position:")
+        ucrChkPositionColorpan.AddToLinkedControls(ucrInputPositionColorpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorpan.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorpan.SetParameter(New RParameter("position"))
+        dctPositionColorpan.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorpan.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorpan.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorpan.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorpan.SetItems(dctPositionColorpan)
+        ucrChkPositionColorpan.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorpan.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorpan.SetText("Expand")
+        ucrChkExpandColorpan.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorpan.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorpan.AddToLinkedControls(ucrInputTextExpandColorpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorpan.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorpan.SetText("Breaks")
+        ucrChkBreaksColorpan.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorpan.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorpan.AddToLinkedControls(ucrInputTextBreaksColorpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorpan.SetValidationTypeAsList()
+
+        ucrChkLimitColorpan.SetText("Limits")
+        ucrChkLimitColorpan.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorpan.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorpan.AddToLinkedControls(ucrInputTextLimitColorpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorpan.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorpan.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorpan.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorpan.bAddRemoveParameter = False
+        ucrInputTextNaValueColorpan.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorpan.SetText("Replace Missing Values")
+        ucrChkNaValueColorpan.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorpan.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorpan.AddToLinkedControls(ucrInputTextNaValueColorpan, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelspt.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelspt.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelspt.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelspt.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelspt.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelspt.AddToLinkedControls(ucrInputDropUnusedLevelspt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelspt.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelspt.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelspt.SetItems(dctDropUnusedLevelspt)
+
+        ucrChkPositionpt.SetText("Position:")
+        ucrChkPositionpt.AddToLinkedControls(ucrInputPositionpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionpt.SetDropDownStyleAsNonEditable()
+        ucrInputPositionpt.SetParameter(New RParameter("position"))
+        dctPositionpt.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionpt.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionpt.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionpt.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionpt.SetItems(dctPositionpt)
+        ucrChkPositionpt.AddParameterPresentCondition(True, "position")
+        ucrChkPositionpt.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandpt.SetText("Expand")
+        ucrChkExpandpt.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandpt.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandpt.AddToLinkedControls(ucrInputTextExpandpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandpt.SetValidationTypeAsNumericList()
+
+        ucrChkBreakspt.SetText("Breaks")
+        ucrChkBreakspt.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreakspt.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreakspt.AddToLinkedControls(ucrInputTextBreakspt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreakspt.SetValidationTypeAsList()
+
+        ucrChkLimitpt.SetText("Limits")
+        ucrChkLimitpt.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitpt.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitpt.AddToLinkedControls(ucrInputTextLimitpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitpt.SetValidationTypeAsList()
+
+        ucrInputTextNaValuept.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuept.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuept.bAddRemoveParameter = False
+        ucrInputTextNaValuept.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuept.SetText("Replace Missing Values")
+        ucrChkNaValuept.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuept.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuept.AddToLinkedControls(ucrInputTextNaValuept, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorpt.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorpt.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorpt.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorpt.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorpt.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorpt.AddToLinkedControls(ucrInputDropUnusedLevelsColorpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorpt.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorpt.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorpt.SetItems(dctDropUnusedLevelsColorpt)
+
+        ucrChkPositionColorpt.SetText("Position:")
+        ucrChkPositionColorpt.AddToLinkedControls(ucrInputPositionColorpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorpt.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorpt.SetParameter(New RParameter("position"))
+        dctPositionColorpt.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorpt.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorpt.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorpt.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorpt.SetItems(dctPositionColorpt)
+        ucrChkPositionColorpt.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorpt.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorpt.SetText("Expand")
+        ucrChkExpandColorpt.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorpt.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorpt.AddToLinkedControls(ucrInputTextExpandColorpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorpt.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorpt.SetText("Breaks")
+        ucrChkBreaksColorpt.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorpt.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorpt.AddToLinkedControls(ucrInputTextBreaksColorpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorpt.SetValidationTypeAsList()
+
+        ucrChkLimitColorpt.SetText("Limits")
+        ucrChkLimitColorpt.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorpt.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorpt.AddToLinkedControls(ucrInputTextLimitColorpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorpt.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorpt.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorpt.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorpt.bAddRemoveParameter = False
+        ucrInputTextNaValueColorpt.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorpt.SetText("Replace Missing Values")
+        ucrChkNaValueColorpt.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorpt.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorpt.AddToLinkedControls(ucrInputTextNaValueColorpt, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelssol.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelssol.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelssol.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelssol.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelssol.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelssol.AddToLinkedControls(ucrInputDropUnusedLevelssol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelssol.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelssol.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelssol.SetItems(dctDropUnusedLevelssol)
+
+        ucrChkPositionsol.SetText("Position:")
+        ucrChkPositionsol.AddToLinkedControls(ucrInputPositionsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionsol.SetDropDownStyleAsNonEditable()
+        ucrInputPositionsol.SetParameter(New RParameter("position"))
+        dctPositionsol.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionsol.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionsol.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionsol.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionsol.SetItems(dctPositionsol)
+        ucrChkPositionsol.AddParameterPresentCondition(True, "position")
+        ucrChkPositionsol.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandsol.SetText("Expand")
+        ucrChkExpandsol.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandsol.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandsol.AddToLinkedControls(ucrInputTextExpandsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandsol.SetValidationTypeAsNumericList()
+
+        ucrChkBreakssol.SetText("Breaks")
+        ucrChkBreakssol.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreakssol.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreakssol.AddToLinkedControls(ucrInputTextBreakssol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreakssol.SetValidationTypeAsList()
+
+        ucrChkLimitsol.SetText("Limits")
+        ucrChkLimitsol.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitsol.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitsol.AddToLinkedControls(ucrInputTextLimitsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitsol.SetValidationTypeAsList()
+
+        ucrInputTextNaValuesol.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuesol.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuesol.bAddRemoveParameter = False
+        ucrInputTextNaValuesol.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuesol.SetText("Replace Missing Values")
+        ucrChkNaValuesol.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuesol.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuesol.AddToLinkedControls(ucrInputTextNaValuesol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorsol.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorsol.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorsol.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorsol.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorsol.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorsol.AddToLinkedControls(ucrInputDropUnusedLevelsColorsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorsol.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorsol.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorsol.SetItems(dctDropUnusedLevelsColorsol)
+
+        ucrChkPositionColorsol.SetText("Position:")
+        ucrChkPositionColorsol.AddToLinkedControls(ucrInputPositionColorsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorsol.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorsol.SetParameter(New RParameter("position"))
+        dctPositionColorsol.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorsol.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorsol.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorsol.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorsol.SetItems(dctPositionColorsol)
+        ucrChkPositionColorsol.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorsol.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorsol.SetText("Expand")
+        ucrChkExpandColorsol.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorsol.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorsol.AddToLinkedControls(ucrInputTextExpandColorsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorsol.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorsol.SetText("Breaks")
+        ucrChkBreaksColorsol.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorsol.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorsol.AddToLinkedControls(ucrInputTextBreaksColorsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorsol.SetValidationTypeAsList()
+
+        ucrChkLimitColorsol.SetText("Limits")
+        ucrChkLimitColorsol.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorsol.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorsol.AddToLinkedControls(ucrInputTextLimitColorsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorsol.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorsol.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorsol.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorsol.bAddRemoveParameter = False
+        ucrInputTextNaValueColorsol.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorsol.SetText("Replace Missing Values")
+        ucrChkNaValueColorsol.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorsol.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorsol.AddToLinkedControls(ucrInputTextNaValueColorsol, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsst.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsst.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsst.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsst.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsst.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsst.AddToLinkedControls(ucrInputDropUnusedLevelsst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsst.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsst.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsst.SetItems(dctDropUnusedLevelsst)
+
+        ucrChkPositionst.SetText("Position:")
+        ucrChkPositionst.AddToLinkedControls(ucrInputPositionst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionst.SetDropDownStyleAsNonEditable()
+        ucrInputPositionst.SetParameter(New RParameter("position"))
+        dctPositionst.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionst.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionst.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionst.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionst.SetItems(dctPositionst)
+        ucrChkPositionst.AddParameterPresentCondition(True, "position")
+        ucrChkPositionst.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandst.SetText("Expand")
+        ucrChkExpandst.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandst.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandst.AddToLinkedControls(ucrInputTextExpandst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandst.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksst.SetText("Breaks")
+        ucrChkBreaksst.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksst.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksst.AddToLinkedControls(ucrInputTextBreaksst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksst.SetValidationTypeAsList()
+
+        ucrChkLimitst.SetText("Limits")
+        ucrChkLimitst.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitst.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitst.AddToLinkedControls(ucrInputTextLimitst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitst.SetValidationTypeAsList()
+
+        ucrInputTextNaValuest.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuest.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuest.bAddRemoveParameter = False
+        ucrInputTextNaValuest.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuest.SetText("Replace Missing Values")
+        ucrChkNaValuest.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuest.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuest.AddToLinkedControls(ucrInputTextNaValuest, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorst.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorst.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorst.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorst.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorst.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorst.AddToLinkedControls(ucrInputDropUnusedLevelsColorst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorst.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorst.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorst.SetItems(dctDropUnusedLevelsColorst)
+
+        ucrChkPositionColorst.SetText("Position:")
+        ucrChkPositionColorst.AddToLinkedControls(ucrInputPositionColorst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorst.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorst.SetParameter(New RParameter("position"))
+        dctPositionColorst.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorst.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorst.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorst.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorst.SetItems(dctPositionColorst)
+        ucrChkPositionColorst.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorst.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorst.SetText("Expand")
+        ucrChkExpandColorst.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorst.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorst.AddToLinkedControls(ucrInputTextExpandColorst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorst.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorst.SetText("Breaks")
+        ucrChkBreaksColorst.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorst.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorst.AddToLinkedControls(ucrInputTextBreaksColorst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorst.SetValidationTypeAsList()
+
+        ucrChkLimitColorst.SetText("Limits")
+        ucrChkLimitColorst.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorst.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorst.AddToLinkedControls(ucrInputTextLimitColorst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorst.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorst.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorst.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorst.bAddRemoveParameter = False
+        ucrInputTextNaValueColorst.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorst.SetText("Replace Missing Values")
+        ucrChkNaValueColorst.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorst.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorst.AddToLinkedControls(ucrInputTextNaValueColorst, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkSchemecolor.SetText("Scheme:")
+        ucrChkSchemecolor.AddToLinkedControls(ucrInputSchemecolor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="s2color")
+        ucrInputSchemecolor.SetDropDownStyleAsNonEditable()
+        ucrInputSchemecolor.SetParameter(New RParameter("scheme"))
+        ucrInputSchemecolor.SetItems({"s2color", "s1rcolor", "s1color", "mono"})
+        ucrChkSchemecolor.AddParameterPresentCondition(True, "scheme")
+        ucrChkSchemecolor.AddParameterPresentCondition(False, "scheme", False)
+
+        ucrChkSchemefill.SetText("Scheme:")
+        ucrChkSchemefill.AddToLinkedControls(ucrInputSchemefill, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="s2color")
+        ucrInputSchemefill.SetDropDownStyleAsNonEditable()
+        ucrInputSchemefill.SetParameter(New RParameter("scheme"))
+        ucrInputSchemefill.SetItems({"s2color", "s1rcolor", "s1color", "mono"})
+        ucrChkSchemefill.AddParameterPresentCondition(True, "scheme")
+        ucrChkSchemefill.AddParameterPresentCondition(False, "scheme", False)
+
+        ucrChkDropUnusedLevelsw.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsw.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsw.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsw.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsw.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsw.AddToLinkedControls(ucrInputDropUnusedLevelsw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsw.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsw.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsw.SetItems(dctDropUnusedLevelsw)
+
+        ucrChkPositionw.SetText("Position:")
+        ucrChkPositionw.AddToLinkedControls(ucrInputPositionw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionw.SetDropDownStyleAsNonEditable()
+        ucrInputPositionw.SetParameter(New RParameter("position"))
+        dctPositionw.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionw.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionw.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionw.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionw.SetItems(dctPositionw)
+        ucrChkPositionw.AddParameterPresentCondition(True, "position")
+        ucrChkPositionw.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandw.SetText("Expand")
+        ucrChkExpandw.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandw.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandw.AddToLinkedControls(ucrInputTextExpandw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandw.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksw.SetText("Breaks")
+        ucrChkBreaksw.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksw.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksw.AddToLinkedControls(ucrInputTextBreaksw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksw.SetValidationTypeAsList()
+
+        ucrChkLimitw.SetText("Limits")
+        ucrChkLimitw.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitw.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitw.AddToLinkedControls(ucrInputTextLimitw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitw.SetValidationTypeAsList()
+
+        ucrInputTextNaValuew.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValuew.SetValidationTypeAsNumeric()
+        ucrInputTextNaValuew.bAddRemoveParameter = False
+        ucrInputTextNaValuew.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValuew.SetText("Replace Missing Values")
+        ucrChkNaValuew.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValuew.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValuew.AddToLinkedControls(ucrInputTextNaValuew, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkDropUnusedLevelsColorw.SetText("Drop Unused Levels:")
+        ucrInputDropUnusedLevelsColorw.SetParameter(New RParameter("drop"))
+        ucrInputDropUnusedLevelsColorw.SetDropDownStyleAsNonEditable()
+        ucrChkDropUnusedLevelsColorw.AddParameterPresentCondition(True, "drop")
+        ucrChkDropUnusedLevelsColorw.AddParameterPresentCondition(False, "drop", False)
+        ucrChkDropUnusedLevelsColorw.AddToLinkedControls(ucrInputDropUnusedLevelsColorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="TRUE")
+        dctDropUnusedLevelsColorw.Add("TRUE", Chr(34) & "TRUE" & Chr(34))
+        dctDropUnusedLevelsColorw.Add("FALSE", Chr(34) & "FALSE" & Chr(34))
+        ucrInputDropUnusedLevelsColorw.SetItems(dctDropUnusedLevelsColorw)
+
+        ucrChkPositionColorw.SetText("Position:")
+        ucrChkPositionColorw.AddToLinkedControls(ucrInputPositionColorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
+        ucrInputPositionColorw.SetDropDownStyleAsNonEditable()
+        ucrInputPositionColorw.SetParameter(New RParameter("position"))
+        dctPositionColorw.Add("Left", Chr(34) & "left" & Chr(34))
+        dctPositionColorw.Add("Right", Chr(34) & "right" & Chr(34))
+        dctPositionColorw.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        dctPositionColorw.Add("Top", Chr(34) & "top" & Chr(34))
+        ucrInputPositionColorw.SetItems(dctPositionColorw)
+        ucrChkPositionColorw.AddParameterPresentCondition(True, "position")
+        ucrChkPositionColorw.AddParameterPresentCondition(False, "position", False)
+
+        ucrChkExpandColorw.SetText("Expand")
+        ucrChkExpandColorw.AddParameterPresentCondition(True, "expand")
+        ucrChkExpandColorw.AddParameterPresentCondition(False, "expand", False)
+        ucrChkExpandColorw.AddToLinkedControls(ucrInputTextExpandColorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0.05,0")
+        ucrInputTextExpandColorw.SetValidationTypeAsNumericList()
+
+        ucrChkBreaksColorw.SetText("Breaks")
+        ucrChkBreaksColorw.AddParameterPresentCondition(True, "breaks")
+        ucrChkBreaksColorw.AddParameterPresentCondition(False, "breaks", False)
+        ucrChkBreaksColorw.AddToLinkedControls(ucrInputTextBreaksColorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextBreaksColorw.SetValidationTypeAsList()
+
+        ucrChkLimitColorw.SetText("Limits")
+        ucrChkLimitColorw.AddParameterPresentCondition(True, "limit")
+        ucrChkLimitColorw.AddParameterPresentCondition(False, "limit", False)
+        ucrChkLimitColorw.AddToLinkedControls(ucrInputTextLimitColorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrInputTextLimitColorw.SetValidationTypeAsList()
+
+        ucrInputTextNaValueColorw.SetParameter(New RParameter("na.value"))
+        ucrInputTextNaValueColorw.SetValidationTypeAsNumeric()
+        ucrInputTextNaValueColorw.bAddRemoveParameter = False
+        ucrInputTextNaValueColorw.AddQuotesIfUnrecognised = False
+
+        ucrChkNaValueColorw.SetText("Replace Missing Values")
+        ucrChkNaValueColorw.AddParameterPresentCondition(True, "na.value")
+        ucrChkNaValueColorw.AddParameterPresentCondition(False, "na.value", False)
+        ucrChkNaValueColorw.AddToLinkedControls(ucrInputTextNaValueColorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+
+        ucrChkPalettecolorw.SetText("Palette:")
+        ucrChkPalettecolorw.AddToLinkedControls(ucrInputPalettecolorw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="s2color")
+        ucrInputPalettecolorw.SetDropDownStyleAsNonEditable()
+        ucrInputPalettecolorw.SetParameter(New RParameter("palette"))
+        ucrInputPalettecolorw.SetItems({"rgby", "red_green", "black_green", "dem_rep", "colors6"})
+        ucrChkPalettecolorw.AddParameterPresentCondition(True, "palette")
+        ucrChkPalettecolorw.AddParameterPresentCondition(False, "palette", False)
+
+        ucrChkpalettefillw.SetText("Palette:")
+        ucrChkpalettefillw.AddToLinkedControls(ucrInputPalettefillw, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="s2color")
+        ucrInputPalettefillw.SetDropDownStyleAsNonEditable()
+        ucrInputPalettefillw.SetParameter(New RParameter("palette"))
+        ucrInputPalettefillw.SetItems({"rgby", "red_green", "black_green", "dem_rep", "colors6"})
+        ucrChkpalettefillw.AddParameterPresentCondition(True, "palette")
+        ucrChkpalettefillw.AddParameterPresentCondition(False, "palette", False)
+
+        ucrInputContinousfill.SetDropDownStyleAsNonEditable()
+        ucrInputContinousfill.SetParameter(New RParameter("palette"))
+        ucrInputContinousfill.SetItems({"Blue-Green Sequential", "Blue Light", "Orange Light", "Blue", "Orange", "Green", "Red", "Purple", "Brown", "Gray", "Gray Warm", "Blue-Teal", "Orange-Gold", "Green-Gold", "Red-Gold", "Classic Green", "Classic Gray", "Classic Blue", "Classic Red", "Classic Orange", "Classic Area Red",
+                                       "Classic Area Green", "Classic Area-Brown", "ordered-diverging", "Orange-Blue Diverging", "Red-Green Diverging", "Green-Blue Diverging", "Red-Blue Diverging", "Red-Black Diverging", "Gold-Purple Diverging", "Red-Green-Gold Diverging", "Sunset-Sunrise Diverging", "Orange-Blue-White Diverging",
+                                       "Red-Green-White Diverging", "Green-Blue-White Diverging", "Red-Blue-White Diverging", "Red-Black-White Diverging", "Orange-Blue Light Diverging", "Temperature Diverging", "Classic Red-Green", "Classic Red-Blue", "Classic Red-Black", "Classic Area Red-Green", "Classic Orange-Blue", "Classic Green-Blue",
+                                       "Classic Red-White-Green", "Classic Red-White-Black", "Classic Orange-White-Blue", "Classic Red-White-Black Light", "Classic Orange-White-Blue Light", "Classic Red-White-Green Light", "Classic Red-Green Light"})
+        ucrInputContinousfill.SetLinkedDisplayControl(lblPaletteContinuousfill)
+
+        ucrInputcontinuouscolor.SetDropDownStyleAsNonEditable()
+        ucrInputcontinuouscolor.SetParameter(New RParameter("palette"))
+        ucrInputcontinuouscolor.SetItems({"Blue-Green Sequential", "Blue Light", "Orange Light", "Blue", "Orange", "Green", "Red", "Purple", "Brown", "Gray", "Gray Warm", "Blue-Teal", "Orange-Gold", "Green-Gold", "Red-Gold", "Classic Green", "Classic Gray", "Classic Blue", "Classic Red", "Classic Orange", "Classic Area Red",
+                                         "Classic Area Green", "Classic Area-Brown", "ordered-diverging", "Orange-Blue Diverging", "Red-Green Diverging", "Green-Blue Diverging", "Red-Blue Diverging", "Red-Black Diverging", "Gold-Purple Diverging", "Red-Green-Gold Diverging", "Sunset-Sunrise Diverging", "Orange-Blue-White Diverging",
+                                         "Red-Green-White Diverging", "Green-Blue-White Diverging", "Red-Blue-White Diverging", "Red-Black-White Diverging", "Orange-Blue Light Diverging", "Temperature Diverging", "Classic Red-Green", "Classic Red-Blue", "Classic Red-Black", "Classic Area Red-Green", "Classic Orange-Blue", "Classic Green-Blue",
+                                         "Classic Red-White-Green", "Classic Red-White-Black", "Classic Orange-White-Blue", "Classic Red-White-Black Light", "Classic Orange-White-Blue Light", "Classic Red-White-Green Light", "Classic Red-Green Light"})
+        ucrInputcontinuouscolor.SetLinkedDisplayControl(lblPalcontinuouscolor)
+
+        ucrPnlColourPalette.AddParameterValuesCondition(rdoSequential, "palette", "sequential")
+        ucrPnlColourPalette.AddParameterValuesCondition(rdoDiverging, "palette", "diverging")
+        ucrPnlColourPalette.AddParameterValuesCondition(rdoQualitative, "palette", "qualitative")
+        ucrPnlColourPalette.AddParameterValuesCondition(rdoViridis, "option", "viridis")
+        ucrPnlColourPalette.AddParameterValuesCondition(rdoGgthemes, "palette", "ggthemes")
+        ucrPnlColourPalette.AddToLinkedControls(ucrInputColorFunctions, {rdoGgthemes}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrPnlColourPalette.AddToLinkedControls(ucrInputFillFunction, {rdoGgthemes}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="")
+        ucrPnlColourPalette.AddToLinkedControls({ucrInputCanvasColorPalette, ucrInputCanvasFillPalette}, {rdoGgthemes}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Antique and clean")
+        ucrPnlColourPalette.AddToLinkedControls({ucrInputcontinuouscolor, ucrInputContinousfill}, {rdoGgthemes}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Blue-Green Sequential")
+
+        ucrInputColorFunctions.SetDropDownStyleAsNonEditable()
+        ucrInputColorFunctions.SetItems({"scale_color_calc", "scale_color_canva", "scale_color_colorblind", "scale_color_economist", "scale_color_excel", "scale_color_excel_new", "scale_color_few", "scale_color_fivethirtyeight", "scale_color_gdocs", "scale_color_hc", "scale_color_pander", "scale_color_ptol", "scale_color_solarized", "scale_color_stata", "scale_color_wsj"})
+        ucrInputColorFunctions.SetLinkedDisplayControl(lblGgthemesFunctions)
+
+        ucrInputFillFunction.SetDropDownStyleAsNonEditable()
+        ucrInputFillFunction.SetItems({"scale_fill_calc", "scale_fill_canva", "scale_fill_colorblind", "scale_fill_economist", "scale_fill_excel", "scale_fill_excel_new", "scale_fill_few", "scale_fill_fivethirtyeight", "scale_fill_gdocs", "scale_fill_hc", "scale_fill_pander", "scale_fill_ptol", "scale_fill_solarized", "scale_fill_stata", "scale_fill_wsj"})
+        ucrInputFillFunction.SetLinkedDisplayControl(lblFillFunction)
+
+        ucrInputCanvasColorPalette.SetDropDownStyleAsNonEditable()
+        ucrInputCanvasColorPalette.SetParameter(New RParameter("palette"))
+        ucrInputCanvasColorPalette.SetItems({"Antique and clean", "Antique tones", "Berry blues", "Beyond black and white", "Bold berries ", "Candy coated brights", "Cheerful brights", "City sights", "Coastal", "Day and night", "Fresh greens", "Golden afternoon", "Hazy grays", "Jewel tones", "Misty greens", "Modern and muted", "Muted tones", "Neon night", "Orange accent", "Pastels", "Pop art", "Violet sunset"})
+        ucrInputCanvasColorPalette.SetLinkedDisplayControl(lblCanvasColorPalette)
+
+        ucrInputCanvasFillPalette.SetDropDownStyleAsNonEditable()
+        ucrInputCanvasFillPalette.SetParameter(New RParameter("palette"))
+        ucrInputCanvasFillPalette.SetItems({"Antique and clean", "Antique tones", "Berry blues", "Beyond black and white", "Bold berries ", "Candy coated brights", "Cheerful brights", "City sights", "Coastal", "Day and night", "Fresh greens", "Golden afternoon", "Hazy grays", "Jewel tones", "Misty greens", "Modern and muted", "Muted tones", "Neon night", "Orange accent", "Pastels", "Pop art", "Violet sunset"})
+        ucrInputCanvasFillPalette.SetLinkedDisplayControl(lblCanvasFillPalette)
+
+        ucrChkUseFill.SetText("Use Fill Palette")
+        ucrChkUseFill.AddParameterPresentCondition(True, "checked", True)
+        ucrChkUseFill.AddParameterPresentCondition(False, "checked", False)
+
+        ucrChkUseColor.SetText("Use Colour Palette")
+        ucrChkUseColor.AddParameterPresentCondition(True, "checked", True)
+        ucrChkUseColor.AddParameterPresentCondition(False, "checked", False)
+
         ucrInputFillScaleColour.SetParameter(New RParameter("option", iNewPosition:=0))
         dctFillOptions.Add("viridis", Chr(34) & "viridis" & Chr(34))
         dctFillOptions.Add("magma", Chr(34) & "magma" & Chr(34))
         dctFillOptions.Add("inferno", Chr(34) & "inferno" & Chr(34))
         dctFillOptions.Add("plasma", Chr(34) & "plasma" & Chr(34))
         dctFillOptions.Add("cividis", Chr(34) & "cividis" & Chr(34))
+        dctFillOptions.Add("mako", Chr(34) & "mako" & Chr(34))
+        dctFillOptions.Add("rocket", Chr(34) & "rocket" & Chr(34))
+        dctFillOptions.Add("turbo", Chr(34) & "turbo" & Chr(34))
         ucrInputFillScaleColour.SetItems(dctFillOptions)
         ucrInputFillScaleColour.SetRDefault(Chr(34) & "viridis" & Chr(34))
         ucrInputFillScaleColour.SetLinkedDisplayControl(lblFillScaleColourPalettte)
@@ -596,6 +2316,9 @@ Public Class sdgPlots
         dctColourOptions.Add("inferno", Chr(34) & "inferno" & Chr(34))
         dctColourOptions.Add("plasma", Chr(34) & "plasma" & Chr(34))
         dctColourOptions.Add("cividis", Chr(34) & "cividis" & Chr(34))
+        dctColourOptions.Add("mako", Chr(34) & "mako" & Chr(34))
+        dctColourOptions.Add("rocket", Chr(34) & "rocket" & Chr(34))
+        dctColourOptions.Add("turbo", Chr(34) & "turbo" & Chr(34))
         ucrInputColourScalePalette.SetRDefault(Chr(34) & "viridis" & Chr(34))
         ucrInputColourScalePalette.SetItems(dctColourOptions)
         ucrInputColourScalePalette.SetLinkedDisplayControl(lblColourScalePalette)
@@ -644,13 +2367,45 @@ Public Class sdgPlots
 
         grpFillScale.Visible = False
         grpColourScale.Visible = False
+        grpFillScaleggthemes.Visible = False
+        grpColourScaleGgthemes.Visible = False
+        grpScalefillCal.Visible = False
+        grpScalecolorcal.Visible = False
+        grpScalefillEcon.Visible = False
+        grpScalecolorEcon.Visible = False
+        grpScalefillEx.Visible = False
+        grpScalecolorEx.Visible = False
+        grpScalefillExn.Visible = False
+        grpScalecolorExn.Visible = False
+        grpScalefillfew.Visible = False
+        grpScaleFillfiv.Visible = False
+        grpScaleColorfiv.Visible = False
+        grpScalecolorfew.Visible = False
+        grpScalefillg.Visible = False
+        grpScalecolorg.Visible = False
+        grpScalefillpan.Visible = False
+        grpScalecolorpan.Visible = False
+        grpScalefillpt.Visible = False
+        grpScalecolorpt.Visible = False
+        grpScalefillsol.Visible = False
+        grpScalecolorsol.Visible = False
+        grpScalefillst.Visible = False
+        grpScalecolorst.Visible = False
+        grpScalefillw.Visible = False
+        grpScaleColorw.Visible = False
+        grpScalefillhc.Visible = False
+        grpScalecolorhc.Visible = False
+        ucrInputCanvasColorPalette.Visible = False
+        ucrInputCanvasFillPalette.Visible = False
+        ucrInputcontinuouscolor.Visible = False
+        ucrInputContinousfill.Visible = False
     End Sub
 
     Public Sub SetRCode(clsNewOperator As ROperator, clsNewCoordPolarFunction As RFunction, clsNewCoordPolarStartOperator As ROperator, clsNewYScalecontinuousFunction As RFunction, clsNewXScalecontinuousFunction As RFunction, clsNewLabsFunction As RFunction,
                         clsNewXLabsTitleFunction As RFunction, clsNewYLabTitleFunction As RFunction, clsNewFacetFunction As RFunction, clsNewThemeFunction As RFunction, dctNewThemeFunctions As Dictionary(Of String, RFunction), ucrNewBaseSelector As ucrSelector,
                         bReset As Boolean, Optional clsNewGlobalAesFunction As RFunction = Nothing, Optional clsNewXScaleDateFunction As RFunction = Nothing, Optional clsNewYScaleDateFunction As RFunction = Nothing,
                         Optional clsNewScaleFillViridisFunction As RFunction = Nothing, Optional clsNewScaleColourViridisFunction As RFunction = Nothing, Optional strMainDialogGeomParameterNames() As String = Nothing, Optional clsNewAnnotateFunction As RFunction = Nothing,
-                        Optional bNewEnableFill As Boolean = True, Optional bNewEnableColour As Boolean = True, Optional bNewEnableDiscrete As Boolean = True)
+                        Optional bNewEnableFill As Boolean = True, Optional bNewEnableColour As Boolean = True, Optional bNewEnableDiscrete As Boolean = True, Optional strNewAxisType As String = "discrete")
         Dim clsTempParam As RParameter
         bRCodeSet = False
 
@@ -679,6 +2434,14 @@ Public Class sdgPlots
         clsScaleColourViridisFunction = clsNewScaleColourViridisFunction
         clsAnnotateFunction = clsNewAnnotateFunction
 
+        clsDummyFunction = New RFunction
+
+        clsDummyFunction.AddParameter("palette", "sequential", iPosition:=0)
+        clsDummyFunction.AddParameter("scale_colour", "False", iPosition:=1)
+        clsDummyFunction.AddParameter("scale_fill", "False", iPosition:=2)
+
+        strAxisType = strNewAxisType
+        ucrInputColorType.SetName(strAxisType)
 
         If Not IsNothing(clsCoordPolarStartOperator) Then
             clsCoordPolarFunc.AddParameter("start", clsROperatorParameter:=clsCoordPolarStartOperator, iPosition:=1)
@@ -724,6 +2487,150 @@ Public Class sdgPlots
         Else
             clsLabsFunction = GgplotDefaults.clsDefaultLabs.Clone()
         End If
+
+        clsScaleFillColorblindFunction = New RFunction
+        clsScaleFillColorblindFunction.SetPackageName("ggthemes")
+        clsScaleFillColorblindFunction.SetRCommand("scale_fill_colorblind")
+
+        clsScaleColorColorblindFunction = New RFunction
+        clsScaleColorColorblindFunction.SetPackageName("ggthemes")
+        clsScaleColorColorblindFunction.SetRCommand("scale_color_colorblind")
+
+        clsColourPaletteFunction = New RFunction
+        clsColourPaletteFunction.SetPackageName("ggplot2")
+        clsColourPaletteFunction.SetRCommand("scale_colour_brewer")
+
+        clsFillPaletteFunction = New RFunction
+        clsFillPaletteFunction.SetPackageName("ggplot2")
+        clsFillPaletteFunction.SetRCommand("scale_fill_brewer")
+
+        clsScaleColorDistillerFunction = New RFunction
+        clsScaleColorDistillerFunction.SetPackageName("ggplot2")
+        clsScaleColorDistillerFunction.SetRCommand("scale_color_distiller")
+
+        clsScaleFillDistillerFunction = New RFunction
+        clsScaleFillDistillerFunction.SetPackageName("ggplot2")
+        clsScaleFillDistillerFunction.SetRCommand("scale_fill_distiller")
+
+        clsScalecolorcalcFunction = New RFunction
+        clsScalecolorcalcFunction.SetPackageName("ggthemes")
+        clsScalecolorcalcFunction.SetRCommand("scale_color_calc")
+
+        clsScalefillcalcFunction = New RFunction
+        clsScalefillcalcFunction.SetPackageName("ggthemes")
+        clsScalefillcalcFunction.SetRCommand("scale_fill_calc")
+
+        clsScalecoloreconomistFunction = New RFunction
+        clsScalecoloreconomistFunction.SetPackageName("ggthemes")
+        clsScalecoloreconomistFunction.SetRCommand("scale_color_economist")
+
+        clsScalefilleconomistFunction = New RFunction
+        clsScalefilleconomistFunction.SetPackageName("ggthemes")
+        clsScalefilleconomistFunction.SetRCommand("scale_fill_economist")
+
+        clsScalecolorexcelFunction = New RFunction
+        clsScalecolorexcelFunction.SetPackageName("ggthemes")
+        clsScalecolorexcelFunction.SetRCommand("scale_color_excel")
+
+        clsScalefillexcelFunction = New RFunction
+        clsScalefillexcelFunction.SetPackageName("ggthemes")
+        clsScalefillexcelFunction.SetRCommand("scale_fill_excel")
+
+        clsScalecolorfivethirtyeightFunction = New RFunction
+        clsScalecolorfivethirtyeightFunction.SetPackageName("ggthemes")
+        clsScalecolorfivethirtyeightFunction.SetRCommand("scale_color_fivethirtyeight")
+
+        clsScalefillfivethirtyeightFunction = New RFunction
+        clsScalefillfivethirtyeightFunction.SetPackageName("ggthemes")
+        clsScalefillfivethirtyeightFunction.SetRCommand("scale_fill_fivethirtyeight")
+
+        clsScalecolorgdocsFunction = New RFunction
+        clsScalecolorgdocsFunction.SetPackageName("ggthemes")
+        clsScalecolorgdocsFunction.SetRCommand("scale_color_gdocs")
+
+        clsScalefillgdocsFunction = New RFunction
+        clsScalefillgdocsFunction.SetPackageName("ggthemes")
+        clsScalefillgdocsFunction.SetRCommand("scale_fill_gdocs")
+
+        clsScalecolorpanderFunction = New RFunction
+        clsScalecolorpanderFunction.SetPackageName("ggthemes")
+        clsScalecolorpanderFunction.SetRCommand("scale_color_pander")
+
+        clsScalefillpanderFunction = New RFunction
+        clsScalefillpanderFunction.SetPackageName("ggthemes")
+        clsScalefillpanderFunction.SetRCommand("scale_fill_pander")
+
+        clsScalecolorptolFunction = New RFunction
+        clsScalecolorptolFunction.SetPackageName("ggthemes")
+        clsScalecolorptolFunction.SetRCommand("scale_color_ptol")
+
+        clsScalefillptolFunction = New RFunction
+        clsScalefillptolFunction.SetPackageName("ggthemes")
+        clsScalefillptolFunction.SetRCommand("scale_fill_ptol")
+
+        clsScalecolorsolarizedFunction = New RFunction
+        clsScalecolorsolarizedFunction.SetPackageName("ggthemes")
+        clsScalecolorsolarizedFunction.SetRCommand("scale_color_solarized")
+
+        clsScalefillsolarizedFunction = New RFunction
+        clsScalefillsolarizedFunction.SetPackageName("ggthemes")
+        clsScalefillsolarizedFunction.SetRCommand("scale_fill_solarized")
+
+        clsScalecolorfewFunction = New RFunction
+        clsScalecolorfewFunction.SetPackageName("ggthemes")
+        clsScalecolorfewFunction.SetRCommand("scale_color_few")
+
+        clsScalefillfewFunction = New RFunction
+        clsScalefillfewFunction.SetPackageName("ggthemes")
+        clsScalefillfewFunction.SetRCommand("scale_fill_few")
+
+        clsScalecolorhcFunction = New RFunction
+        clsScalecolorhcFunction.SetPackageName("ggthemes")
+        clsScalecolorhcFunction.SetRCommand("scale_color_hc")
+
+        clsScalefillhcFunction = New RFunction
+        clsScalefillhcFunction.SetPackageName("ggthemes")
+        clsScalefillhcFunction.SetRCommand("scale_fill_hc")
+
+        clsScalecolorstataFunction = New RFunction
+        clsScalecolorstataFunction.SetPackageName("ggthemes")
+        clsScalecolorstataFunction.SetRCommand("scale_color_stata")
+
+        clsScalefillstataFunction = New RFunction
+        clsScalefillstataFunction.SetPackageName("ggthemes")
+        clsScalefillstataFunction.SetRCommand("scale_fill_stata")
+
+        clsScalecolorwsjFunction = New RFunction
+        clsScalecolorwsjFunction.SetPackageName("ggthemes")
+        clsScalecolorwsjFunction.SetRCommand("scale_color_wsj")
+
+        clsScalefillwsjFunction = New RFunction
+        clsScalefillwsjFunction.SetPackageName("ggthemes")
+        clsScalefillwsjFunction.SetRCommand("scale_fill_wsj")
+
+        clsScalecolorgradienttableauFunction = New RFunction
+        clsScalecolorgradienttableauFunction.SetPackageName("ggthemes")
+        clsScalecolorgradienttableauFunction.SetRCommand("scale_color_gradient_tableau")
+
+        clsScalefillgradienttableauFunction = New RFunction
+        clsScalefillgradienttableauFunction.SetPackageName("ggthemes")
+        clsScalefillgradienttableauFunction.SetRCommand("scale_fill_gradient_tableau")
+
+        clsScalecolorcanvaFunction = New RFunction
+        clsScalecolorcanvaFunction.SetPackageName("ggthemes")
+        clsScalecolorcanvaFunction.SetRCommand("scale_color_canva")
+
+        clsScalefillcanvaFunction = New RFunction
+        clsScalefillcanvaFunction.SetPackageName("ggthemes")
+        clsScalefillcanvaFunction.SetRCommand("scale_fill_canva")
+
+        clsScalecolorexcelnewFunction = New RFunction
+        clsScalecolorexcelnewFunction.SetPackageName("ggthemes")
+        clsScalecolorexcelnewFunction.SetRCommand("scale_color_excel_new")
+
+        clsScalefillexcelnewFunction = New RFunction
+        clsScalefillexcelnewFunction.SetPackageName("ggthemes")
+        clsScalefillexcelnewFunction.SetRCommand("scale_fill_excel_new")
 
         If Not clsBaseOperator.ContainsParameter("theme_name") Then
             clsBaseOperator.AddParameter(GgplotDefaults.clsDefaultThemeParameter.Clone())
@@ -786,12 +2693,14 @@ Public Class sdgPlots
         ucrInputPolarCoordinates.SetRCode(clsCoordPolarFunc, bReset:=True, bCloneIfNeeded:=True)
 
         'colour
+        ucrInputPalettes.AddAdditionalCodeParameterPair(clsColourPaletteFunction, New RParameter("palette", 7), iAdditionalPairNo:=1)
+        ucrInputPaletteContinuous.AddAdditionalCodeParameterPair(clsScaleColorDistillerFunction, New RParameter("palette", 8), iAdditionalPairNo:=1)
         ucrInputFillScaleColour.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudFillScaleTransparency.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudFillScaleMapBegins.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudFillScaleMapEnds.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrChkFillScaleReverseColourOrder.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
-        ucrChkAddFillScale.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
+        ' ucrChkAddFillScale.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
         ucrInputColourScalePalette.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudColourScaleTransparency.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudColourScaleMapBegins.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
@@ -799,8 +2708,377 @@ Public Class sdgPlots
         ucrChkColourScaleReverseOrder.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrChkFillDiscrete.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrChkColourDiscrete.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
-        ucrChkAddColour.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
-
+        'ucrChkAddColour.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
+        If bReset Then
+            ucrChkUseColor.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
+            ucrChkUseFill.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
+            ucrChkAddFillScale.SetRCode(clsDummyFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkAddColour.SetRCode(clsDummyFunction, bReset, bCloneIfNeeded:=True)
+            ucrPnlColourPalette.SetRCode(clsDummyFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettes.SetRCode(clsFillPaletteFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPaletteContinuous.SetRCode(clsScaleFillDistillerFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevels.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPosition.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPosition.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevels.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpand.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpand.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaks.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaks.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimit.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimit.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValue.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValue.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColor.SetRCode(clsScaleFillColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColor.SetRCode(clsScaleColorColorblindFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueCal.SetRCode(clsScalefillcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorCal.SetRCode(clsScalecolorcalcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputCanvasFillPalette.SetRCode(clsScalefillcanvaFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputCanvasColorPalette.SetRCode(clsScalecolorcanvaFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueEcon.SetRCode(clsScalefilleconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorEcon.SetRCode(clsScalecoloreconomistFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueEx.SetRCode(clsScalefillexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorEx.SetRCode(clsScalecolorexcelFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputThemeFill.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkThemeFill.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkThemecolor.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputThemeColor.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueExn.SetRCode(clsScalefillexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorExn.SetRCode(clsScalecolorexcelnewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettefill.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPalettefill.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPalettecolor.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettecolor.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionfew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuefew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuefew.SetRCode(clsScalefillfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorfew.SetRCode(clsScalecolorfewFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionfiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuefiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuefiv.SetRCode(clsScalefillfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorfiv.SetRCode(clsScalecolorfivethirtyeightFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositiong.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositiong.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueg.SetRCode(clsScalefillgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorg.SetRCode(clsScalecolorgdocsFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettehc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPalettehc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPalettecolorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettecolorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimithc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimithc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandhc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandhc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreakshc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreakshc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelshc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelshc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionhc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionhc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuehc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuehc.SetRCode(clsScalefillhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorhc.SetRCode(clsScalecolorhcFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitpan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitpan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandpan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandpan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreakspan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreakspan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelspan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelspan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionpan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionpan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuepan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuepan.SetRCode(clsScalefillpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorpan.SetRCode(clsScalecolorpanderFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitpt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitpt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandpt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandpt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreakspt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreakspt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelspt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelspt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionpt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionpt.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuept.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuept.SetRCode(clsScalefillptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorpt.SetRCode(clsScalecolorptolFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitsol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitsol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandsol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandsol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreakssol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreakssol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelssol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelssol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionsol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionsol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuesol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuesol.SetRCode(clsScalefillsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorsol.SetRCode(clsScalecolorsolarizedFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputSchemefill.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkSchemefill.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkSchemecolor.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputSchemecolor.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionst.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuest.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuest.SetRCode(clsScalefillstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorst.SetRCode(clsScalecolorstataFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettefillw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkpalettefillw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPalettecolorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPalettecolorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionw.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuew.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValuew.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValuew.SetRCode(clsScalefillwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextLimitColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkLimitColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkExpandColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextExpandColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkBreaksColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextBreaksColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkDropUnusedLevelsColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputDropUnusedLevelsColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkPositionColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputPositionColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkNaValueColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputTextNaValueColorw.SetRCode(clsScalecolorwsjFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputcontinuouscolor.SetRCode(clsScalecolorgradienttableauFunction, bReset, bCloneIfNeeded:=True)
+            ucrInputContinousfill.SetRCode(clsScalefillgradienttableauFunction, bReset, bCloneIfNeeded:=True)
+        End If
         'labels
         If bReset Then
             ucrNudTitleSize.SetRCode(clsPlotElementTitleFunction, bReset, bCloneIfNeeded:=True)
@@ -1191,6 +3469,7 @@ Public Class sdgPlots
             clsBaseOperator.RemoveParameterByName("scale_fill")
             grpFillScale.Visible = False
         End If
+        ShowScaleColorGrp()
     End Sub
 
     Private Sub ucrChkAddColour_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkAddColour.ControlValueChanged
@@ -1201,6 +3480,7 @@ Public Class sdgPlots
             clsBaseOperator.RemoveParameterByName("scale_colour")
             grpColourScale.Visible = False
         End If
+        ShowScaleColorGrp()
     End Sub
 
     Private Sub ucrChkAnnotation_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkAnnotation.ControlValueChanged
@@ -1309,24 +3589,2025 @@ Public Class sdgPlots
     Private Sub ucrChkIncludeTitles_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkIncludeTitles.ControlValueChanged
         AddRemoveLabs()
     End Sub
+    Private Sub SetComboBoxItems()
+        If rdoDiverging.Checked Then
+            ucrInputPalettes.SetItems(dctDivergingPairs, bClearExisting:=True)
+            ucrInputPalettes.SetName(dctDivergingPairs.Keys.First)
+        ElseIf rdoQualitative.Checked Then
+            ucrInputPalettes.SetItems(dctQualititivePairs, bClearExisting:=True)
+            ucrInputPalettes.SetName(dctQualititivePairs.Keys.First)
+        ElseIf rdoSequential.Checked Then
+            ucrInputPalettes.SetItems(dctSequatailPairs, bClearExisting:=True)
+            ucrInputPalettes.SetName(dctSequatailPairs.Keys.First)
+        End If
+    End Sub
 
-    Private Sub ucrPnlColourPalette_ControlValueChanged(ucrChangedControl As ucrCore)
+    Private Sub SetComboBoxItemsContinuous()
+        If rdoDiverging.Checked Then
+            ucrInputPaletteContinuous.SetItems(dctDivergingPairs, bClearExisting:=True)
+            ucrInputPaletteContinuous.SetName(dctDivergingPairs.Keys.First)
+        ElseIf rdoQualitative.Checked Then
+            ucrInputPaletteContinuous.SetItems(dctQualititivePairs, bClearExisting:=True)
+            ucrInputPaletteContinuous.SetName(dctQualititivePairs.Keys.First)
+        ElseIf rdoSequential.Checked Then
+            ucrInputPaletteContinuous.SetItems(dctSequatailPairs, bClearExisting:=True)
+            ucrInputPaletteContinuous.SetName(dctSequatailPairs.Keys.First)
+        End If
+    End Sub
+
+    Private Sub ShowScaleColorGrp()
+        If ucrInputColorType.GetText = "discrete" Then
+            ucrInputPaletteContinuous.Hide()
+            ucrInputPalettes.Show()
+            ucrInputColorFunctions.Hide()
+            ucrInputCanvasColorPalette.Hide()
+            ucrInputFillFunction.Hide()
+            ucrInputcontinuouscolor.Hide()
+            ucrInputContinousfill.Hide()
+            clsBaseOperator.RemoveParameterByName("scale_color_gradient_tableau")
+            clsBaseOperator.RemoveParameterByName("scale_fill_gradient_tableau")
+            clsBaseOperator.RemoveParameterByName("scale_color_distiller")
+            clsBaseOperator.RemoveParameterByName("scale_fill_distiller")
+            If rdoDiverging.Checked OrElse rdoVertical.Checked OrElse rdoSequential.Checked Then
+                If ucrChkUseColor.Checked Then
+                    clsBaseOperator.AddParameter("scale_colour_brewer", clsRFunctionParameter:=clsColourPaletteFunction, iPosition:=15)
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_colour_brewer")
+                End If
+                If ucrChkUseFill.Checked Then
+                    clsBaseOperator.AddParameter("scale_fill_brewer", clsRFunctionParameter:=clsFillPaletteFunction, iPosition:=16)
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_fill_brewer")
+                End If
+            End If
+            GroupeColorScale()
+            GroupeFillScale()
+        ElseIf ucrInputColorType.GetText = "continuous" Then
+            grpScalecolorst.Hide()
+            grpScaleColorfiv.Hide()
+            grpScalecolorEx.Hide()
+            grpScalecolorcal.Hide()
+            grpColourScaleGgthemes.Hide()
+            grpScalecolorEcon.Hide()
+            ucrInputColorFunctions.Hide()
+            grpScalecolorpan.Hide()
+            grpScalecolorsol.Hide()
+            grpScalecolorpt.Hide()
+            grpScalecolorg.Hide()
+            grpScalecolorfew.Hide()
+            grpScalecolorExn.Hide()
+            grpScalecolorhc.Hide()
+            grpScaleColorw.Hide()
+            grpScalefillCal.Hide()
+            grpFillScaleggthemes.Hide()
+            ucrInputCanvasFillPalette.Hide()
+            grpScalefillEcon.Hide()
+            grpScalefillEx.Hide()
+            grpScalefillfew.Hide()
+            grpScalefillExn.Hide()
+            grpScaleFillfiv.Hide()
+            grpScalefillg.Hide()
+            grpScalefillhc.Hide()
+            grpScalefillpan.Hide()
+            grpScalefillpt.Hide()
+            grpScalefillsol.Hide()
+            grpScalefillst.Hide()
+            grpScalefillw.Hide()
+            ucrInputPalettes.Hide()
+            ucrInputPaletteContinuous.Show()
+            ucrInputColorFunctions.Hide()
+            ucrInputFillFunction.Hide()
+            ucrInputCanvasColorPalette.Hide()
+            clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+            clsBaseOperator.RemoveParameterByName("scale_color_stata")
+            clsBaseOperator.RemoveParameterByName("scale_color_hc")
+            clsBaseOperator.RemoveParameterByName("scale_color_pander")
+            clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+            clsBaseOperator.RemoveParameterByName("scale_color_calc")
+            clsBaseOperator.RemoveParameterByName("scale_color_canva")
+            clsBaseOperator.RemoveParameterByName("scale_color_economist")
+            clsBaseOperator.RemoveParameterByName("scale_color_excel")
+            clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+            clsBaseOperator.RemoveParameterByName("scale_color_few")
+            clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+            clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+            clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+            clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+            clsBaseOperator.RemoveParameterByName("scale_colour_brewer")
+            clsBaseOperator.RemoveParameterByName("scale_fill_brewer")
+            clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+            clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+            clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+            clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+            clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+            clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+            clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+            clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+            clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+            clsBaseOperator.RemoveParameterByName("scale_fill_few")
+            clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+            clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+            clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+            clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+            clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+            If rdoDiverging.Checked OrElse rdoQualitative.Checked OrElse rdoSequential.Checked Then
+                If ucrChkUseColor.Checked Then
+                    clsBaseOperator.AddParameter("scale_color_distiller", clsRFunctionParameter:=clsScaleColorDistillerFunction, iPosition:=15)
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_color_distiller")
+                End If
+                If ucrChkUseFill.Checked Then
+                    clsBaseOperator.AddParameter("scale_fill_distiller", clsRFunctionParameter:=clsScaleFillDistillerFunction, iPosition:=16)
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_fill_distiller")
+                End If
+            End If
+            If rdoViridis.Checked Then
+                ucrInputcontinuouscolor.Hide()
+                ucrInputContinousfill.Hide()
+                clsBaseOperator.RemoveParameterByName("scale_color_gradient_tableau")
+                clsBaseOperator.RemoveParameterByName("scale_fill_gradient_tableau")
+                If ucrChkAddColour.Checked Then
+                    grpColourScale.Show()
+                    clsBaseOperator.AddParameter("scale_colour", clsRFunctionParameter:=clsScaleColourViridisFunction, iPosition:=3)
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_colour")
+                    grpColourScale.Hide()
+                End If
+                If ucrChkAddFillScale.Checked Then
+                    clsBaseOperator.AddParameter("scale_fill", clsRFunctionParameter:=clsScaleFillViridisFunction, iPosition:=3)
+                    grpFillScale.Show()
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_fill")
+                    grpFillScale.Hide()
+                End If
+            ElseIf rdoGgthemes.Checked Then
+                grpFillScale.Hide()
+                grpColourScale.Hide()
+                clsBaseOperator.RemoveParameterByName("scale_fill")
+                clsBaseOperator.RemoveParameterByName("scale_colour")
+                If ucrChkAddColour.Checked Then
+                    ucrInputcontinuouscolor.Show()
+                    clsBaseOperator.AddParameter("scale_color_gradient_tableau", clsRFunctionParameter:=clsScalecolorgradienttableauFunction, iPosition:=3)
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_color_gradient_tableau")
+                    ucrInputcontinuouscolor.Hide()
+                End If
+                If ucrChkAddFillScale.Checked Then
+                    clsBaseOperator.AddParameter("scale_color_gradient_tableau", clsRFunctionParameter:=clsScalefillgradienttableauFunction, iPosition:=3)
+                    ucrInputContinousfill.Show()
+                Else
+                    clsBaseOperator.RemoveParameterByName("scale_color_gradient_tableau")
+                    ucrInputContinousfill.Hide()
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub ucrPnlColourPalette_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrPnlColourPalette.ControlValueChanged
+        SetComboBoxItems()
+        SetComboBoxItemsContinuous()
+        ShowScaleColorGrp()
+        GroupeColorScale()
+        GroupeFillScale()
+        If rdoDiverging.Checked OrElse rdoQualitative.Checked OrElse rdoSequential.Checked Then
+            grpColourScale.Hide()
+            grpScalecolorst.Hide()
+            grpScaleColorfiv.Hide()
+            grpScalecolorEx.Hide()
+            grpScalecolorcal.Hide()
+            grpColourScaleGgthemes.Hide()
+            grpScalecolorEcon.Hide()
+            ucrInputColorFunctions.Hide()
+            grpScalecolorpan.Hide()
+            grpScalecolorsol.Hide()
+            grpScalecolorpt.Hide()
+            grpScalecolorg.Hide()
+            grpScalecolorfew.Hide()
+            grpScalecolorExn.Hide()
+            grpScalecolorhc.Hide()
+            grpScaleColorw.Hide()
+            grpScalefillCal.Hide()
+            grpFillScaleggthemes.Hide()
+            ucrInputCanvasFillPalette.Hide()
+            grpScalefillEcon.Hide()
+            grpScalefillEx.Hide()
+            grpScalefillfew.Hide()
+            grpScalefillExn.Hide()
+            grpScaleFillfiv.Hide()
+            grpScalefillg.Hide()
+            grpScalefillhc.Hide()
+            grpScalefillpan.Hide()
+            grpScalefillpt.Hide()
+            grpScalefillsol.Hide()
+            grpScalefillst.Hide()
+            grpScalefillw.Hide()
+            grpFillScale.Hide()
+        End If
+        If ucrInputColorType.GetText = "continuous" Then
+            grpScalecolorst.Hide()
+            grpScaleColorfiv.Hide()
+            grpScalecolorEx.Hide()
+            grpScalecolorcal.Hide()
+            grpColourScaleGgthemes.Hide()
+            grpScalecolorEcon.Hide()
+            ucrInputColorFunctions.Hide()
+            grpScalecolorpan.Hide()
+            grpScalecolorsol.Hide()
+            grpScalecolorpt.Hide()
+            grpScalecolorg.Hide()
+            grpScalecolorfew.Hide()
+            grpScalecolorExn.Hide()
+            grpScalecolorhc.Hide()
+            grpScaleColorw.Hide()
+            grpScalefillCal.Hide()
+            grpFillScaleggthemes.Hide()
+            ucrInputCanvasFillPalette.Hide()
+            grpScalefillEcon.Hide()
+            grpScalefillEx.Hide()
+            grpScalefillfew.Hide()
+            grpScalefillExn.Hide()
+            grpScaleFillfiv.Hide()
+            grpScalefillg.Hide()
+            grpScalefillhc.Hide()
+            grpScalefillpan.Hide()
+            grpScalefillpt.Hide()
+            grpScalefillsol.Hide()
+            grpScalefillst.Hide()
+            grpScalefillw.Hide()
+        Else
+            ucrInputcontinuouscolor.Hide()
+            ucrInputContinousfill.Hide()
+        End If
+    End Sub
+
+    Private Sub ucrInputTextExpand_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputTextExpand.ControlValueChanged, ucrChkExpand.ControlValueChanged, ucrInputTextExpandColor.ControlValueChanged, ucrChkExpandColor.ControlValueChanged, ucrChkExpandExn.ControlValueChanged, ucrInputTextExpandExn.ControlValueChanged, ucrInputTextExpandColorst.ControlValueChanged, ucrChkExpandColorst.ControlValueChanged,
+        ucrInputTextExpandCal.ControlValueChanged, ucrChkExpandg.ControlValueChanged, ucrInputTextExpandg.ControlValueChanged, ucrChkExpandhc.ControlValueChanged, ucrInputTextExpandhc.ControlValueChanged, ucrChkExpandfew.ControlValueChanged, ucrInputTextExpandfiv.ControlValueChanged, ucrChkExpandfiv.ControlValueChanged, ucrInputTextExpandfew.ControlValueChanged, ucrInputTextExpandst.ControlValueChanged, ucrChkExpandst.ControlValueChanged,
+        ucrInputTextExpandEx.ControlValueChanged, ucrChkExpandw.ControlValueChanged, ucrInputTextExpandw.ControlValueChanged, ucrChkExpandsol.ControlValueChanged, ucrInputTextExpandsol.ControlValueChanged, ucrChkExpandpt.ControlValueChanged, ucrInputTextExpandpt.ControlValueChanged, ucrChkExpandEx.ControlValueChanged, ucrChkExpandEcon.ControlValueChanged, ucrInputTextExpandEcon.ControlValueChanged, ucrChkExpandCal.ControlValueChanged,
+        ucrInputTextExpandColorCal.ControlValueChanged, ucrChkExpandColorg.ControlValueChanged, ucrInputTextExpandColorg.ControlValueChanged, ucrChkExpandColorhc.ControlValueChanged, ucrInputTextExpandColorhc.ControlValueChanged, ucrChkExpandColorfew.ControlValueChanged, ucrInputTextExpandColorfiv.ControlValueChanged, ucrChkExpandColorfiv.ControlValueChanged, ucrInputTextExpandColorfew.ControlValueChanged, ucrChkExpandColorExn.ControlValueChanged, ucrInputTextExpandColorExn.ControlValueChanged,
+        ucrInputTextExpandColorEx.ControlValueChanged, ucrChkExpandColorw.ControlValueChanged, ucrInputTextExpandColorw.ControlValueChanged, ucrChkExpandColorsol.ControlValueChanged, ucrInputTextExpandColorsol.ControlValueChanged, ucrChkExpandColorpt.ControlValueChanged, ucrInputTextExpandColorpt.ControlValueChanged, ucrChkExpandColorEx.ControlValueChanged, ucrChkExpandColorEcon.ControlValueChanged, ucrInputTextExpandColorEcon.ControlValueChanged, ucrChkExpandColorCal.ControlValueChanged
+
+        If ucrChkExpand.Checked AndAlso Not ucrInputTextExpand.IsEmpty Then
+            clsScaleFillColorblindFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpand.clsRList, iPosition:=4)
+        Else
+            clsScaleFillColorblindFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColor.Checked AndAlso Not ucrInputTextExpandColor.IsEmpty Then
+            clsScaleColorColorblindFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColor.clsRList, iPosition:=4)
+        Else
+            clsScaleColorColorblindFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandCal.Checked AndAlso Not ucrInputTextExpandCal.IsEmpty Then
+            clsScalefillcalcFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandCal.clsRList, iPosition:=4)
+        Else
+            clsScalefillcalcFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorCal.Checked AndAlso Not ucrInputTextExpandColorCal.IsEmpty Then
+            clsScalecolorcalcFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorCal.clsRList, iPosition:=4)
+        Else
+            clsScalecolorcalcFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandEcon.Checked AndAlso Not ucrInputTextExpandEcon.IsEmpty Then
+            clsScalefilleconomistFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandEcon.clsRList, iPosition:=4)
+        Else
+            clsScalefilleconomistFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorEcon.Checked AndAlso Not ucrInputTextExpandColorEcon.IsEmpty Then
+            clsScalecoloreconomistFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorEcon.clsRList, iPosition:=4)
+        Else
+            clsScalecoloreconomistFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandEx.Checked AndAlso Not ucrInputTextExpandEx.IsEmpty Then
+            clsScalefillexcelFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandEx.clsRList, iPosition:=4)
+        Else
+            clsScalefillexcelFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorEx.Checked AndAlso Not ucrInputTextExpandColorEx.IsEmpty Then
+            clsScalecolorexcelFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorEx.clsRList, iPosition:=4)
+        Else
+            clsScalecolorexcelFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandExn.Checked AndAlso Not ucrInputTextExpandExn.IsEmpty Then
+            clsScalefillexcelnewFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandExn.clsRList, iPosition:=4)
+        Else
+            clsScalefillexcelnewFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorExn.Checked AndAlso Not ucrInputTextExpandColorExn.IsEmpty Then
+            clsScalecolorexcelnewFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorExn.clsRList, iPosition:=4)
+        Else
+            clsScalecolorexcelnewFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandfew.Checked AndAlso Not ucrInputTextExpandfew.IsEmpty Then
+            clsScalefillfewFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandfew.clsRList, iPosition:=4)
+        Else
+            clsScalefillfewFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorfew.Checked AndAlso Not ucrInputTextExpandColorfew.IsEmpty Then
+            clsScalecolorfewFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorfew.clsRList, iPosition:=4)
+        Else
+            clsScalecolorfewFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandfiv.Checked AndAlso Not ucrInputTextExpandfiv.IsEmpty Then
+            clsScalefillfivethirtyeightFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandfiv.clsRList, iPosition:=4)
+        Else
+            clsScalefillfivethirtyeightFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorfiv.Checked AndAlso Not ucrInputTextExpandColorfiv.IsEmpty Then
+            clsScalecolorfivethirtyeightFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorfiv.clsRList, iPosition:=4)
+        Else
+            clsScalecolorfivethirtyeightFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandhc.Checked AndAlso Not ucrInputTextExpandhc.IsEmpty Then
+            clsScalefillhcFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandhc.clsRList, iPosition:=4)
+        Else
+            clsScalefillhcFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorhc.Checked AndAlso Not ucrInputTextExpandColorhc.IsEmpty Then
+            clsScalecolorhcFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorhc.clsRList, iPosition:=4)
+        Else
+            clsScalecolorhcFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandg.Checked AndAlso Not ucrInputTextExpandg.IsEmpty Then
+            clsScalefillgdocsFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandg.clsRList, iPosition:=4)
+        Else
+            clsScalefillgdocsFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorg.Checked AndAlso Not ucrInputTextExpandColorg.IsEmpty Then
+            clsScalecolorgdocsFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorg.clsRList, iPosition:=4)
+        Else
+            clsScalecolorgdocsFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandpan.Checked AndAlso Not ucrInputTextExpandpan.IsEmpty Then
+            clsScalefillpanderFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandpan.clsRList, iPosition:=4)
+        Else
+            clsScalefillpanderFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorpan.Checked AndAlso Not ucrInputTextExpandColorpan.IsEmpty Then
+            clsScalecolorpanderFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorpan.clsRList, iPosition:=4)
+        Else
+            clsScalecolorpanderFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandpt.Checked AndAlso Not ucrInputTextExpandpt.IsEmpty Then
+            clsScalefillptolFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandpt.clsRList, iPosition:=4)
+        Else
+            clsScalefillptolFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorpt.Checked AndAlso Not ucrInputTextExpandColorpt.IsEmpty Then
+            clsScalecolorptolFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorpt.clsRList, iPosition:=4)
+        Else
+            clsScalecolorptolFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandsol.Checked AndAlso Not ucrInputTextExpandsol.IsEmpty Then
+            clsScalefillsolarizedFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandsol.clsRList, iPosition:=4)
+        Else
+            clsScalefillsolarizedFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorsol.Checked AndAlso Not ucrInputTextExpandColorsol.IsEmpty Then
+            clsScalecolorsolarizedFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorsol.clsRList, iPosition:=4)
+        Else
+            clsScalecolorsolarizedFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandst.Checked AndAlso Not ucrInputTextExpandst.IsEmpty Then
+            clsScalefillstataFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandst.clsRList, iPosition:=4)
+        Else
+            clsScalefillstataFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorst.Checked AndAlso Not ucrInputTextExpandColorst.IsEmpty Then
+            clsScalecolorstataFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorst.clsRList, iPosition:=4)
+        Else
+            clsScalecolorstataFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandw.Checked AndAlso Not ucrInputTextExpandw.IsEmpty Then
+            clsScalefillwsjFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandw.clsRList, iPosition:=4)
+        Else
+            clsScalefillwsjFunction.RemoveParameterByName("expand")
+        End If
+        If ucrChkExpandColorw.Checked AndAlso Not ucrInputTextExpandColorw.IsEmpty Then
+            clsScalecolorwsjFunction.AddParameter("expand", clsRFunctionParameter:=ucrInputTextExpandColorw.clsRList, iPosition:=4)
+        Else
+            clsScalecolorwsjFunction.RemoveParameterByName("expand")
+        End If
+    End Sub
+
+    Private Sub ucrInputColorType_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputColorType.ControlValueChanged, ucrChkUseColor.ControlValueChanged, ucrChkUseFill.ControlValueChanged
+        ShowScaleColorGrp()
+    End Sub
+
+    Private Sub GroupeColorScale()
+        If rdoViridis.Checked Then
+            ucrInputColorFunctions.Hide()
+            grpScalecolorst.Hide()
+            grpScaleColorfiv.Hide()
+            grpScalecolorEx.Hide()
+            grpScalecolorcal.Hide()
+            grpColourScaleGgthemes.Hide()
+            grpScalecolorEcon.Hide()
+            grpScalecolorpan.Hide()
+            grpScalecolorsol.Hide()
+            grpScalecolorpt.Hide()
+            grpScalecolorg.Hide()
+            grpScalecolorfew.Hide()
+            grpScalecolorExn.Hide()
+            grpScaleColorw.Hide()
+            grpScalecolorhc.Hide()
+            clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+            clsBaseOperator.RemoveParameterByName("scale_color_stata")
+            clsBaseOperator.RemoveParameterByName("scale_color_hc")
+            clsBaseOperator.RemoveParameterByName("scale_color_pander")
+            clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+            clsBaseOperator.RemoveParameterByName("scale_color_calc")
+            clsBaseOperator.RemoveParameterByName("scale_color_canva")
+            clsBaseOperator.RemoveParameterByName("scale_color_economist")
+            clsBaseOperator.RemoveParameterByName("scale_color_excel")
+            clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+            clsBaseOperator.RemoveParameterByName("scale_color_few")
+            clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+            clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+            clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+            clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+            If ucrChkAddColour.Checked Then
+                grpColourScale.Show()
+                clsBaseOperator.AddParameter("scale_colour", clsRFunctionParameter:=clsScaleColourViridisFunction, iPosition:=3)
+            Else
+                clsBaseOperator.RemoveParameterByName("scale_colour")
+                grpColourScale.Hide()
+            End If
+        ElseIf rdoGgthemes.Checked Then
+            grpColourScale.Hide()
+            ucrInputCanvasColorPalette.Hide()
+            clsBaseOperator.RemoveParameterByName("scale_colour")
+            If ucrChkAddColour.Checked Then
+                ucrInputColorFunctions.Show()
+                If ucrInputColorFunctions.GetText = "" Then
+                    grpScalecolorst.Hide()
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_calc" Then
+                    clsBaseOperator.AddParameter("scale_color_calc", clsRFunctionParameter:=clsScalecolorcalcFunction, iPosition:=3)
+                    grpScalecolorcal.Show()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_colorblind" Then
+                    grpScalefillCal.Hide()
+                    clsBaseOperator.AddParameter("scale_color_colorblind", clsRFunctionParameter:=clsScaleColorColorblindFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Show()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_canva" Then
+                    clsScalefillcanvaFunction.AddParameter("palette", Chr(34) & ucrInputCanvasColorPalette.GetText() & Chr(34), iPosition:=0)
+                    clsBaseOperator.AddParameter("scale_color_canva", clsRFunctionParameter:=clsScalecolorcanvaFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Show()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_economist" Then
+                    clsBaseOperator.AddParameter("scale_color_economist", clsRFunctionParameter:=clsScalecoloreconomistFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Show()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_excel" Then
+                    clsBaseOperator.AddParameter("scale_color_excel", clsRFunctionParameter:=clsScalecolorexcelFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Show()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_excel_new" Then
+                    clsBaseOperator.AddParameter("scale_color_excel_new", clsRFunctionParameter:=clsScalecolorexcelnewFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Show()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_few" Then
+                    clsBaseOperator.AddParameter("scale_color_few", clsRFunctionParameter:=clsScalecolorfewFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Show()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_fivethirtyeight" Then
+                    clsBaseOperator.AddParameter("scale_color_fivethirtyeight", clsRFunctionParameter:=clsScalecolorfivethirtyeightFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Show()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_gdocs" Then
+                    clsBaseOperator.AddParameter("scale_color_gdocs", clsRFunctionParameter:=clsScalecolorgdocsFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorg.Show()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_hc" Then
+                    clsBaseOperator.AddParameter("scale_color_hc", clsRFunctionParameter:=clsScalecolorhcFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Show()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_pander" Then
+                    clsBaseOperator.AddParameter("scale_color_pander", clsRFunctionParameter:=clsScalecolorpanderFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Show()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_ptol" Then
+                    clsBaseOperator.AddParameter("scale_color_ptol", clsRFunctionParameter:=clsScalecolorptolFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Show()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_solarized" Then
+                    clsBaseOperator.AddParameter("scale_color_solarized", clsRFunctionParameter:=clsScalecolorsolarizedFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Show()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_stata" Then
+                    clsBaseOperator.AddParameter("scale_color_stata", clsRFunctionParameter:=clsScalecolorstataFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Show()
+                    grpScaleColorw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                ElseIf ucrInputColorFunctions.GetText = "scale_color_wsj" Then
+                    clsBaseOperator.AddParameter("scale_color_wsj", clsRFunctionParameter:=clsScalecolorwsjFunction, iPosition:=3)
+                    grpScalecolorcal.Hide()
+                    grpColourScaleGgthemes.Hide()
+                    grpScalecolorEcon.Hide()
+                    grpScalecolorfew.Hide()
+                    grpScalecolorhc.Hide()
+                    grpScalecolorEx.Hide()
+                    grpScalecolorExn.Hide()
+                    grpScaleColorfiv.Hide()
+                    grpScalecolorg.Hide()
+                    ucrInputCanvasColorPalette.Hide()
+                    grpScalecolorpan.Hide()
+                    grpScalecolorpt.Hide()
+                    grpScalecolorsol.Hide()
+                    grpScalecolorst.Hide()
+                    grpScaleColorw.Show()
+                    clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_color_few")
+                    clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+                End If
+            Else
+                ucrInputColorFunctions.Hide()
+                grpScalecolorst.Hide()
+                grpScalecolorcal.Hide()
+                grpColourScaleGgthemes.Hide()
+                grpScalecolorEcon.Hide()
+                grpScalecolorfew.Hide()
+                grpScalecolorhc.Hide()
+                grpScalecolorEx.Hide()
+                grpScalecolorExn.Hide()
+                grpScaleColorfiv.Hide()
+                grpScalecolorg.Hide()
+                ucrInputCanvasColorPalette.Hide()
+                grpScalecolorpan.Hide()
+                grpScalecolorpt.Hide()
+                grpScalecolorsol.Hide()
+                grpScaleColorw.Hide()
+                clsBaseOperator.RemoveParameterByName("scale_color_wsj")
+                clsBaseOperator.RemoveParameterByName("scale_color_solarized")
+                clsBaseOperator.RemoveParameterByName("scale_color_stata")
+                clsBaseOperator.RemoveParameterByName("scale_color_hc")
+                clsBaseOperator.RemoveParameterByName("scale_color_pander")
+                clsBaseOperator.RemoveParameterByName("scale_color_colorblind")
+                clsBaseOperator.RemoveParameterByName("scale_color_calc")
+                clsBaseOperator.RemoveParameterByName("scale_color_canva")
+                clsBaseOperator.RemoveParameterByName("scale_color_economist")
+                clsBaseOperator.RemoveParameterByName("scale_color_excel")
+                clsBaseOperator.RemoveParameterByName("scale_color_excel_new")
+                clsBaseOperator.RemoveParameterByName("scale_color_few")
+                clsBaseOperator.RemoveParameterByName("scale_color_fivethirtyeight")
+                clsBaseOperator.RemoveParameterByName("scale_color_gdocs")
+                clsBaseOperator.RemoveParameterByName("scale_color_ptol")
+            End If
+        End If
+
 
     End Sub
 
-    Private Sub ucrChkBreaksCal_ControlValueChanged(ucrChangedControl As ucrCore)
-
+    Private Sub GroupeFillScale()
+        If rdoViridis.Checked Then
+            grpScalefillCal.Hide()
+            grpFillScaleggthemes.Hide()
+            ucrInputCanvasFillPalette.Hide()
+            grpScalefillEcon.Hide()
+            grpScalefillEx.Hide()
+            grpScalefillfew.Hide()
+            grpScalefillExn.Hide()
+            grpScaleFillfiv.Hide()
+            grpScalefillg.Hide()
+            grpScalefillhc.Hide()
+            grpScalefillpan.Hide()
+            grpScalefillpt.Hide()
+            grpScalefillsol.Hide()
+            grpScalefillst.Hide()
+            grpScalefillw.Hide()
+            clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+            clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+            clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+            clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+            clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+            clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+            clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+            clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+            clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+            clsBaseOperator.RemoveParameterByName("scale_fill_few")
+            clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+            clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+            clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+            clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+            clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+            If ucrChkAddFillScale.Checked Then
+                clsBaseOperator.AddParameter("scale_fill", clsRFunctionParameter:=clsScaleFillViridisFunction, iPosition:=3)
+                grpFillScale.Show()
+            Else
+                clsBaseOperator.RemoveParameterByName("scale_fill")
+                grpFillScale.Hide()
+            End If
+        ElseIf rdoGgthemes.Checked Then
+            clsBaseOperator.RemoveParameterByName("scale_fill")
+            grpFillScale.Hide()
+            If ucrChkAddFillScale.Checked Then
+                ucrInputFillFunction.Show()
+                If ucrInputFillFunction.GetText = "" Then
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_calc" Then
+                    clsBaseOperator.AddParameter("scale_fill_calc", clsRFunctionParameter:=clsScalefillcalcFunction, iPosition:=3)
+                    grpScalefillCal.Show()
+                    grpFillScaleggthemes.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_colorblind" Then
+                    grpScalefillCal.Hide()
+                    clsBaseOperator.AddParameter("scale_fill_colorblind", clsRFunctionParameter:=clsScaleFillColorblindFunction, iPosition:=3)
+                    grpFillScaleggthemes.Show()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScalefillfew.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_canva" Then
+                    clsScalefillcanvaFunction.AddParameter("palette", Chr(34) & ucrInputCanvasFillPalette.GetText() & Chr(34), iPosition:=0)
+                    clsBaseOperator.AddParameter("scale_fill_canva", clsRFunctionParameter:=clsScalefillcanvaFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    ucrInputCanvasFillPalette.Show()
+                    grpScalefillEcon.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScalefillfew.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_economist" Then
+                    clsBaseOperator.AddParameter("scale_fill_economist", clsRFunctionParameter:=clsScalefilleconomistFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Show()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScalefillfew.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_excel" Then
+                    clsBaseOperator.AddParameter("scale_fill_excel", clsRFunctionParameter:=clsScalefillexcelFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillEx.Show()
+                    grpScalefillExn.Hide()
+                    grpScalefillfew.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_excel_new" Then
+                    clsBaseOperator.AddParameter("scale_fill_excel_new", clsRFunctionParameter:=clsScalefillexcelnewFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillExn.Show()
+                    grpScalefillEx.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillfew.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillhc.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_few" Then
+                    clsBaseOperator.AddParameter("scale_fill_few", clsRFunctionParameter:=clsScalefillfewFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Show()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillhc.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_fivethirtyeight" Then
+                    clsBaseOperator.AddParameter("scale_fill_fivethirtyeight", clsRFunctionParameter:=clsScalefillfivethirtyeightFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Show()
+                    grpScalefillhc.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_gdocs" Then
+                    clsBaseOperator.AddParameter("scale_fill_gdocs", clsRFunctionParameter:=clsScalefillgdocsFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Show()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_hc" Then
+                    clsBaseOperator.AddParameter("scale_fill_hc", clsRFunctionParameter:=clsScalefillhcFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Show()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_pander" Then
+                    clsBaseOperator.AddParameter("scale_fill_pander", clsRFunctionParameter:=clsScalefillpanderFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Show()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_ptol" Then
+                    clsBaseOperator.AddParameter("scale_fill_ptol", clsRFunctionParameter:=clsScalefillptolFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Show()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_solarized" Then
+                    clsBaseOperator.AddParameter("scale_fill_solarized", clsRFunctionParameter:=clsScalefillsolarizedFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Show()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_stata" Then
+                    clsBaseOperator.AddParameter("scale_fill_stata", clsRFunctionParameter:=clsScalefillstataFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillg.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Show()
+                    grpScalefillw.Hide()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                ElseIf ucrInputFillFunction.GetText = "scale_fill_wsj" Then
+                    clsBaseOperator.AddParameter("scale_fill_wsj", clsRFunctionParameter:=clsScalefillwsjFunction, iPosition:=3)
+                    grpScalefillCal.Hide()
+                    grpFillScaleggthemes.Hide()
+                    grpScalefillEcon.Hide()
+                    grpScalefillfew.Hide()
+                    grpScalefillhc.Hide()
+                    grpScalefillEx.Hide()
+                    grpScalefillExn.Hide()
+                    grpScaleFillfiv.Hide()
+                    grpScalefillg.Hide()
+                    ucrInputCanvasFillPalette.Hide()
+                    grpScalefillpan.Hide()
+                    grpScalefillpt.Hide()
+                    grpScalefillsol.Hide()
+                    grpScalefillst.Hide()
+                    grpScalefillw.Show()
+                    clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                    clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+                End If
+            Else
+                grpScalefillCal.Hide()
+                grpFillScaleggthemes.Hide()
+                ucrInputCanvasFillPalette.Hide()
+                grpScalefillEcon.Hide()
+                grpScalefillEx.Hide()
+                grpScalefillfew.Hide()
+                grpScalefillExn.Hide()
+                grpScaleFillfiv.Hide()
+                grpScalefillg.Hide()
+                grpScalefillhc.Hide()
+                grpScalefillpan.Hide()
+                grpScalefillpt.Hide()
+                grpScalefillsol.Hide()
+                grpScalefillst.Hide()
+                grpScalefillw.Hide()
+                clsBaseOperator.RemoveParameterByName("scale_fill_wsj")
+                clsBaseOperator.RemoveParameterByName("scale_fill_stata")
+                clsBaseOperator.RemoveParameterByName("scale_fill_solarized")
+                clsBaseOperator.RemoveParameterByName("scale_fill_pander")
+                clsBaseOperator.RemoveParameterByName("scale_fill_colorblind")
+                clsBaseOperator.RemoveParameterByName("scale_fill_economist")
+                clsBaseOperator.RemoveParameterByName("scale_fill_canva")
+                clsBaseOperator.RemoveParameterByName("scale_fill_excel")
+                clsBaseOperator.RemoveParameterByName("scale_fill_excel_new")
+                clsBaseOperator.RemoveParameterByName("scale_fill_few")
+                clsBaseOperator.RemoveParameterByName("scale_fill_calc")
+                clsBaseOperator.RemoveParameterByName("scale_fill_fivethirtyeight")
+                clsBaseOperator.RemoveParameterByName("scale_fill_gdocs")
+                clsBaseOperator.RemoveParameterByName("scale_fill_hc")
+                clsBaseOperator.RemoveParameterByName("scale_fill_ptol")
+            End If
+        End If
     End Sub
 
-    Private Sub ucrChkLimitCal_ControlValueChanged(ucrChangedControl As ucrCore)
-
+    Private Sub ucrInputColorFunctions_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputColorFunctions.ControlValueChanged
+        GroupeColorScale()
     End Sub
 
-    Private Sub ucrInputTextExpand_ControlValueChanged(ucrChangedControl As ucrCore)
-
+    Private Sub ucrInputFillFunction_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputFillFunction.ControlValueChanged
+        GroupeFillScale()
     End Sub
 
-    Private Sub ucrChkDropUnusedLevelsCal_ControlValueChanged(ucrChangedControl As ucrCore)
+    Private Sub ucrChkBreaksCal_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkBreaksCal.ControlValueChanged, ucrInputTextBreaksCal.ControlValueChanged, ucrChkBreaksg.ControlValueChanged, ucrInputTextBreaksg.ControlValueChanged, ucrChkBreaksfiv.ControlValueChanged, ucrInputTextBreaksfiv.ControlValueChanged, ucrChkBreakshc.ControlValueChanged, ucrInputTextBreakshc.ControlValueChanged, ucrChkBreaksfew.ControlValueChanged, ucrInputTextBreaksfew.ControlValueChanged, ucrChkBreaksExn.ControlValueChanged, ucrInputTextBreaksExn.ControlValueChanged,
+        ucrInputTextBreaksEx.ControlValueChanged, ucrInputTextBreaksw.ControlValueChanged, ucrChkBreaksw.ControlValueChanged, ucrChkBreakssol.ControlValueChanged, ucrInputTextBreakssol.ControlValueChanged, ucrChkBreakspt.ControlValueChanged, ucrInputTextBreakspt.ControlValueChanged, ucrChkBreakspan.ControlValueChanged, ucrInputTextBreakspan.ControlValueChanged, ucrChkBreaksEx.ControlValueChanged, ucrInputTextBreaksColorEcon.ControlValueChanged,
+        ucrChkBreaksEcon.ControlValueChanged, ucrChkBreaksst.ControlValueChanged, ucrInputTextBreaksst.ControlValueChanged, ucrChkBreaks.ControlValueChanged, ucrInputTextBreaks.ControlValueChanged, ucrChkBreaksColorEcon.ControlValueChanged, ucrChkBreaksColorst.ControlValueChanged, ucrInputTextBreaksColorst.ControlValueChanged, ucrChkBreaksColor.ControlValueChanged, ucrInputTextBreaksColor.ControlValueChanged,
+        ucrChkBreaksColorCal.ControlValueChanged, ucrInputTextBreaksColorCal.ControlValueChanged, ucrChkBreaksColorg.ControlValueChanged, ucrInputTextBreaksColorg.ControlValueChanged, ucrChkBreaksColorfiv.ControlValueChanged, ucrInputTextBreaksColorfiv.ControlValueChanged, ucrChkBreaksColorhc.ControlValueChanged, ucrInputTextBreaksColorhc.ControlValueChanged, ucrChkBreaksColorfew.ControlValueChanged, ucrInputTextBreaksColorfew.ControlValueChanged, ucrChkBreaksColorExn.ControlValueChanged, ucrInputTextBreaksColorExn.ControlValueChanged,
+        ucrInputTextBreaksColorEx.ControlValueChanged, ucrInputTextBreaksColorw.ControlValueChanged, ucrChkBreaksColorw.ControlValueChanged, ucrChkBreaksColorsol.ControlValueChanged, ucrInputTextBreaksColorsol.ControlValueChanged, ucrChkBreaksColorpt.ControlValueChanged, ucrInputTextBreaksColorpt.ControlValueChanged, ucrChkBreaksColorpan.ControlValueChanged, ucrInputTextBreaksColorpan.ControlValueChanged, ucrChkBreaksColorEx.ControlValueChanged, ucrInputTextBreaksColorEcon.ControlValueChanged
+        If ucrChkBreaksCal.Checked AndAlso Not ucrInputTextBreaksCal.IsEmpty() Then
+            clsScalefillcalcFunction.AddParameter("breaks", ucrInputTextBreaksCal.clsRList.ToScript())
+        Else
+            clsScalefillcalcFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorCal.Checked AndAlso Not ucrInputTextBreaksColorCal.IsEmpty() Then
+            clsScalecolorcalcFunction.AddParameter("breaks", ucrInputTextBreaksColorCal.clsRList.ToScript())
+        Else
+            clsScalecolorcalcFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColor.Checked AndAlso Not ucrInputTextBreaksColor.IsEmpty() Then
+            clsScaleColorColorblindFunction.AddParameter("breaks", ucrInputTextBreaksColor.clsRList.ToScript())
+        Else
+            clsScaleColorColorblindFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaks.Checked AndAlso Not ucrInputTextBreaks.IsEmpty() Then
+            clsScaleFillColorblindFunction.AddParameter("breaks", ucrInputTextBreaks.clsRList.ToScript())
+        Else
+            clsScaleFillColorblindFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorEcon.Checked AndAlso Not ucrInputTextBreaksColorEcon.IsEmpty() Then
+            clsScalecoloreconomistFunction.AddParameter("breaks", ucrInputTextBreaksColorEcon.clsRList.ToScript())
+        Else
+            clsScalecoloreconomistFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksEcon.Checked AndAlso Not ucrInputTextBreaksEcon.IsEmpty() Then
+            clsScalefilleconomistFunction.AddParameter("breaks", ucrInputTextBreaksEcon.clsRList.ToScript())
+        Else
+            clsScalefilleconomistFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorEx.Checked AndAlso Not ucrInputTextBreaksColorEx.IsEmpty() Then
+            clsScalecolorexcelFunction.AddParameter("breaks", ucrInputTextBreaksColorEx.clsRList.ToScript())
+        Else
+            clsScalecolorexcelFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksEx.Checked AndAlso Not ucrInputTextBreaksEx.IsEmpty() Then
+            clsScalefillexcelFunction.AddParameter("breaks", ucrInputTextBreaksEx.clsRList.ToScript())
+        Else
+            clsScalefillexcelFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorExn.Checked AndAlso Not ucrInputTextBreaksColorExn.IsEmpty() Then
+            clsScalecolorexcelnewFunction.AddParameter("breaks", ucrInputTextBreaksColorExn.clsRList.ToScript())
+        Else
+            clsScalecolorexcelnewFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksExn.Checked AndAlso Not ucrInputTextBreaksExn.IsEmpty() Then
+            clsScalefillexcelnewFunction.AddParameter("breaks", ucrInputTextBreaksExn.clsRList.ToScript())
+        Else
+            clsScalefillexcelnewFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorfew.Checked AndAlso Not ucrInputTextBreaksColorfew.IsEmpty() Then
+            clsScalecolorfewFunction.AddParameter("breaks", ucrInputTextBreaksColorfew.clsRList.ToScript())
+        Else
+            clsScalecolorfewFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksfew.Checked AndAlso Not ucrInputTextBreaksfew.IsEmpty() Then
+            clsScalefillfewFunction.AddParameter("breaks", ucrInputTextBreaksfew.clsRList.ToScript())
+        Else
+            clsScalefillfewFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorfiv.Checked AndAlso Not ucrInputTextBreaksColorfiv.IsEmpty() Then
+            clsScalecolorfivethirtyeightFunction.AddParameter("breaks", ucrInputTextBreaksColorfiv.clsRList.ToScript())
+        Else
+            clsScalecolorfivethirtyeightFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksfiv.Checked AndAlso Not ucrInputTextBreaksfiv.IsEmpty() Then
+            clsScalefillfivethirtyeightFunction.AddParameter("breaks", ucrInputTextBreaksfiv.clsRList.ToScript())
+        Else
+            clsScalefillfivethirtyeightFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorg.Checked AndAlso Not ucrInputTextBreaksColorg.IsEmpty() Then
+            clsScalecolorgdocsFunction.AddParameter("breaks", ucrInputTextBreaksColorg.clsRList.ToScript())
+        Else
+            clsScalecolorgdocsFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksg.Checked AndAlso Not ucrInputTextBreaksg.IsEmpty() Then
+            clsScalefillgdocsFunction.AddParameter("breaks", ucrInputTextBreaksg.clsRList.ToScript())
+        Else
+            clsScalefillgdocsFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorhc.Checked AndAlso Not ucrInputTextBreaksColorhc.IsEmpty() Then
+            clsScalecolorhcFunction.AddParameter("breaks", ucrInputTextBreaksColorhc.clsRList.ToScript())
+        Else
+            clsScalecolorhcFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreakshc.Checked AndAlso Not ucrInputTextBreakshc.IsEmpty() Then
+            clsScalefillhcFunction.AddParameter("breaks", ucrInputTextBreakshc.clsRList.ToScript())
+        Else
+            clsScalefillhcFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorpan.Checked AndAlso Not ucrInputTextBreaksColorpan.IsEmpty() Then
+            clsScalecolorpanderFunction.AddParameter("breaks", ucrInputTextBreaksColorpan.clsRList.ToScript())
+        Else
+            clsScalecolorpanderFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreakspan.Checked AndAlso Not ucrInputTextBreakspan.IsEmpty() Then
+            clsScalefillpanderFunction.AddParameter("breaks", ucrInputTextBreakspan.clsRList.ToScript())
+        Else
+            clsScalefillpanderFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorpt.Checked AndAlso Not ucrInputTextBreaksColorpt.IsEmpty() Then
+            clsScalecolorptolFunction.AddParameter("breaks", ucrInputTextBreaksColorpt.clsRList.ToScript())
+        Else
+            clsScalecolorptolFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreakspt.Checked AndAlso Not ucrInputTextBreakspt.IsEmpty() Then
+            clsScalefillptolFunction.AddParameter("breaks", ucrInputTextBreakspt.clsRList.ToScript())
+        Else
+            clsScalefillptolFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorsol.Checked AndAlso Not ucrInputTextBreaksColorsol.IsEmpty() Then
+            clsScalecolorsolarizedFunction.AddParameter("breaks", ucrInputTextBreaksColorsol.clsRList.ToScript())
+        Else
+            clsScalecolorsolarizedFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreakssol.Checked AndAlso Not ucrInputTextBreakssol.IsEmpty() Then
+            clsScalefillsolarizedFunction.AddParameter("breaks", ucrInputTextBreakssol.clsRList.ToScript())
+        Else
+            clsScalefillsolarizedFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorst.Checked AndAlso Not ucrInputTextBreaksColorst.IsEmpty() Then
+            clsScalecolorstataFunction.AddParameter("breaks", ucrInputTextBreaksColorst.clsRList.ToScript())
+        Else
+            clsScalecolorstataFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksst.Checked AndAlso Not ucrInputTextBreaksst.IsEmpty() Then
+            clsScalefillstataFunction.AddParameter("breaks", ucrInputTextBreaksst.clsRList.ToScript())
+        Else
+            clsScalefillstataFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksColorw.Checked AndAlso Not ucrInputTextBreaksColorw.IsEmpty() Then
+            clsScalecolorwsjFunction.AddParameter("breaks", ucrInputTextBreaksColorw.clsRList.ToScript())
+        Else
+            clsScalecolorwsjFunction.RemoveParameterByName("breaks")
+        End If
+        If ucrChkBreaksw.Checked AndAlso Not ucrInputTextBreaksw.IsEmpty() Then
+            clsScalefillwsjFunction.AddParameter("breaks", ucrInputTextBreaksw.clsRList.ToScript())
+        Else
+            clsScalefillwsjFunction.RemoveParameterByName("breaks")
+        End If
+    End Sub
 
+    Private Sub ucrChkLimitCal_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkLimitCal.ControlValueChanged, ucrInputTextLimitCal.ControlValueChanged, ucrInputTextLimitCal.ControlValueChanged, ucrChkLimit.ControlValueChanged, ucrInputTextLimit.ControlValueChanged, ucrChkLimitg.ControlValueChanged, ucrInputTextLimitg.ControlValueChanged, ucrChkLimithc.ControlValueChanged, ucrInputTextLimithc.ControlValueChanged, ucrChkLimitfiv.ControlValueChanged,
+        ucrInputTextLimitEx.ControlValueChanged, ucrChkLimitw.ControlValueChanged, ucrInputTextLimitw.ControlValueChanged, ucrChkLimitsol.ControlValueChanged, ucrInputTextLimitsol.ControlValueChanged, ucrChkLimitpt.ControlValueChanged, ucrInputTextLimitpt.ControlValueChanged, ucrChkLimitpan.ControlValueChanged, ucrInputTextLimitpan.ControlValueChanged, ucrChkLimitEx.ControlValueChanged, ucrChkLimitEcon.ControlValueChanged, ucrInputTextLimitColorfew.ControlValueChanged, ucrChkLimitColorExn.ControlValueChanged, ucrInputTextLimitColorExn.ControlValueChanged,
+        ucrInputTextLimitEcon.ControlValueChanged, ucrInputTextLimitst.ControlValueChanged, ucrChkLimitst.ControlValueChanged, ucrInputTextLimitColorEcon.ControlValueChanged, ucrInputTextLimitColorst.ControlValueChanged, ucrChkLimitColorst.ControlValueChanged, ucrInputTextLimitfiv.ControlValueChanged, ucrChkLimitfew.ControlValueChanged, ucrInputTextLimitfew.ControlValueChanged, ucrChkLimitExn.ControlValueChanged, ucrInputTextLimitExn.ControlValueChanged,
+        ucrChkLimitColorCal.ControlValueChanged, ucrInputTextLimitColorCal.ControlValueChanged, ucrChkLimitColor.ControlValueChanged, ucrInputTextLimitColor.ControlValueChanged, ucrChkLimitColorg.ControlValueChanged, ucrInputTextLimitColorg.ControlValueChanged, ucrChkLimitColorhc.ControlValueChanged, ucrInputTextLimitColorhc.ControlValueChanged, ucrChkLimitColorfiv.ControlValueChanged, ucrInputTextLimitColorfiv.ControlValueChanged, ucrChkLimitColorfew.ControlValueChanged,
+        ucrInputTextLimitColorEx.ControlValueChanged, ucrChkLimitColorw.ControlValueChanged, ucrInputTextLimitColorw.ControlValueChanged, ucrChkLimitColorsol.ControlValueChanged, ucrInputTextLimitColorsol.ControlValueChanged, ucrChkLimitColorpt.ControlValueChanged, ucrInputTextLimitColorpt.ControlValueChanged, ucrChkLimitColorpan.ControlValueChanged, ucrInputTextLimitColorpan.ControlValueChanged, ucrChkLimitColorEx.ControlValueChanged, ucrChkLimitColorEcon.ControlValueChanged
+
+        If ucrChkLimitCal.Checked AndAlso Not ucrInputTextLimitCal.IsEmpty() Then
+            clsScalefillcalcFunction.AddParameter("limit", ucrInputTextLimitCal.clsRList.ToScript())
+        Else
+            clsScalefillcalcFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorCal.Checked AndAlso Not ucrInputTextLimitColorCal.IsEmpty() Then
+            clsScalecolorcalcFunction.AddParameter("limit", ucrInputTextLimitColorCal.clsRList.ToScript())
+        Else
+            clsScalecolorcalcFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimit.Checked AndAlso Not ucrInputTextLimit.IsEmpty() Then
+            clsScaleFillColorblindFunction.AddParameter("limit", ucrInputTextLimit.clsRList.ToScript())
+        Else
+            clsScaleFillColorblindFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColor.Checked AndAlso Not ucrInputTextLimitColor.IsEmpty() Then
+            clsScaleColorColorblindFunction.AddParameter("limit", ucrInputTextLimitColor.clsRList.ToScript())
+        Else
+            clsScaleColorColorblindFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitEcon.Checked AndAlso Not ucrInputTextLimitEcon.IsEmpty() Then
+            clsScalefilleconomistFunction.AddParameter("limit", ucrInputTextLimitEcon.clsRList.ToScript())
+        Else
+            clsScalefilleconomistFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorEcon.Checked AndAlso Not ucrInputTextLimitColorEcon.IsEmpty() Then
+            clsScalecoloreconomistFunction.AddParameter("limit", ucrInputTextLimitColorEcon.clsRList.ToScript())
+        Else
+            clsScalecoloreconomistFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitEx.Checked AndAlso Not ucrInputTextLimitEx.IsEmpty() Then
+            clsScalefillexcelFunction.AddParameter("limit", ucrInputTextLimitEx.clsRList.ToScript())
+        Else
+            clsScalefillexcelFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorEx.Checked AndAlso Not ucrInputTextLimitColorEx.IsEmpty() Then
+            clsScalecolorexcelFunction.AddParameter("limit", ucrInputTextLimitColorEx.clsRList.ToScript())
+        Else
+            clsScalecolorexcelFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitExn.Checked AndAlso Not ucrInputTextLimitExn.IsEmpty() Then
+            clsScalefillexcelnewFunction.AddParameter("limit", ucrInputTextLimitExn.clsRList.ToScript())
+        Else
+            clsScalefillexcelnewFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorExn.Checked AndAlso Not ucrInputTextLimitColorExn.IsEmpty() Then
+            clsScalecolorexcelnewFunction.AddParameter("limit", ucrInputTextLimitColorExn.clsRList.ToScript())
+        Else
+            clsScalecolorexcelnewFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitfew.Checked AndAlso Not ucrInputTextLimitfew.IsEmpty() Then
+            clsScalefillfewFunction.AddParameter("limit", ucrInputTextLimitfew.clsRList.ToScript())
+        Else
+            clsScalefillfewFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorfew.Checked AndAlso Not ucrInputTextLimitColorfew.IsEmpty() Then
+            clsScalecolorfewFunction.AddParameter("limit", ucrInputTextLimitColorfew.clsRList.ToScript())
+        Else
+            clsScalecolorfewFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitfiv.Checked AndAlso Not ucrInputTextLimitfiv.IsEmpty() Then
+            clsScalefillfivethirtyeightFunction.AddParameter("limit", ucrInputTextLimitfiv.clsRList.ToScript())
+        Else
+            clsScalefillfivethirtyeightFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorfiv.Checked AndAlso Not ucrInputTextLimitColorfiv.IsEmpty() Then
+            clsScalecolorfivethirtyeightFunction.AddParameter("limit", ucrInputTextLimitColorfiv.clsRList.ToScript())
+        Else
+            clsScalecolorfivethirtyeightFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimithc.Checked AndAlso Not ucrInputTextLimithc.IsEmpty() Then
+            clsScalefillhcFunction.AddParameter("limit", ucrInputTextLimithc.clsRList.ToScript())
+        Else
+            clsScalefillhcFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorhc.Checked AndAlso Not ucrInputTextLimitColorhc.IsEmpty() Then
+            clsScalecolorhcFunction.AddParameter("limit", ucrInputTextLimitColorhc.clsRList.ToScript())
+        Else
+            clsScalecolorhcFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitg.Checked AndAlso Not ucrInputTextLimitg.IsEmpty() Then
+            clsScalefillgdocsFunction.AddParameter("limit", ucrInputTextLimitg.clsRList.ToScript())
+        Else
+            clsScalefillgdocsFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorg.Checked AndAlso Not ucrInputTextLimitColorg.IsEmpty() Then
+            clsScalecolorgdocsFunction.AddParameter("limit", ucrInputTextLimitColorg.clsRList.ToScript())
+        Else
+            clsScalecolorgdocsFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitpan.Checked AndAlso Not ucrInputTextLimitpan.IsEmpty() Then
+            clsScalefillpanderFunction.AddParameter("limit", ucrInputTextLimitpan.clsRList.ToScript())
+        Else
+            clsScalefillpanderFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorpan.Checked AndAlso Not ucrInputTextLimitColorpan.IsEmpty() Then
+            clsScalecolorpanderFunction.AddParameter("limit", ucrInputTextLimitColorpan.clsRList.ToScript())
+        Else
+            clsScalecolorpanderFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitpt.Checked AndAlso Not ucrInputTextLimitpt.IsEmpty() Then
+            clsScalefillptolFunction.AddParameter("limit", ucrInputTextLimitpt.clsRList.ToScript())
+        Else
+            clsScalefillptolFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorpt.Checked AndAlso Not ucrInputTextLimitColorpt.IsEmpty() Then
+            clsScalecolorptolFunction.AddParameter("limit", ucrInputTextLimitColorpt.clsRList.ToScript())
+        Else
+            clsScalecolorptolFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitsol.Checked AndAlso Not ucrInputTextLimitsol.IsEmpty() Then
+            clsScalefillsolarizedFunction.AddParameter("limit", ucrInputTextLimitsol.clsRList.ToScript())
+        Else
+            clsScalefillsolarizedFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorsol.Checked AndAlso Not ucrInputTextLimitColorsol.IsEmpty() Then
+            clsScalecolorsolarizedFunction.AddParameter("limit", ucrInputTextLimitColorsol.clsRList.ToScript())
+        Else
+            clsScalecolorsolarizedFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitst.Checked AndAlso Not ucrInputTextLimitst.IsEmpty() Then
+            clsScalefillstataFunction.AddParameter("limit", ucrInputTextLimitst.clsRList.ToScript())
+        Else
+            clsScalefillstataFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorst.Checked AndAlso Not ucrInputTextLimitColorst.IsEmpty() Then
+            clsScalecolorstataFunction.AddParameter("limit", ucrInputTextLimitColorst.clsRList.ToScript())
+        Else
+            clsScalecolorstataFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitw.Checked AndAlso Not ucrInputTextLimitw.IsEmpty() Then
+            clsScalefillwsjFunction.AddParameter("limit", ucrInputTextLimitw.clsRList.ToScript())
+        Else
+            clsScalefillwsjFunction.RemoveParameterByName("limit")
+        End If
+        If ucrChkLimitColorw.Checked AndAlso Not ucrInputTextLimitColorw.IsEmpty() Then
+            clsScalecolorwsjFunction.AddParameter("limit", ucrInputTextLimitColorw.clsRList.ToScript())
+        Else
+            clsScalecolorwsjFunction.RemoveParameterByName("limit")
+        End If
+    End Sub
+
+    Private Sub ucrChkDropUnusedLevelsCal_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkDropUnusedLevelsCal.ControlValueChanged, ucrInputDropUnusedLevelsCal.ControlValueChanged, ucrChkDropUnusedLevelshc.ControlValueChanged, ucrInputDropUnusedLevelshc.ControlValueChanged, ucrChkDropUnusedLevelsg.ControlValueChanged, ucrInputDropUnusedLevelsg.ControlValueChanged, ucrChkDropUnusedLevelsfiv.ControlValueChanged, ucrInputDropUnusedLevelsfiv.ControlValueChanged, ucrChkDropUnusedLevelsfew.ControlValueChanged, ucrInputDropUnusedLevelsfew.ControlValueChanged, ucrChkDropUnusedLevelsExn.ControlValueChanged,
+        ucrInputDropUnusedLevelsExn.ControlValueChanged, ucrChkDropUnusedLevelsw.ControlValueChanged, ucrInputDropUnusedLevelsw.ControlValueChanged, ucrChkDropUnusedLevelssol.ControlValueChanged, ucrInputDropUnusedLevelssol.ControlValueChanged, ucrChkDropUnusedLevelspt.ControlValueChanged, ucrInputDropUnusedLevelspt.ControlValueChanged, ucrChkDropUnusedLevelspan.ControlValueChanged, ucrInputDropUnusedLevelspan.ControlValueChanged, ucrInputDropUnusedLevelsEx.ControlValueChanged,
+        ucrChkDropUnusedLevelsEx.ControlValueChanged, ucrChkDropUnusedLevelsst.ControlValueChanged, ucrInputDropUnusedLevelsst.ControlValueChanged, ucrChkDropUnusedLevelsEcon.ControlValueChanged, ucrInputDropUnusedLevelsEcon.ControlValueChanged, ucrInputDropUnusedLevels.ControlValueChanged, ucrChkDropUnusedLevels.ControlValueChanged, ucrInputDropUnusedLevelsColorfew.ControlValueChanged, ucrChkDropUnusedLevelsColorExn.ControlValueChanged,
+        ucrChkDropUnusedLevelsColorCal.ControlValueChanged, ucrInputDropUnusedLevelsColorCal.ControlValueChanged, ucrChkDropUnusedLevelsColorhc.ControlValueChanged, ucrInputDropUnusedLevelsColorhc.ControlValueChanged, ucrChkDropUnusedLevelsColorg.ControlValueChanged, ucrInputDropUnusedLevelsColorg.ControlValueChanged, ucrChkDropUnusedLevelsColorfiv.ControlValueChanged, ucrInputDropUnusedLevelsColorfiv.ControlValueChanged, ucrChkDropUnusedLevelsColorfew.ControlValueChanged,
+        ucrInputDropUnusedLevelsColorExn.ControlValueChanged, ucrChkDropUnusedLevelsColorw.ControlValueChanged, ucrInputDropUnusedLevelsColorw.ControlValueChanged, ucrChkDropUnusedLevelsColorsol.ControlValueChanged, ucrInputDropUnusedLevelsColorsol.ControlValueChanged, ucrChkDropUnusedLevelsColorpt.ControlValueChanged, ucrInputDropUnusedLevelsColorpt.ControlValueChanged, ucrChkDropUnusedLevelsColorpan.ControlValueChanged, ucrInputDropUnusedLevelsColorpan.ControlValueChanged, ucrInputDropUnusedLevelsColorEx.ControlValueChanged,
+        ucrChkDropUnusedLevelsColorEx.ControlValueChanged, ucrChkDropUnusedLevelsColorst.ControlValueChanged, ucrInputDropUnusedLevelsColorst.ControlValueChanged, ucrChkDropUnusedLevelsColorEcon.ControlValueChanged, ucrInputDropUnusedLevelsColorEcon.ControlValueChanged, ucrInputDropUnusedLevelsColor.ControlValueChanged, ucrChkDropUnusedLevelsColor.ControlValueChanged
+        If ucrChkDropUnusedLevelsCal.Checked AndAlso Not ucrInputDropUnusedLevelsCal.IsEmpty Then
+            clsScalefillcalcFunction.AddParameter("drop", ucrInputDropUnusedLevelsCal.GetText(), iPosition:=0)
+        Else
+            clsScalefillcalcFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorCal.Checked AndAlso Not ucrInputDropUnusedLevelsColorCal.IsEmpty Then
+            clsScalecolorcalcFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorCal.GetText(), iPosition:=0)
+        Else
+            clsScalecolorcalcFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsEcon.Checked AndAlso Not ucrInputDropUnusedLevelsEcon.IsEmpty Then
+            clsScalefilleconomistFunction.AddParameter("drop", ucrInputDropUnusedLevelsEcon.GetText(), iPosition:=0)
+        Else
+            clsScalefilleconomistFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorEcon.Checked AndAlso Not ucrInputDropUnusedLevelsColorEcon.IsEmpty Then
+            clsScalecoloreconomistFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorEcon.GetText(), iPosition:=0)
+        Else
+            clsScalecoloreconomistFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColor.Checked AndAlso Not ucrInputDropUnusedLevelsColor.IsEmpty Then
+            clsScaleColorColorblindFunction.AddParameter("drop", ucrInputDropUnusedLevelsColor.GetText(), iPosition:=0)
+        Else
+            clsScaleColorColorblindFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevels.Checked AndAlso Not ucrInputDropUnusedLevels.IsEmpty Then
+            clsScaleFillColorblindFunction.AddParameter("drop", ucrInputDropUnusedLevels.GetText(), iPosition:=0)
+        Else
+            clsScaleFillColorblindFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorEx.Checked AndAlso Not ucrInputDropUnusedLevelsColorEx.IsEmpty Then
+            clsScalecolorexcelFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorEx.GetText(), iPosition:=0)
+        Else
+            clsScalecolorexcelFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsEx.Checked AndAlso Not ucrInputDropUnusedLevelsEx.IsEmpty Then
+            clsScalefillexcelFunction.AddParameter("drop", ucrInputDropUnusedLevelsEx.GetText(), iPosition:=0)
+        Else
+            clsScalefillexcelFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorExn.Checked AndAlso Not ucrInputDropUnusedLevelsColorExn.IsEmpty Then
+            clsScalecolorexcelnewFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorExn.GetText(), iPosition:=0)
+        Else
+            clsScalecolorexcelnewFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsExn.Checked AndAlso Not ucrInputDropUnusedLevelsExn.IsEmpty Then
+            clsScalefillexcelnewFunction.AddParameter("drop", ucrInputDropUnusedLevelsExn.GetText(), iPosition:=0)
+        Else
+            clsScalefillexcelnewFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorfew.Checked AndAlso Not ucrInputDropUnusedLevelsColorfew.IsEmpty Then
+            clsScalecolorfewFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorfew.GetText(), iPosition:=0)
+        Else
+            clsScalecolorfewFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsfew.Checked AndAlso Not ucrInputDropUnusedLevelsfew.IsEmpty Then
+            clsScalefillfewFunction.AddParameter("drop", ucrInputDropUnusedLevelsfew.GetText(), iPosition:=0)
+        Else
+            clsScalefillfewFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorfiv.Checked AndAlso Not ucrInputDropUnusedLevelsColorfiv.IsEmpty Then
+            clsScalecolorfivethirtyeightFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorfiv.GetText(), iPosition:=0)
+        Else
+            clsScalecolorfivethirtyeightFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsfiv.Checked AndAlso Not ucrInputDropUnusedLevelsfiv.IsEmpty Then
+            clsScalefillfivethirtyeightFunction.AddParameter("drop", ucrInputDropUnusedLevelsfiv.GetText(), iPosition:=0)
+        Else
+            clsScalefillfivethirtyeightFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorg.Checked AndAlso Not ucrInputDropUnusedLevelsColorg.IsEmpty Then
+            clsScalecolorgdocsFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorg.GetText(), iPosition:=0)
+        Else
+            clsScalecolorgdocsFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsg.Checked AndAlso Not ucrInputDropUnusedLevelsg.IsEmpty Then
+            clsScalefillgdocsFunction.AddParameter("drop", ucrInputDropUnusedLevelsg.GetText(), iPosition:=0)
+        Else
+            clsScalefillgdocsFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorhc.Checked AndAlso Not ucrInputDropUnusedLevelsColorhc.IsEmpty Then
+            clsScalecolorhcFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorhc.GetText(), iPosition:=0)
+        Else
+            clsScalecolorhcFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelshc.Checked AndAlso Not ucrInputDropUnusedLevelshc.IsEmpty Then
+            clsScalefillhcFunction.AddParameter("drop", ucrInputDropUnusedLevelshc.GetText(), iPosition:=0)
+        Else
+            clsScalefillhcFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorpan.Checked AndAlso Not ucrInputDropUnusedLevelsColorpan.IsEmpty Then
+            clsScalecolorpanderFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorpan.GetText(), iPosition:=0)
+        Else
+            clsScalecolorpanderFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelspan.Checked AndAlso Not ucrInputDropUnusedLevelspan.IsEmpty Then
+            clsScalefillpanderFunction.AddParameter("drop", ucrInputDropUnusedLevelspan.GetText(), iPosition:=0)
+        Else
+            clsScalefillpanderFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorpt.Checked AndAlso Not ucrInputDropUnusedLevelsColorpt.IsEmpty Then
+            clsScalecolorptolFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorpt.GetText(), iPosition:=0)
+        Else
+            clsScalecolorptolFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelspt.Checked AndAlso Not ucrInputDropUnusedLevelspt.IsEmpty Then
+            clsScalefillptolFunction.AddParameter("drop", ucrInputDropUnusedLevelspt.GetText(), iPosition:=0)
+        Else
+            clsScalefillptolFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorsol.Checked AndAlso Not ucrInputDropUnusedLevelsColorsol.IsEmpty Then
+            clsScalecolorsolarizedFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorsol.GetText(), iPosition:=0)
+        Else
+            clsScalecolorsolarizedFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelssol.Checked AndAlso Not ucrInputDropUnusedLevelssol.IsEmpty Then
+            clsScalefillsolarizedFunction.AddParameter("drop", ucrInputDropUnusedLevelssol.GetText(), iPosition:=0)
+        Else
+            clsScalefillsolarizedFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorst.Checked AndAlso Not ucrInputDropUnusedLevelsColorst.IsEmpty Then
+            clsScalecolorstataFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorst.GetText(), iPosition:=0)
+        Else
+            clsScalecolorstataFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsst.Checked AndAlso Not ucrInputDropUnusedLevelsst.IsEmpty Then
+            clsScalefillstataFunction.AddParameter("drop", ucrInputDropUnusedLevelsst.GetText(), iPosition:=0)
+        Else
+            clsScalefillstataFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsColorw.Checked AndAlso Not ucrInputDropUnusedLevelsColorw.IsEmpty Then
+            clsScalecolorwsjFunction.AddParameter("drop", ucrInputDropUnusedLevelsColorw.GetText(), iPosition:=0)
+        Else
+            clsScalecolorwsjFunction.RemoveParameterByName("drop")
+        End If
+        If ucrChkDropUnusedLevelsw.Checked AndAlso Not ucrInputDropUnusedLevelsw.IsEmpty Then
+            clsScalefillwsjFunction.AddParameter("drop", ucrInputDropUnusedLevelsw.GetText(), iPosition:=0)
+        Else
+            clsScalefillwsjFunction.RemoveParameterByName("drop")
+        End If
+    End Sub
+
+    Private Sub ucrInputCanvasfillPalette_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputCanvasFillPalette.ControlValueChanged
+        GroupeFillScale()
+    End Sub
+
+    Private Sub ucrInputCanvasColorPalette_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputCanvasColorPalette.ControlValueChanged
+        GroupeColorScale()
     End Sub
 End Class
