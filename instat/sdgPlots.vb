@@ -1313,4 +1313,20 @@ Public Class sdgPlots
     Private Sub ucrPnlColourPalette_ControlValueChanged(ucrChangedControl As ucrCore)
 
     End Sub
+
+    Private Sub ucrChkBreaksCal_ControlValueChanged(ucrChangedControl As ucrCore)
+
+    End Sub
+
+    Private Sub ucrChkLimitCal_ControlValueChanged(ucrChangedControl As ucrCore)
+
+    End Sub
+
+    Private Sub ucrInputTextExpand_ControlValueChanged(ucrChangedControl As ucrCore)
+
+    End Sub
+
+    Private Sub ucrChkDropUnusedLevelsCal_ControlValueChanged(ucrChangedControl As ucrCore)
+
+    End Sub
 End Class
