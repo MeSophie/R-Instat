@@ -126,8 +126,14 @@ Partial Class sdgPlots
         Me.ucrChkSameScale = New instat.ucrCheck()
         Me.ucrChkHorizontalPlot = New instat.ucrCheck()
         Me.tbpColour = New System.Windows.Forms.TabPage()
-        Me.lblPaletteContiinuous = New System.Windows.Forms.Label()
-        Me.ucrInputPaletteContinuous = New instat.ucrInputComboBox()
+        Me.lblFillFunction = New System.Windows.Forms.Label()
+        Me.ucrInputFillFunction = New instat.ucrInputComboBox()
+        Me.lblCanvasFillPalette = New System.Windows.Forms.Label()
+        Me.ucrInputCanvasFillPalette = New instat.ucrInputComboBox()
+        Me.lblPaletteContinuousfill = New System.Windows.Forms.Label()
+        Me.ucrInputContinousfill = New instat.ucrInputComboBox()
+        Me.ucrChkUseFill = New instat.ucrCheck()
+        Me.ucrChkUseColor = New instat.ucrCheck()
         Me.rdoGgthemes = New System.Windows.Forms.RadioButton()
         Me.rdoViridis = New System.Windows.Forms.RadioButton()
         Me.lblPalette = New System.Windows.Forms.Label()
@@ -161,6 +167,8 @@ Partial Class sdgPlots
         Me.lblFillScaleBeginColour = New System.Windows.Forms.Label()
         Me.lblFillScaleColourPalettte = New System.Windows.Forms.Label()
         Me.lblFillScaleTransparency = New System.Windows.Forms.Label()
+        Me.lblPaletteContiinuous = New System.Windows.Forms.Label()
+        Me.ucrInputPaletteContinuous = New instat.ucrInputComboBox()
         Me.tbpAnnotation = New System.Windows.Forms.TabPage()
         Me.ucrChkAnnotation = New instat.ucrCheck()
         Me.grpAnnotation = New System.Windows.Forms.GroupBox()
@@ -210,14 +218,12 @@ Partial Class sdgPlots
         Me.ucrReceiverY = New instat.ucrReceiverSingle()
         Me.ttCaptionTitle = New System.Windows.Forms.ToolTip(Me.components)
         Me.ucrBaseSubdialog = New instat.ucrButtonsSubdialogue()
-        Me.ucrChkUseColor = New instat.ucrCheck()
-        Me.ucrChkUseFill = New instat.ucrCheck()
-        Me.lblPaletteContinuousfill = New System.Windows.Forms.Label()
-        Me.ucrInputContinousfill = New instat.ucrInputComboBox()
-        Me.lblCanvasFillPalette = New System.Windows.Forms.Label()
-        Me.UcrInputComboBox2 = New instat.ucrInputComboBox()
-        Me.lblFillFunction = New System.Windows.Forms.Label()
-        Me.ucrInputFillFunction = New instat.ucrInputComboBox()
+        Me.lblGgthemesFunctions = New System.Windows.Forms.Label()
+        Me.ucrInputColorFunctions = New instat.ucrInputComboBox()
+        Me.lblCanvasColorPalette = New System.Windows.Forms.Label()
+        Me.ucrInputCanvasColorPalette = New instat.ucrInputComboBox()
+        Me.lblPaletteContinuouscolor = New System.Windows.Forms.Label()
+        Me.ucrInputContinouscolor = New instat.ucrInputComboBox()
         Me.tbpPlotsOptions.SuspendLayout()
         Me.tbpFacet.SuspendLayout()
         Me.tbpLayers.SuspendLayout()
@@ -1221,10 +1227,16 @@ Partial Class sdgPlots
         '
         'tbpColour
         '
+        Me.tbpColour.Controls.Add(Me.lblCanvasColorPalette)
+        Me.tbpColour.Controls.Add(Me.ucrInputCanvasColorPalette)
+        Me.tbpColour.Controls.Add(Me.lblPaletteContinuouscolor)
+        Me.tbpColour.Controls.Add(Me.ucrInputContinouscolor)
+        Me.tbpColour.Controls.Add(Me.lblGgthemesFunctions)
+        Me.tbpColour.Controls.Add(Me.ucrInputColorFunctions)
         Me.tbpColour.Controls.Add(Me.lblFillFunction)
         Me.tbpColour.Controls.Add(Me.ucrInputFillFunction)
         Me.tbpColour.Controls.Add(Me.lblCanvasFillPalette)
-        Me.tbpColour.Controls.Add(Me.UcrInputComboBox2)
+        Me.tbpColour.Controls.Add(Me.ucrInputCanvasFillPalette)
         Me.tbpColour.Controls.Add(Me.lblPaletteContinuousfill)
         Me.tbpColour.Controls.Add(Me.ucrInputContinousfill)
         Me.tbpColour.Controls.Add(Me.ucrChkUseFill)
@@ -1252,26 +1264,86 @@ Partial Class sdgPlots
         Me.tbpColour.Text = "Colour"
         Me.tbpColour.UseVisualStyleBackColor = True
         '
-        'lblPaletteContiinuous
+        'lblFillFunction
         '
-        Me.lblPaletteContiinuous.AutoSize = True
-        Me.lblPaletteContiinuous.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblPaletteContiinuous.Location = New System.Drawing.Point(100, 87)
-        Me.lblPaletteContiinuous.Name = "lblPaletteContiinuous"
-        Me.lblPaletteContiinuous.Size = New System.Drawing.Size(43, 13)
-        Me.lblPaletteContiinuous.TabIndex = 37
-        Me.lblPaletteContiinuous.Text = "Palette:"
+        Me.lblFillFunction.AutoSize = True
+        Me.lblFillFunction.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblFillFunction.Location = New System.Drawing.Point(278, 148)
+        Me.lblFillFunction.Name = "lblFillFunction"
+        Me.lblFillFunction.Size = New System.Drawing.Size(71, 13)
+        Me.lblFillFunction.TabIndex = 45
+        Me.lblFillFunction.Text = "Fill Functions:"
         '
-        'ucrInputPaletteContinuous
+        'ucrInputFillFunction
         '
-        Me.ucrInputPaletteContinuous.AddQuotesIfUnrecognised = True
-        Me.ucrInputPaletteContinuous.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputPaletteContinuous.GetSetSelectedIndex = -1
-        Me.ucrInputPaletteContinuous.IsReadOnly = False
-        Me.ucrInputPaletteContinuous.Location = New System.Drawing.Point(149, 83)
-        Me.ucrInputPaletteContinuous.Name = "ucrInputPaletteContinuous"
-        Me.ucrInputPaletteContinuous.Size = New System.Drawing.Size(146, 26)
-        Me.ucrInputPaletteContinuous.TabIndex = 36
+        Me.ucrInputFillFunction.AddQuotesIfUnrecognised = True
+        Me.ucrInputFillFunction.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputFillFunction.GetSetSelectedIndex = -1
+        Me.ucrInputFillFunction.IsReadOnly = False
+        Me.ucrInputFillFunction.Location = New System.Drawing.Point(379, 143)
+        Me.ucrInputFillFunction.Name = "ucrInputFillFunction"
+        Me.ucrInputFillFunction.Size = New System.Drawing.Size(167, 26)
+        Me.ucrInputFillFunction.TabIndex = 44
+        '
+        'lblCanvasFillPalette
+        '
+        Me.lblCanvasFillPalette.AutoSize = True
+        Me.lblCanvasFillPalette.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblCanvasFillPalette.Location = New System.Drawing.Point(23, 178)
+        Me.lblCanvasFillPalette.Name = "lblCanvasFillPalette"
+        Me.lblCanvasFillPalette.Size = New System.Drawing.Size(43, 13)
+        Me.lblCanvasFillPalette.TabIndex = 43
+        Me.lblCanvasFillPalette.Text = "Palette:"
+        '
+        'ucrInputCanvasFillPalette
+        '
+        Me.ucrInputCanvasFillPalette.AddQuotesIfUnrecognised = True
+        Me.ucrInputCanvasFillPalette.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputCanvasFillPalette.GetSetSelectedIndex = -1
+        Me.ucrInputCanvasFillPalette.IsReadOnly = False
+        Me.ucrInputCanvasFillPalette.Location = New System.Drawing.Point(72, 174)
+        Me.ucrInputCanvasFillPalette.Name = "ucrInputCanvasFillPalette"
+        Me.ucrInputCanvasFillPalette.Size = New System.Drawing.Size(146, 26)
+        Me.ucrInputCanvasFillPalette.TabIndex = 42
+        '
+        'lblPaletteContinuousfill
+        '
+        Me.lblPaletteContinuousfill.AutoSize = True
+        Me.lblPaletteContinuousfill.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblPaletteContinuousfill.Location = New System.Drawing.Point(23, 178)
+        Me.lblPaletteContinuousfill.Name = "lblPaletteContinuousfill"
+        Me.lblPaletteContinuousfill.Size = New System.Drawing.Size(43, 13)
+        Me.lblPaletteContinuousfill.TabIndex = 41
+        Me.lblPaletteContinuousfill.Text = "Palette:"
+        '
+        'ucrInputContinousfill
+        '
+        Me.ucrInputContinousfill.AddQuotesIfUnrecognised = True
+        Me.ucrInputContinousfill.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputContinousfill.GetSetSelectedIndex = -1
+        Me.ucrInputContinousfill.IsReadOnly = False
+        Me.ucrInputContinousfill.Location = New System.Drawing.Point(72, 174)
+        Me.ucrInputContinousfill.Name = "ucrInputContinousfill"
+        Me.ucrInputContinousfill.Size = New System.Drawing.Size(146, 26)
+        Me.ucrInputContinousfill.TabIndex = 40
+        '
+        'ucrChkUseFill
+        '
+        Me.ucrChkUseFill.AutoSize = True
+        Me.ucrChkUseFill.Checked = False
+        Me.ucrChkUseFill.Location = New System.Drawing.Point(23, 114)
+        Me.ucrChkUseFill.Name = "ucrChkUseFill"
+        Me.ucrChkUseFill.Size = New System.Drawing.Size(256, 23)
+        Me.ucrChkUseFill.TabIndex = 39
+        '
+        'ucrChkUseColor
+        '
+        Me.ucrChkUseColor.AutoSize = True
+        Me.ucrChkUseColor.Checked = False
+        Me.ucrChkUseColor.Location = New System.Drawing.Point(281, 114)
+        Me.ucrChkUseColor.Name = "ucrChkUseColor"
+        Me.ucrChkUseColor.Size = New System.Drawing.Size(265, 23)
+        Me.ucrChkUseColor.TabIndex = 38
         '
         'rdoGgthemes
         '
@@ -1317,7 +1389,7 @@ Partial Class sdgPlots
         '
         Me.lblPalette.AutoSize = True
         Me.lblPalette.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblPalette.Location = New System.Drawing.Point(100, 85)
+        Me.lblPalette.Location = New System.Drawing.Point(100, 86)
         Me.lblPalette.Name = "lblPalette"
         Me.lblPalette.Size = New System.Drawing.Size(43, 13)
         Me.lblPalette.TabIndex = 33
@@ -1329,7 +1401,7 @@ Partial Class sdgPlots
         Me.ucrInputPalettes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ucrInputPalettes.GetSetSelectedIndex = -1
         Me.ucrInputPalettes.IsReadOnly = False
-        Me.ucrInputPalettes.Location = New System.Drawing.Point(149, 81)
+        Me.ucrInputPalettes.Location = New System.Drawing.Point(149, 82)
         Me.ucrInputPalettes.Name = "ucrInputPalettes"
         Me.ucrInputPalettes.Size = New System.Drawing.Size(146, 26)
         Me.ucrInputPalettes.TabIndex = 32
@@ -1408,9 +1480,9 @@ Partial Class sdgPlots
         Me.ucrInputColorType.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ucrInputColorType.GetSetSelectedIndex = -1
         Me.ucrInputColorType.IsReadOnly = False
-        Me.ucrInputColorType.Location = New System.Drawing.Point(379, 20)
+        Me.ucrInputColorType.Location = New System.Drawing.Point(379, 13)
         Me.ucrInputColorType.Name = "ucrInputColorType"
-        Me.ucrInputColorType.Size = New System.Drawing.Size(137, 24)
+        Me.ucrInputColorType.Size = New System.Drawing.Size(167, 24)
         Me.ucrInputColorType.TabIndex = 11
         '
         'ucrChkAddColour
@@ -1684,6 +1756,27 @@ Partial Class sdgPlots
         Me.lblFillScaleTransparency.Size = New System.Drawing.Size(75, 13)
         Me.lblFillScaleTransparency.TabIndex = 0
         Me.lblFillScaleTransparency.Text = "Transparency:"
+        '
+        'lblPaletteContiinuous
+        '
+        Me.lblPaletteContiinuous.AutoSize = True
+        Me.lblPaletteContiinuous.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblPaletteContiinuous.Location = New System.Drawing.Point(100, 87)
+        Me.lblPaletteContiinuous.Name = "lblPaletteContiinuous"
+        Me.lblPaletteContiinuous.Size = New System.Drawing.Size(43, 13)
+        Me.lblPaletteContiinuous.TabIndex = 37
+        Me.lblPaletteContiinuous.Text = "Palette:"
+        '
+        'ucrInputPaletteContinuous
+        '
+        Me.ucrInputPaletteContinuous.AddQuotesIfUnrecognised = True
+        Me.ucrInputPaletteContinuous.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputPaletteContinuous.GetSetSelectedIndex = -1
+        Me.ucrInputPaletteContinuous.IsReadOnly = False
+        Me.ucrInputPaletteContinuous.Location = New System.Drawing.Point(149, 83)
+        Me.ucrInputPaletteContinuous.Name = "ucrInputPaletteContinuous"
+        Me.ucrInputPaletteContinuous.Size = New System.Drawing.Size(146, 26)
+        Me.ucrInputPaletteContinuous.TabIndex = 36
         '
         'tbpAnnotation
         '
@@ -2252,86 +2345,68 @@ Partial Class sdgPlots
         Me.ucrBaseSubdialog.Size = New System.Drawing.Size(224, 29)
         Me.ucrBaseSubdialog.TabIndex = 1
         '
-        'ucrChkUseColor
+        'lblGgthemesFunctions
         '
-        Me.ucrChkUseColor.AutoSize = True
-        Me.ucrChkUseColor.Checked = False
-        Me.ucrChkUseColor.Location = New System.Drawing.Point(281, 114)
-        Me.ucrChkUseColor.Name = "ucrChkUseColor"
-        Me.ucrChkUseColor.Size = New System.Drawing.Size(265, 23)
-        Me.ucrChkUseColor.TabIndex = 38
+        Me.lblGgthemesFunctions.AutoSize = True
+        Me.lblGgthemesFunctions.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblGgthemesFunctions.Location = New System.Drawing.Point(274, 388)
+        Me.lblGgthemesFunctions.Name = "lblGgthemesFunctions"
+        Me.lblGgthemesFunctions.Size = New System.Drawing.Size(83, 13)
+        Me.lblGgthemesFunctions.TabIndex = 47
+        Me.lblGgthemesFunctions.Text = "Color Functions:"
         '
-        'ucrChkUseFill
+        'ucrInputColorFunctions
         '
-        Me.ucrChkUseFill.AutoSize = True
-        Me.ucrChkUseFill.Checked = False
-        Me.ucrChkUseFill.Location = New System.Drawing.Point(23, 114)
-        Me.ucrChkUseFill.Name = "ucrChkUseFill"
-        Me.ucrChkUseFill.Size = New System.Drawing.Size(256, 23)
-        Me.ucrChkUseFill.TabIndex = 39
+        Me.ucrInputColorFunctions.AddQuotesIfUnrecognised = True
+        Me.ucrInputColorFunctions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputColorFunctions.GetSetSelectedIndex = -1
+        Me.ucrInputColorFunctions.IsReadOnly = False
+        Me.ucrInputColorFunctions.Location = New System.Drawing.Point(379, 382)
+        Me.ucrInputColorFunctions.Name = "ucrInputColorFunctions"
+        Me.ucrInputColorFunctions.Size = New System.Drawing.Size(167, 26)
+        Me.ucrInputColorFunctions.TabIndex = 46
         '
-        'lblPaletteContinuousfill
+        'lblCanvasColorPalette
         '
-        Me.lblPaletteContinuousfill.AutoSize = True
-        Me.lblPaletteContinuousfill.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblPaletteContinuousfill.Location = New System.Drawing.Point(590, 346)
-        Me.lblPaletteContinuousfill.Name = "lblPaletteContinuousfill"
-        Me.lblPaletteContinuousfill.Size = New System.Drawing.Size(43, 13)
-        Me.lblPaletteContinuousfill.TabIndex = 41
-        Me.lblPaletteContinuousfill.Text = "Palette:"
+        Me.lblCanvasColorPalette.AutoSize = True
+        Me.lblCanvasColorPalette.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblCanvasColorPalette.Location = New System.Drawing.Point(23, 438)
+        Me.lblCanvasColorPalette.Name = "lblCanvasColorPalette"
+        Me.lblCanvasColorPalette.Size = New System.Drawing.Size(43, 13)
+        Me.lblCanvasColorPalette.TabIndex = 51
+        Me.lblCanvasColorPalette.Text = "Palette:"
         '
-        'ucrInputContinousfill
+        'ucrInputCanvasColorPalette
         '
-        Me.ucrInputContinousfill.AddQuotesIfUnrecognised = True
-        Me.ucrInputContinousfill.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputContinousfill.GetSetSelectedIndex = -1
-        Me.ucrInputContinousfill.IsReadOnly = False
-        Me.ucrInputContinousfill.Location = New System.Drawing.Point(639, 342)
-        Me.ucrInputContinousfill.Name = "ucrInputContinousfill"
-        Me.ucrInputContinousfill.Size = New System.Drawing.Size(146, 26)
-        Me.ucrInputContinousfill.TabIndex = 40
+        Me.ucrInputCanvasColorPalette.AddQuotesIfUnrecognised = True
+        Me.ucrInputCanvasColorPalette.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputCanvasColorPalette.GetSetSelectedIndex = -1
+        Me.ucrInputCanvasColorPalette.IsReadOnly = False
+        Me.ucrInputCanvasColorPalette.Location = New System.Drawing.Point(72, 434)
+        Me.ucrInputCanvasColorPalette.Name = "ucrInputCanvasColorPalette"
+        Me.ucrInputCanvasColorPalette.Size = New System.Drawing.Size(146, 26)
+        Me.ucrInputCanvasColorPalette.TabIndex = 50
         '
-        'lblCanvasFillPalette
+        'lblPaletteContinuouscolor
         '
-        Me.lblCanvasFillPalette.AutoSize = True
-        Me.lblCanvasFillPalette.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblCanvasFillPalette.Location = New System.Drawing.Point(544, 266)
-        Me.lblCanvasFillPalette.Name = "lblCanvasFillPalette"
-        Me.lblCanvasFillPalette.Size = New System.Drawing.Size(43, 13)
-        Me.lblCanvasFillPalette.TabIndex = 43
-        Me.lblCanvasFillPalette.Text = "Palette:"
+        Me.lblPaletteContinuouscolor.AutoSize = True
+        Me.lblPaletteContinuouscolor.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.lblPaletteContinuouscolor.Location = New System.Drawing.Point(23, 438)
+        Me.lblPaletteContinuouscolor.Name = "lblPaletteContinuouscolor"
+        Me.lblPaletteContinuouscolor.Size = New System.Drawing.Size(43, 13)
+        Me.lblPaletteContinuouscolor.TabIndex = 49
+        Me.lblPaletteContinuouscolor.Text = "Palette:"
         '
-        'UcrInputComboBox2
+        'ucrInputContinouscolor
         '
-        Me.UcrInputComboBox2.AddQuotesIfUnrecognised = True
-        Me.UcrInputComboBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.UcrInputComboBox2.GetSetSelectedIndex = -1
-        Me.UcrInputComboBox2.IsReadOnly = False
-        Me.UcrInputComboBox2.Location = New System.Drawing.Point(593, 262)
-        Me.UcrInputComboBox2.Name = "UcrInputComboBox2"
-        Me.UcrInputComboBox2.Size = New System.Drawing.Size(146, 26)
-        Me.UcrInputComboBox2.TabIndex = 42
-        '
-        'lblFillFunction
-        '
-        Me.lblFillFunction.AutoSize = True
-        Me.lblFillFunction.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblFillFunction.Location = New System.Drawing.Point(278, 148)
-        Me.lblFillFunction.Name = "lblFillFunction"
-        Me.lblFillFunction.Size = New System.Drawing.Size(43, 13)
-        Me.lblFillFunction.TabIndex = 45
-        Me.lblFillFunction.Text = "Palette:"
-        '
-        'ucrInputFillFunction
-        '
-        Me.ucrInputFillFunction.AddQuotesIfUnrecognised = True
-        Me.ucrInputFillFunction.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputFillFunction.GetSetSelectedIndex = -1
-        Me.ucrInputFillFunction.IsReadOnly = False
-        Me.ucrInputFillFunction.Location = New System.Drawing.Point(331, 145)
-        Me.ucrInputFillFunction.Name = "ucrInputFillFunction"
-        Me.ucrInputFillFunction.Size = New System.Drawing.Size(185, 26)
-        Me.ucrInputFillFunction.TabIndex = 44
+        Me.ucrInputContinouscolor.AddQuotesIfUnrecognised = True
+        Me.ucrInputContinouscolor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputContinouscolor.GetSetSelectedIndex = -1
+        Me.ucrInputContinouscolor.IsReadOnly = False
+        Me.ucrInputContinouscolor.Location = New System.Drawing.Point(72, 434)
+        Me.ucrInputContinouscolor.Name = "ucrInputContinouscolor"
+        Me.ucrInputContinouscolor.Size = New System.Drawing.Size(146, 26)
+        Me.ucrInputContinouscolor.TabIndex = 48
         '
         'sdgPlots
         '
@@ -2560,11 +2635,17 @@ Partial Class sdgPlots
     Friend WithEvents lblFillFunction As Label
     Friend WithEvents ucrInputFillFunction As ucrInputComboBox
     Friend WithEvents lblCanvasFillPalette As Label
-    Friend WithEvents UcrInputComboBox2 As ucrInputComboBox
+    Friend WithEvents ucrInputCanvasFillPalette As ucrInputComboBox
     Friend WithEvents lblPaletteContinuousfill As Label
     Friend WithEvents ucrInputContinousfill As ucrInputComboBox
     Friend WithEvents ucrChkUseFill As ucrCheck
     Friend WithEvents ucrChkUseColor As ucrCheck
+    Friend WithEvents lblCanvasColorPalette As Label
+    Friend WithEvents ucrInputCanvasColorPalette As ucrInputComboBox
+    Friend WithEvents lblPaletteContinuouscolor As Label
+    Friend WithEvents ucrInputContinouscolor As ucrInputComboBox
+    Friend WithEvents lblGgthemesFunctions As Label
+    Friend WithEvents ucrInputColorFunctions As ucrInputComboBox
 End Class
 
 
