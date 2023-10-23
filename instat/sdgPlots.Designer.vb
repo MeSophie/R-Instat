@@ -126,6 +126,34 @@ Partial Class sdgPlots
         Me.ucrChkSameScale = New instat.ucrCheck()
         Me.ucrChkHorizontalPlot = New instat.ucrCheck()
         Me.tbpColour = New System.Windows.Forms.TabPage()
+        Me.grpScalefillhc = New System.Windows.Forms.GroupBox()
+        Me.ucrInputPalettehc = New instat.ucrInputComboBox()
+        Me.ucrChkPalettehc = New instat.ucrCheck()
+        Me.ucrInputTextBreakshc = New instat.ucrInputTextBox()
+        Me.ucrInputTextNaValuehc = New instat.ucrInputTextBox()
+        Me.ucrInputTextLimithc = New instat.ucrInputTextBox()
+        Me.ucrInputTextExpandhc = New instat.ucrInputTextBox()
+        Me.ucrInputPositionhc = New instat.ucrInputComboBox()
+        Me.ucrInputDropUnusedLevelshc = New instat.ucrInputComboBox()
+        Me.ucrChkExpandhc = New instat.ucrCheck()
+        Me.ucrChkPositionhc = New instat.ucrCheck()
+        Me.ucrChkLimithc = New instat.ucrCheck()
+        Me.ucrChkBreakshc = New instat.ucrCheck()
+        Me.ucrChkNaValuehc = New instat.ucrCheck()
+        Me.ucrChkDropUnusedLevelshc = New instat.ucrCheck()
+        Me.grpScaleFillfiv = New System.Windows.Forms.GroupBox()
+        Me.ucrInputTextBreaksfiv = New instat.ucrInputTextBox()
+        Me.ucrInputTextNaValuefiv = New instat.ucrInputTextBox()
+        Me.ucrInputTextLimitfiv = New instat.ucrInputTextBox()
+        Me.ucrInputTextExpandfiv = New instat.ucrInputTextBox()
+        Me.ucrInputPositionfiv = New instat.ucrInputComboBox()
+        Me.ucrInputDropUnusedLevelsfiv = New instat.ucrInputComboBox()
+        Me.ucrChkExpandfiv = New instat.ucrCheck()
+        Me.ucrChkPositionfiv = New instat.ucrCheck()
+        Me.ucrChkLimitfiv = New instat.ucrCheck()
+        Me.ucrChkBreaksfiv = New instat.ucrCheck()
+        Me.ucrChkNaValuefiv = New instat.ucrCheck()
+        Me.ucrChkDropUnusedLevelsfiv = New instat.ucrCheck()
         Me.grpScaleColorw = New System.Windows.Forms.GroupBox()
         Me.ucrInputPalettecolorw = New instat.ucrInputComboBox()
         Me.ucrChkPalettecolorw = New instat.ucrCheck()
@@ -441,21 +469,6 @@ Partial Class sdgPlots
         Me.ucrChkBreaksExn = New instat.ucrCheck()
         Me.ucrChkNaValueExn = New instat.ucrCheck()
         Me.ucrChkDropUnusedLevelsExn = New instat.ucrCheck()
-        Me.grpScalefillhc = New System.Windows.Forms.GroupBox()
-        Me.ucrInputPalettehc = New instat.ucrInputComboBox()
-        Me.ucrChkPalettehc = New instat.ucrCheck()
-        Me.ucrInputTextBreakshc = New instat.ucrInputTextBox()
-        Me.ucrInputTextNaValuehc = New instat.ucrInputTextBox()
-        Me.ucrInputTextLimithc = New instat.ucrInputTextBox()
-        Me.ucrInputTextExpandhc = New instat.ucrInputTextBox()
-        Me.ucrInputPositionhc = New instat.ucrInputComboBox()
-        Me.ucrInputDropUnusedLevelshc = New instat.ucrInputComboBox()
-        Me.ucrChkExpandhc = New instat.ucrCheck()
-        Me.ucrChkPositionhc = New instat.ucrCheck()
-        Me.ucrChkLimithc = New instat.ucrCheck()
-        Me.ucrChkBreakshc = New instat.ucrCheck()
-        Me.ucrChkNaValuehc = New instat.ucrCheck()
-        Me.ucrChkDropUnusedLevelshc = New instat.ucrCheck()
         Me.grpScalefillsol = New System.Windows.Forms.GroupBox()
         Me.ucrInputTextBreakssol = New instat.ucrInputTextBox()
         Me.ucrInputTextNaValuesol = New instat.ucrInputTextBox()
@@ -482,19 +495,6 @@ Partial Class sdgPlots
         Me.ucrChkBreaks = New instat.ucrCheck()
         Me.ucrChkNaValue = New instat.ucrCheck()
         Me.ucrChkDropUnusedLevels = New instat.ucrCheck()
-        Me.grpScaleFillfiv = New System.Windows.Forms.GroupBox()
-        Me.ucrInputTextBreaksfiv = New instat.ucrInputTextBox()
-        Me.ucrInputTextNaValuefiv = New instat.ucrInputTextBox()
-        Me.ucrInputTextLimitfiv = New instat.ucrInputTextBox()
-        Me.ucrInputTextExpandfiv = New instat.ucrInputTextBox()
-        Me.ucrInputPositionfiv = New instat.ucrInputComboBox()
-        Me.ucrInputDropUnusedLevelsfiv = New instat.ucrInputComboBox()
-        Me.ucrChkExpandfiv = New instat.ucrCheck()
-        Me.ucrChkPositionfiv = New instat.ucrCheck()
-        Me.ucrChkLimitfiv = New instat.ucrCheck()
-        Me.ucrChkBreaksfiv = New instat.ucrCheck()
-        Me.ucrChkNaValuefiv = New instat.ucrCheck()
-        Me.ucrChkDropUnusedLevelsfiv = New instat.ucrCheck()
         Me.grpScalefillfew = New System.Windows.Forms.GroupBox()
         Me.ucrChkPalettefill = New instat.ucrCheck()
         Me.ucrInputPalettefill = New instat.ucrInputComboBox()
@@ -620,6 +620,8 @@ Partial Class sdgPlots
         Me.tbpCoordinates.SuspendLayout()
         Me.grpPolarCordinates.SuspendLayout()
         Me.tbpColour.SuspendLayout()
+        Me.grpScalefillhc.SuspendLayout()
+        Me.grpScaleFillfiv.SuspendLayout()
         Me.grpScaleColorw.SuspendLayout()
         Me.grpScaleColorfiv.SuspendLayout()
         Me.grpScalecolorExn.SuspendLayout()
@@ -643,10 +645,8 @@ Partial Class sdgPlots
         Me.grpScalefillEx.SuspendLayout()
         Me.grpScalefillEcon.SuspendLayout()
         Me.grpScalefillExn.SuspendLayout()
-        Me.grpScalefillhc.SuspendLayout()
         Me.grpScalefillsol.SuspendLayout()
         Me.grpFillScaleggthemes.SuspendLayout()
-        Me.grpScaleFillfiv.SuspendLayout()
         Me.grpScalefillfew.SuspendLayout()
         Me.grpColourScale.SuspendLayout()
         Me.grpFillScale.SuspendLayout()
@@ -693,7 +693,7 @@ Partial Class sdgPlots
         Me.tbpFacet.Location = New System.Drawing.Point(4, 22)
         Me.tbpFacet.Name = "tbpFacet"
         Me.tbpFacet.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpFacet.Size = New System.Drawing.Size(1375, 710)
+        Me.tbpFacet.Size = New System.Drawing.Size(666, 710)
         Me.tbpFacet.TabIndex = 3
         Me.tbpFacet.Tag = "Facet"
         Me.tbpFacet.Text = "Facets"
@@ -883,7 +883,7 @@ Partial Class sdgPlots
         Me.tbpLayers.Location = New System.Drawing.Point(4, 22)
         Me.tbpLayers.Name = "tbpLayers"
         Me.tbpLayers.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpLayers.Size = New System.Drawing.Size(544, 710)
+        Me.tbpLayers.Size = New System.Drawing.Size(666, 710)
         Me.tbpLayers.TabIndex = 4
         Me.tbpLayers.Tag = "Layers"
         Me.tbpLayers.Text = "Layers"
@@ -926,7 +926,7 @@ Partial Class sdgPlots
         Me.tbpTitles.Location = New System.Drawing.Point(4, 22)
         Me.tbpTitles.Name = "tbpTitles"
         Me.tbpTitles.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpTitles.Size = New System.Drawing.Size(544, 710)
+        Me.tbpTitles.Size = New System.Drawing.Size(666, 710)
         Me.tbpTitles.TabIndex = 2
         Me.tbpTitles.Tag = "Titles"
         Me.tbpTitles.Text = "Titles"
@@ -1289,7 +1289,7 @@ Partial Class sdgPlots
         Me.tbpYAxis.Location = New System.Drawing.Point(4, 22)
         Me.tbpYAxis.Name = "tbpYAxis"
         Me.tbpYAxis.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpYAxis.Size = New System.Drawing.Size(544, 710)
+        Me.tbpYAxis.Size = New System.Drawing.Size(666, 710)
         Me.tbpYAxis.TabIndex = 6
         Me.tbpYAxis.Text = "Y-Axis"
         Me.tbpYAxis.UseVisualStyleBackColor = True
@@ -1313,7 +1313,7 @@ Partial Class sdgPlots
         Me.tbpTheme.Location = New System.Drawing.Point(4, 22)
         Me.tbpTheme.Name = "tbpTheme"
         Me.tbpTheme.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpTheme.Size = New System.Drawing.Size(544, 710)
+        Me.tbpTheme.Size = New System.Drawing.Size(666, 710)
         Me.tbpTheme.TabIndex = 1
         Me.tbpTheme.Tag = "Theme"
         Me.tbpTheme.Text = "Themes"
@@ -1527,7 +1527,7 @@ Partial Class sdgPlots
         Me.tbpCoordinates.Location = New System.Drawing.Point(4, 22)
         Me.tbpCoordinates.Name = "tbpCoordinates"
         Me.tbpCoordinates.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpCoordinates.Size = New System.Drawing.Size(544, 710)
+        Me.tbpCoordinates.Size = New System.Drawing.Size(666, 710)
         Me.tbpCoordinates.TabIndex = 7
         Me.tbpCoordinates.Text = "Coordinates"
         Me.tbpCoordinates.UseVisualStyleBackColor = True
@@ -1703,6 +1703,310 @@ Partial Class sdgPlots
         Me.tbpColour.TabIndex = 8
         Me.tbpColour.Text = "Colour"
         Me.tbpColour.UseVisualStyleBackColor = True
+        '
+        'grpScalefillhc
+        '
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputPalettehc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkPalettehc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextBreakshc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextNaValuehc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextLimithc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextExpandhc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputPositionhc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrInputDropUnusedLevelshc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkExpandhc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkPositionhc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkLimithc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkBreakshc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkNaValuehc)
+        Me.grpScalefillhc.Controls.Add(Me.ucrChkDropUnusedLevelshc)
+        Me.grpScalefillhc.Location = New System.Drawing.Point(12, 205)
+        Me.grpScalefillhc.Name = "grpScalefillhc"
+        Me.grpScalefillhc.Size = New System.Drawing.Size(444, 184)
+        Me.grpScalefillhc.TabIndex = 188
+        Me.grpScalefillhc.TabStop = False
+        Me.grpScalefillhc.Text = "Fill Scale"
+        '
+        'ucrInputPalettehc
+        '
+        Me.ucrInputPalettehc.AddQuotesIfUnrecognised = True
+        Me.ucrInputPalettehc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputPalettehc.GetSetSelectedIndex = -1
+        Me.ucrInputPalettehc.IsReadOnly = False
+        Me.ucrInputPalettehc.Location = New System.Drawing.Point(285, 155)
+        Me.ucrInputPalettehc.Name = "ucrInputPalettehc"
+        Me.ucrInputPalettehc.Size = New System.Drawing.Size(137, 21)
+        Me.ucrInputPalettehc.TabIndex = 149
+        '
+        'ucrChkPalettehc
+        '
+        Me.ucrChkPalettehc.AutoSize = True
+        Me.ucrChkPalettehc.Checked = False
+        Me.ucrChkPalettehc.Location = New System.Drawing.Point(9, 163)
+        Me.ucrChkPalettehc.Name = "ucrChkPalettehc"
+        Me.ucrChkPalettehc.Size = New System.Drawing.Size(245, 23)
+        Me.ucrChkPalettehc.TabIndex = 148
+        '
+        'ucrInputTextBreakshc
+        '
+        Me.ucrInputTextBreakshc.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextBreakshc.AutoSize = True
+        Me.ucrInputTextBreakshc.IsMultiline = False
+        Me.ucrInputTextBreakshc.IsReadOnly = False
+        Me.ucrInputTextBreakshc.Location = New System.Drawing.Point(285, 34)
+        Me.ucrInputTextBreakshc.Name = "ucrInputTextBreakshc"
+        Me.ucrInputTextBreakshc.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextBreakshc.TabIndex = 147
+        '
+        'ucrInputTextNaValuehc
+        '
+        Me.ucrInputTextNaValuehc.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextNaValuehc.AutoSize = True
+        Me.ucrInputTextNaValuehc.IsMultiline = False
+        Me.ucrInputTextNaValuehc.IsReadOnly = False
+        Me.ucrInputTextNaValuehc.Location = New System.Drawing.Point(285, 132)
+        Me.ucrInputTextNaValuehc.Name = "ucrInputTextNaValuehc"
+        Me.ucrInputTextNaValuehc.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextNaValuehc.TabIndex = 146
+        '
+        'ucrInputTextLimithc
+        '
+        Me.ucrInputTextLimithc.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextLimithc.AutoSize = True
+        Me.ucrInputTextLimithc.IsMultiline = False
+        Me.ucrInputTextLimithc.IsReadOnly = False
+        Me.ucrInputTextLimithc.Location = New System.Drawing.Point(285, 58)
+        Me.ucrInputTextLimithc.Name = "ucrInputTextLimithc"
+        Me.ucrInputTextLimithc.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextLimithc.TabIndex = 145
+        '
+        'ucrInputTextExpandhc
+        '
+        Me.ucrInputTextExpandhc.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextExpandhc.AutoSize = True
+        Me.ucrInputTextExpandhc.IsMultiline = False
+        Me.ucrInputTextExpandhc.IsReadOnly = False
+        Me.ucrInputTextExpandhc.Location = New System.Drawing.Point(285, 107)
+        Me.ucrInputTextExpandhc.Name = "ucrInputTextExpandhc"
+        Me.ucrInputTextExpandhc.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextExpandhc.TabIndex = 144
+        '
+        'ucrInputPositionhc
+        '
+        Me.ucrInputPositionhc.AddQuotesIfUnrecognised = True
+        Me.ucrInputPositionhc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputPositionhc.GetSetSelectedIndex = -1
+        Me.ucrInputPositionhc.IsReadOnly = False
+        Me.ucrInputPositionhc.Location = New System.Drawing.Point(285, 82)
+        Me.ucrInputPositionhc.Name = "ucrInputPositionhc"
+        Me.ucrInputPositionhc.Size = New System.Drawing.Size(137, 21)
+        Me.ucrInputPositionhc.TabIndex = 143
+        '
+        'ucrInputDropUnusedLevelshc
+        '
+        Me.ucrInputDropUnusedLevelshc.AddQuotesIfUnrecognised = True
+        Me.ucrInputDropUnusedLevelshc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputDropUnusedLevelshc.GetSetSelectedIndex = -1
+        Me.ucrInputDropUnusedLevelshc.IsReadOnly = False
+        Me.ucrInputDropUnusedLevelshc.Location = New System.Drawing.Point(285, 9)
+        Me.ucrInputDropUnusedLevelshc.Name = "ucrInputDropUnusedLevelshc"
+        Me.ucrInputDropUnusedLevelshc.Size = New System.Drawing.Size(137, 21)
+        Me.ucrInputDropUnusedLevelshc.TabIndex = 142
+        '
+        'ucrChkExpandhc
+        '
+        Me.ucrChkExpandhc.AutoSize = True
+        Me.ucrChkExpandhc.Checked = False
+        Me.ucrChkExpandhc.Location = New System.Drawing.Point(10, 116)
+        Me.ucrChkExpandhc.Name = "ucrChkExpandhc"
+        Me.ucrChkExpandhc.Size = New System.Drawing.Size(244, 23)
+        Me.ucrChkExpandhc.TabIndex = 141
+        '
+        'ucrChkPositionhc
+        '
+        Me.ucrChkPositionhc.AutoSize = True
+        Me.ucrChkPositionhc.Checked = False
+        Me.ucrChkPositionhc.Location = New System.Drawing.Point(10, 91)
+        Me.ucrChkPositionhc.Name = "ucrChkPositionhc"
+        Me.ucrChkPositionhc.Size = New System.Drawing.Size(244, 23)
+        Me.ucrChkPositionhc.TabIndex = 140
+        '
+        'ucrChkLimithc
+        '
+        Me.ucrChkLimithc.AutoSize = True
+        Me.ucrChkLimithc.Checked = False
+        Me.ucrChkLimithc.Location = New System.Drawing.Point(10, 67)
+        Me.ucrChkLimithc.Name = "ucrChkLimithc"
+        Me.ucrChkLimithc.Size = New System.Drawing.Size(244, 23)
+        Me.ucrChkLimithc.TabIndex = 139
+        '
+        'ucrChkBreakshc
+        '
+        Me.ucrChkBreakshc.AutoSize = True
+        Me.ucrChkBreakshc.Checked = False
+        Me.ucrChkBreakshc.Location = New System.Drawing.Point(10, 45)
+        Me.ucrChkBreakshc.Name = "ucrChkBreakshc"
+        Me.ucrChkBreakshc.Size = New System.Drawing.Size(244, 23)
+        Me.ucrChkBreakshc.TabIndex = 138
+        '
+        'ucrChkNaValuehc
+        '
+        Me.ucrChkNaValuehc.AutoSize = True
+        Me.ucrChkNaValuehc.Checked = False
+        Me.ucrChkNaValuehc.Location = New System.Drawing.Point(9, 139)
+        Me.ucrChkNaValuehc.Name = "ucrChkNaValuehc"
+        Me.ucrChkNaValuehc.Size = New System.Drawing.Size(245, 23)
+        Me.ucrChkNaValuehc.TabIndex = 137
+        '
+        'ucrChkDropUnusedLevelshc
+        '
+        Me.ucrChkDropUnusedLevelshc.AutoSize = True
+        Me.ucrChkDropUnusedLevelshc.Checked = False
+        Me.ucrChkDropUnusedLevelshc.Location = New System.Drawing.Point(10, 21)
+        Me.ucrChkDropUnusedLevelshc.Name = "ucrChkDropUnusedLevelshc"
+        Me.ucrChkDropUnusedLevelshc.Size = New System.Drawing.Size(244, 23)
+        Me.ucrChkDropUnusedLevelshc.TabIndex = 136
+        '
+        'grpScaleFillfiv
+        '
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextBreaksfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextNaValuefiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextLimitfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextExpandfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputPositionfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputDropUnusedLevelsfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkExpandfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkPositionfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkLimitfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkBreaksfiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkNaValuefiv)
+        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkDropUnusedLevelsfiv)
+        Me.grpScaleFillfiv.Location = New System.Drawing.Point(12, 208)
+        Me.grpScaleFillfiv.Name = "grpScaleFillfiv"
+        Me.grpScaleFillfiv.Size = New System.Drawing.Size(444, 184)
+        Me.grpScaleFillfiv.TabIndex = 186
+        Me.grpScaleFillfiv.TabStop = False
+        Me.grpScaleFillfiv.Text = "Fill Scale"
+        '
+        'ucrInputTextBreaksfiv
+        '
+        Me.ucrInputTextBreaksfiv.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextBreaksfiv.AutoSize = True
+        Me.ucrInputTextBreaksfiv.IsMultiline = False
+        Me.ucrInputTextBreaksfiv.IsReadOnly = False
+        Me.ucrInputTextBreaksfiv.Location = New System.Drawing.Point(285, 48)
+        Me.ucrInputTextBreaksfiv.Name = "ucrInputTextBreaksfiv"
+        Me.ucrInputTextBreaksfiv.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextBreaksfiv.TabIndex = 109
+        '
+        'ucrInputTextNaValuefiv
+        '
+        Me.ucrInputTextNaValuefiv.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextNaValuefiv.AutoSize = True
+        Me.ucrInputTextNaValuefiv.IsMultiline = False
+        Me.ucrInputTextNaValuefiv.IsReadOnly = False
+        Me.ucrInputTextNaValuefiv.Location = New System.Drawing.Point(285, 154)
+        Me.ucrInputTextNaValuefiv.Name = "ucrInputTextNaValuefiv"
+        Me.ucrInputTextNaValuefiv.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextNaValuefiv.TabIndex = 108
+        '
+        'ucrInputTextLimitfiv
+        '
+        Me.ucrInputTextLimitfiv.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextLimitfiv.AutoSize = True
+        Me.ucrInputTextLimitfiv.IsMultiline = False
+        Me.ucrInputTextLimitfiv.IsReadOnly = False
+        Me.ucrInputTextLimitfiv.Location = New System.Drawing.Point(285, 75)
+        Me.ucrInputTextLimitfiv.Name = "ucrInputTextLimitfiv"
+        Me.ucrInputTextLimitfiv.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextLimitfiv.TabIndex = 107
+        '
+        'ucrInputTextExpandfiv
+        '
+        Me.ucrInputTextExpandfiv.AddQuotesIfUnrecognised = True
+        Me.ucrInputTextExpandfiv.AutoSize = True
+        Me.ucrInputTextExpandfiv.IsMultiline = False
+        Me.ucrInputTextExpandfiv.IsReadOnly = False
+        Me.ucrInputTextExpandfiv.Location = New System.Drawing.Point(285, 127)
+        Me.ucrInputTextExpandfiv.Name = "ucrInputTextExpandfiv"
+        Me.ucrInputTextExpandfiv.Size = New System.Drawing.Size(137, 23)
+        Me.ucrInputTextExpandfiv.TabIndex = 106
+        '
+        'ucrInputPositionfiv
+        '
+        Me.ucrInputPositionfiv.AddQuotesIfUnrecognised = True
+        Me.ucrInputPositionfiv.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputPositionfiv.GetSetSelectedIndex = -1
+        Me.ucrInputPositionfiv.IsReadOnly = False
+        Me.ucrInputPositionfiv.Location = New System.Drawing.Point(285, 102)
+        Me.ucrInputPositionfiv.Name = "ucrInputPositionfiv"
+        Me.ucrInputPositionfiv.Size = New System.Drawing.Size(137, 21)
+        Me.ucrInputPositionfiv.TabIndex = 105
+        '
+        'ucrInputDropUnusedLevelsfiv
+        '
+        Me.ucrInputDropUnusedLevelsfiv.AddQuotesIfUnrecognised = True
+        Me.ucrInputDropUnusedLevelsfiv.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputDropUnusedLevelsfiv.GetSetSelectedIndex = -1
+        Me.ucrInputDropUnusedLevelsfiv.IsReadOnly = False
+        Me.ucrInputDropUnusedLevelsfiv.Location = New System.Drawing.Point(285, 23)
+        Me.ucrInputDropUnusedLevelsfiv.Name = "ucrInputDropUnusedLevelsfiv"
+        Me.ucrInputDropUnusedLevelsfiv.Size = New System.Drawing.Size(137, 21)
+        Me.ucrInputDropUnusedLevelsfiv.TabIndex = 104
+        '
+        'ucrChkExpandfiv
+        '
+        Me.ucrChkExpandfiv.AutoSize = True
+        Me.ucrChkExpandfiv.Checked = False
+        Me.ucrChkExpandfiv.Location = New System.Drawing.Point(11, 126)
+        Me.ucrChkExpandfiv.Name = "ucrChkExpandfiv"
+        Me.ucrChkExpandfiv.Size = New System.Drawing.Size(242, 23)
+        Me.ucrChkExpandfiv.TabIndex = 103
+        '
+        'ucrChkPositionfiv
+        '
+        Me.ucrChkPositionfiv.AutoSize = True
+        Me.ucrChkPositionfiv.Checked = False
+        Me.ucrChkPositionfiv.Location = New System.Drawing.Point(11, 101)
+        Me.ucrChkPositionfiv.Name = "ucrChkPositionfiv"
+        Me.ucrChkPositionfiv.Size = New System.Drawing.Size(242, 23)
+        Me.ucrChkPositionfiv.TabIndex = 102
+        '
+        'ucrChkLimitfiv
+        '
+        Me.ucrChkLimitfiv.AutoSize = True
+        Me.ucrChkLimitfiv.Checked = False
+        Me.ucrChkLimitfiv.Location = New System.Drawing.Point(11, 76)
+        Me.ucrChkLimitfiv.Name = "ucrChkLimitfiv"
+        Me.ucrChkLimitfiv.Size = New System.Drawing.Size(242, 23)
+        Me.ucrChkLimitfiv.TabIndex = 101
+        '
+        'ucrChkBreaksfiv
+        '
+        Me.ucrChkBreaksfiv.AutoSize = True
+        Me.ucrChkBreaksfiv.Checked = False
+        Me.ucrChkBreaksfiv.Location = New System.Drawing.Point(11, 51)
+        Me.ucrChkBreaksfiv.Name = "ucrChkBreaksfiv"
+        Me.ucrChkBreaksfiv.Size = New System.Drawing.Size(242, 23)
+        Me.ucrChkBreaksfiv.TabIndex = 100
+        '
+        'ucrChkNaValuefiv
+        '
+        Me.ucrChkNaValuefiv.AutoSize = True
+        Me.ucrChkNaValuefiv.Checked = False
+        Me.ucrChkNaValuefiv.Location = New System.Drawing.Point(11, 151)
+        Me.ucrChkNaValuefiv.Name = "ucrChkNaValuefiv"
+        Me.ucrChkNaValuefiv.Size = New System.Drawing.Size(243, 23)
+        Me.ucrChkNaValuefiv.TabIndex = 99
+        '
+        'ucrChkDropUnusedLevelsfiv
+        '
+        Me.ucrChkDropUnusedLevelsfiv.AutoSize = True
+        Me.ucrChkDropUnusedLevelsfiv.Checked = False
+        Me.ucrChkDropUnusedLevelsfiv.Location = New System.Drawing.Point(11, 23)
+        Me.ucrChkDropUnusedLevelsfiv.Name = "ucrChkDropUnusedLevelsfiv"
+        Me.ucrChkDropUnusedLevelsfiv.Size = New System.Drawing.Size(242, 23)
+        Me.ucrChkDropUnusedLevelsfiv.TabIndex = 98
         '
         'grpScaleColorw
         '
@@ -5123,169 +5427,6 @@ Partial Class sdgPlots
         Me.ucrChkDropUnusedLevelsExn.Size = New System.Drawing.Size(251, 23)
         Me.ucrChkDropUnusedLevelsExn.TabIndex = 88
         '
-        'grpScalefillhc
-        '
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputPalettehc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkPalettehc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextBreakshc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextNaValuehc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextLimithc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputTextExpandhc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputPositionhc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrInputDropUnusedLevelshc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkExpandhc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkPositionhc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkLimithc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkBreakshc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkNaValuehc)
-        Me.grpScalefillhc.Controls.Add(Me.ucrChkDropUnusedLevelshc)
-        Me.grpScalefillhc.Location = New System.Drawing.Point(12, 205)
-        Me.grpScalefillhc.Name = "grpScalefillhc"
-        Me.grpScalefillhc.Size = New System.Drawing.Size(444, 184)
-        Me.grpScalefillhc.TabIndex = 188
-        Me.grpScalefillhc.TabStop = False
-        Me.grpScalefillhc.Text = "Fill Scale"
-        '
-        'ucrInputPalettehc
-        '
-        Me.ucrInputPalettehc.AddQuotesIfUnrecognised = True
-        Me.ucrInputPalettehc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputPalettehc.GetSetSelectedIndex = -1
-        Me.ucrInputPalettehc.IsReadOnly = False
-        Me.ucrInputPalettehc.Location = New System.Drawing.Point(285, 155)
-        Me.ucrInputPalettehc.Name = "ucrInputPalettehc"
-        Me.ucrInputPalettehc.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputPalettehc.TabIndex = 149
-        '
-        'ucrChkPalettehc
-        '
-        Me.ucrChkPalettehc.AutoSize = True
-        Me.ucrChkPalettehc.Checked = False
-        Me.ucrChkPalettehc.Location = New System.Drawing.Point(9, 163)
-        Me.ucrChkPalettehc.Name = "ucrChkPalettehc"
-        Me.ucrChkPalettehc.Size = New System.Drawing.Size(245, 23)
-        Me.ucrChkPalettehc.TabIndex = 148
-        '
-        'ucrInputTextBreakshc
-        '
-        Me.ucrInputTextBreakshc.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextBreakshc.AutoSize = True
-        Me.ucrInputTextBreakshc.IsMultiline = False
-        Me.ucrInputTextBreakshc.IsReadOnly = False
-        Me.ucrInputTextBreakshc.Location = New System.Drawing.Point(285, 34)
-        Me.ucrInputTextBreakshc.Name = "ucrInputTextBreakshc"
-        Me.ucrInputTextBreakshc.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextBreakshc.TabIndex = 147
-        '
-        'ucrInputTextNaValuehc
-        '
-        Me.ucrInputTextNaValuehc.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextNaValuehc.AutoSize = True
-        Me.ucrInputTextNaValuehc.IsMultiline = False
-        Me.ucrInputTextNaValuehc.IsReadOnly = False
-        Me.ucrInputTextNaValuehc.Location = New System.Drawing.Point(285, 132)
-        Me.ucrInputTextNaValuehc.Name = "ucrInputTextNaValuehc"
-        Me.ucrInputTextNaValuehc.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextNaValuehc.TabIndex = 146
-        '
-        'ucrInputTextLimithc
-        '
-        Me.ucrInputTextLimithc.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextLimithc.AutoSize = True
-        Me.ucrInputTextLimithc.IsMultiline = False
-        Me.ucrInputTextLimithc.IsReadOnly = False
-        Me.ucrInputTextLimithc.Location = New System.Drawing.Point(285, 58)
-        Me.ucrInputTextLimithc.Name = "ucrInputTextLimithc"
-        Me.ucrInputTextLimithc.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextLimithc.TabIndex = 145
-        '
-        'ucrInputTextExpandhc
-        '
-        Me.ucrInputTextExpandhc.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextExpandhc.AutoSize = True
-        Me.ucrInputTextExpandhc.IsMultiline = False
-        Me.ucrInputTextExpandhc.IsReadOnly = False
-        Me.ucrInputTextExpandhc.Location = New System.Drawing.Point(285, 107)
-        Me.ucrInputTextExpandhc.Name = "ucrInputTextExpandhc"
-        Me.ucrInputTextExpandhc.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextExpandhc.TabIndex = 144
-        '
-        'ucrInputPositionhc
-        '
-        Me.ucrInputPositionhc.AddQuotesIfUnrecognised = True
-        Me.ucrInputPositionhc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputPositionhc.GetSetSelectedIndex = -1
-        Me.ucrInputPositionhc.IsReadOnly = False
-        Me.ucrInputPositionhc.Location = New System.Drawing.Point(285, 82)
-        Me.ucrInputPositionhc.Name = "ucrInputPositionhc"
-        Me.ucrInputPositionhc.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputPositionhc.TabIndex = 143
-        '
-        'ucrInputDropUnusedLevelshc
-        '
-        Me.ucrInputDropUnusedLevelshc.AddQuotesIfUnrecognised = True
-        Me.ucrInputDropUnusedLevelshc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputDropUnusedLevelshc.GetSetSelectedIndex = -1
-        Me.ucrInputDropUnusedLevelshc.IsReadOnly = False
-        Me.ucrInputDropUnusedLevelshc.Location = New System.Drawing.Point(285, 9)
-        Me.ucrInputDropUnusedLevelshc.Name = "ucrInputDropUnusedLevelshc"
-        Me.ucrInputDropUnusedLevelshc.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputDropUnusedLevelshc.TabIndex = 142
-        '
-        'ucrChkExpandhc
-        '
-        Me.ucrChkExpandhc.AutoSize = True
-        Me.ucrChkExpandhc.Checked = False
-        Me.ucrChkExpandhc.Location = New System.Drawing.Point(10, 116)
-        Me.ucrChkExpandhc.Name = "ucrChkExpandhc"
-        Me.ucrChkExpandhc.Size = New System.Drawing.Size(244, 23)
-        Me.ucrChkExpandhc.TabIndex = 141
-        '
-        'ucrChkPositionhc
-        '
-        Me.ucrChkPositionhc.AutoSize = True
-        Me.ucrChkPositionhc.Checked = False
-        Me.ucrChkPositionhc.Location = New System.Drawing.Point(10, 91)
-        Me.ucrChkPositionhc.Name = "ucrChkPositionhc"
-        Me.ucrChkPositionhc.Size = New System.Drawing.Size(244, 23)
-        Me.ucrChkPositionhc.TabIndex = 140
-        '
-        'ucrChkLimithc
-        '
-        Me.ucrChkLimithc.AutoSize = True
-        Me.ucrChkLimithc.Checked = False
-        Me.ucrChkLimithc.Location = New System.Drawing.Point(10, 67)
-        Me.ucrChkLimithc.Name = "ucrChkLimithc"
-        Me.ucrChkLimithc.Size = New System.Drawing.Size(244, 23)
-        Me.ucrChkLimithc.TabIndex = 139
-        '
-        'ucrChkBreakshc
-        '
-        Me.ucrChkBreakshc.AutoSize = True
-        Me.ucrChkBreakshc.Checked = False
-        Me.ucrChkBreakshc.Location = New System.Drawing.Point(10, 45)
-        Me.ucrChkBreakshc.Name = "ucrChkBreakshc"
-        Me.ucrChkBreakshc.Size = New System.Drawing.Size(244, 23)
-        Me.ucrChkBreakshc.TabIndex = 138
-        '
-        'ucrChkNaValuehc
-        '
-        Me.ucrChkNaValuehc.AutoSize = True
-        Me.ucrChkNaValuehc.Checked = False
-        Me.ucrChkNaValuehc.Location = New System.Drawing.Point(9, 139)
-        Me.ucrChkNaValuehc.Name = "ucrChkNaValuehc"
-        Me.ucrChkNaValuehc.Size = New System.Drawing.Size(245, 23)
-        Me.ucrChkNaValuehc.TabIndex = 137
-        '
-        'ucrChkDropUnusedLevelshc
-        '
-        Me.ucrChkDropUnusedLevelshc.AutoSize = True
-        Me.ucrChkDropUnusedLevelshc.Checked = False
-        Me.ucrChkDropUnusedLevelshc.Location = New System.Drawing.Point(10, 21)
-        Me.ucrChkDropUnusedLevelshc.Name = "ucrChkDropUnusedLevelshc"
-        Me.ucrChkDropUnusedLevelshc.Size = New System.Drawing.Size(244, 23)
-        Me.ucrChkDropUnusedLevelshc.TabIndex = 136
-        '
         'grpScalefillsol
         '
         Me.grpScalefillsol.Controls.Add(Me.ucrInputTextBreakssol)
@@ -5568,147 +5709,6 @@ Partial Class sdgPlots
         Me.ucrChkDropUnusedLevels.Size = New System.Drawing.Size(243, 23)
         Me.ucrChkDropUnusedLevels.TabIndex = 0
         '
-        'grpScaleFillfiv
-        '
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextBreaksfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextNaValuefiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextLimitfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputTextExpandfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputPositionfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrInputDropUnusedLevelsfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkExpandfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkPositionfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkLimitfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkBreaksfiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkNaValuefiv)
-        Me.grpScaleFillfiv.Controls.Add(Me.ucrChkDropUnusedLevelsfiv)
-        Me.grpScaleFillfiv.Location = New System.Drawing.Point(12, 208)
-        Me.grpScaleFillfiv.Name = "grpScaleFillfiv"
-        Me.grpScaleFillfiv.Size = New System.Drawing.Size(444, 184)
-        Me.grpScaleFillfiv.TabIndex = 186
-        Me.grpScaleFillfiv.TabStop = False
-        Me.grpScaleFillfiv.Text = "Fill Scale"
-        '
-        'ucrInputTextBreaksfiv
-        '
-        Me.ucrInputTextBreaksfiv.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextBreaksfiv.AutoSize = True
-        Me.ucrInputTextBreaksfiv.IsMultiline = False
-        Me.ucrInputTextBreaksfiv.IsReadOnly = False
-        Me.ucrInputTextBreaksfiv.Location = New System.Drawing.Point(285, 48)
-        Me.ucrInputTextBreaksfiv.Name = "ucrInputTextBreaksfiv"
-        Me.ucrInputTextBreaksfiv.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextBreaksfiv.TabIndex = 109
-        '
-        'ucrInputTextNaValuefiv
-        '
-        Me.ucrInputTextNaValuefiv.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextNaValuefiv.AutoSize = True
-        Me.ucrInputTextNaValuefiv.IsMultiline = False
-        Me.ucrInputTextNaValuefiv.IsReadOnly = False
-        Me.ucrInputTextNaValuefiv.Location = New System.Drawing.Point(285, 154)
-        Me.ucrInputTextNaValuefiv.Name = "ucrInputTextNaValuefiv"
-        Me.ucrInputTextNaValuefiv.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextNaValuefiv.TabIndex = 108
-        '
-        'ucrInputTextLimitfiv
-        '
-        Me.ucrInputTextLimitfiv.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextLimitfiv.AutoSize = True
-        Me.ucrInputTextLimitfiv.IsMultiline = False
-        Me.ucrInputTextLimitfiv.IsReadOnly = False
-        Me.ucrInputTextLimitfiv.Location = New System.Drawing.Point(285, 75)
-        Me.ucrInputTextLimitfiv.Name = "ucrInputTextLimitfiv"
-        Me.ucrInputTextLimitfiv.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextLimitfiv.TabIndex = 107
-        '
-        'ucrInputTextExpandfiv
-        '
-        Me.ucrInputTextExpandfiv.AddQuotesIfUnrecognised = True
-        Me.ucrInputTextExpandfiv.AutoSize = True
-        Me.ucrInputTextExpandfiv.IsMultiline = False
-        Me.ucrInputTextExpandfiv.IsReadOnly = False
-        Me.ucrInputTextExpandfiv.Location = New System.Drawing.Point(285, 127)
-        Me.ucrInputTextExpandfiv.Name = "ucrInputTextExpandfiv"
-        Me.ucrInputTextExpandfiv.Size = New System.Drawing.Size(137, 23)
-        Me.ucrInputTextExpandfiv.TabIndex = 106
-        '
-        'ucrInputPositionfiv
-        '
-        Me.ucrInputPositionfiv.AddQuotesIfUnrecognised = True
-        Me.ucrInputPositionfiv.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputPositionfiv.GetSetSelectedIndex = -1
-        Me.ucrInputPositionfiv.IsReadOnly = False
-        Me.ucrInputPositionfiv.Location = New System.Drawing.Point(285, 102)
-        Me.ucrInputPositionfiv.Name = "ucrInputPositionfiv"
-        Me.ucrInputPositionfiv.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputPositionfiv.TabIndex = 105
-        '
-        'ucrInputDropUnusedLevelsfiv
-        '
-        Me.ucrInputDropUnusedLevelsfiv.AddQuotesIfUnrecognised = True
-        Me.ucrInputDropUnusedLevelsfiv.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ucrInputDropUnusedLevelsfiv.GetSetSelectedIndex = -1
-        Me.ucrInputDropUnusedLevelsfiv.IsReadOnly = False
-        Me.ucrInputDropUnusedLevelsfiv.Location = New System.Drawing.Point(285, 23)
-        Me.ucrInputDropUnusedLevelsfiv.Name = "ucrInputDropUnusedLevelsfiv"
-        Me.ucrInputDropUnusedLevelsfiv.Size = New System.Drawing.Size(137, 21)
-        Me.ucrInputDropUnusedLevelsfiv.TabIndex = 104
-        '
-        'ucrChkExpandfiv
-        '
-        Me.ucrChkExpandfiv.AutoSize = True
-        Me.ucrChkExpandfiv.Checked = False
-        Me.ucrChkExpandfiv.Location = New System.Drawing.Point(11, 126)
-        Me.ucrChkExpandfiv.Name = "ucrChkExpandfiv"
-        Me.ucrChkExpandfiv.Size = New System.Drawing.Size(242, 23)
-        Me.ucrChkExpandfiv.TabIndex = 103
-        '
-        'ucrChkPositionfiv
-        '
-        Me.ucrChkPositionfiv.AutoSize = True
-        Me.ucrChkPositionfiv.Checked = False
-        Me.ucrChkPositionfiv.Location = New System.Drawing.Point(11, 101)
-        Me.ucrChkPositionfiv.Name = "ucrChkPositionfiv"
-        Me.ucrChkPositionfiv.Size = New System.Drawing.Size(242, 23)
-        Me.ucrChkPositionfiv.TabIndex = 102
-        '
-        'ucrChkLimitfiv
-        '
-        Me.ucrChkLimitfiv.AutoSize = True
-        Me.ucrChkLimitfiv.Checked = False
-        Me.ucrChkLimitfiv.Location = New System.Drawing.Point(11, 76)
-        Me.ucrChkLimitfiv.Name = "ucrChkLimitfiv"
-        Me.ucrChkLimitfiv.Size = New System.Drawing.Size(242, 23)
-        Me.ucrChkLimitfiv.TabIndex = 101
-        '
-        'ucrChkBreaksfiv
-        '
-        Me.ucrChkBreaksfiv.AutoSize = True
-        Me.ucrChkBreaksfiv.Checked = False
-        Me.ucrChkBreaksfiv.Location = New System.Drawing.Point(11, 51)
-        Me.ucrChkBreaksfiv.Name = "ucrChkBreaksfiv"
-        Me.ucrChkBreaksfiv.Size = New System.Drawing.Size(242, 23)
-        Me.ucrChkBreaksfiv.TabIndex = 100
-        '
-        'ucrChkNaValuefiv
-        '
-        Me.ucrChkNaValuefiv.AutoSize = True
-        Me.ucrChkNaValuefiv.Checked = False
-        Me.ucrChkNaValuefiv.Location = New System.Drawing.Point(11, 151)
-        Me.ucrChkNaValuefiv.Name = "ucrChkNaValuefiv"
-        Me.ucrChkNaValuefiv.Size = New System.Drawing.Size(243, 23)
-        Me.ucrChkNaValuefiv.TabIndex = 99
-        '
-        'ucrChkDropUnusedLevelsfiv
-        '
-        Me.ucrChkDropUnusedLevelsfiv.AutoSize = True
-        Me.ucrChkDropUnusedLevelsfiv.Checked = False
-        Me.ucrChkDropUnusedLevelsfiv.Location = New System.Drawing.Point(11, 23)
-        Me.ucrChkDropUnusedLevelsfiv.Name = "ucrChkDropUnusedLevelsfiv"
-        Me.ucrChkDropUnusedLevelsfiv.Size = New System.Drawing.Size(242, 23)
-        Me.ucrChkDropUnusedLevelsfiv.TabIndex = 98
-        '
         'grpScalefillfew
         '
         Me.grpScalefillfew.Controls.Add(Me.ucrChkPalettefill)
@@ -5918,7 +5918,7 @@ Partial Class sdgPlots
         '
         Me.lblGgthemesFunctions.AutoSize = True
         Me.lblGgthemesFunctions.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblGgthemesFunctions.Location = New System.Drawing.Point(274, 403)
+        Me.lblGgthemesFunctions.Location = New System.Drawing.Point(356, 402)
         Me.lblGgthemesFunctions.Name = "lblGgthemesFunctions"
         Me.lblGgthemesFunctions.Size = New System.Drawing.Size(83, 13)
         Me.lblGgthemesFunctions.TabIndex = 47
@@ -5930,7 +5930,7 @@ Partial Class sdgPlots
         Me.ucrInputColorFunctions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ucrInputColorFunctions.GetSetSelectedIndex = -1
         Me.ucrInputColorFunctions.IsReadOnly = False
-        Me.ucrInputColorFunctions.Location = New System.Drawing.Point(379, 397)
+        Me.ucrInputColorFunctions.Location = New System.Drawing.Point(461, 398)
         Me.ucrInputColorFunctions.Name = "ucrInputColorFunctions"
         Me.ucrInputColorFunctions.Size = New System.Drawing.Size(167, 26)
         Me.ucrInputColorFunctions.TabIndex = 46
@@ -5939,7 +5939,7 @@ Partial Class sdgPlots
         '
         Me.lblFillFunction.AutoSize = True
         Me.lblFillFunction.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.lblFillFunction.Location = New System.Drawing.Point(278, 148)
+        Me.lblFillFunction.Location = New System.Drawing.Point(360, 147)
         Me.lblFillFunction.Name = "lblFillFunction"
         Me.lblFillFunction.Size = New System.Drawing.Size(71, 13)
         Me.lblFillFunction.TabIndex = 45
@@ -5951,7 +5951,7 @@ Partial Class sdgPlots
         Me.ucrInputFillFunction.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ucrInputFillFunction.GetSetSelectedIndex = -1
         Me.ucrInputFillFunction.IsReadOnly = False
-        Me.ucrInputFillFunction.Location = New System.Drawing.Point(379, 143)
+        Me.ucrInputFillFunction.Location = New System.Drawing.Point(461, 142)
         Me.ucrInputFillFunction.Name = "ucrInputFillFunction"
         Me.ucrInputFillFunction.Size = New System.Drawing.Size(167, 26)
         Me.ucrInputFillFunction.TabIndex = 44
@@ -6011,7 +6011,7 @@ Partial Class sdgPlots
         '
         Me.ucrChkUseColor.AutoSize = True
         Me.ucrChkUseColor.Checked = False
-        Me.ucrChkUseColor.Location = New System.Drawing.Point(281, 114)
+        Me.ucrChkUseColor.Location = New System.Drawing.Point(359, 103)
         Me.ucrChkUseColor.Name = "ucrChkUseColor"
         Me.ucrChkUseColor.Size = New System.Drawing.Size(265, 23)
         Me.ucrChkUseColor.TabIndex = 38
@@ -6151,7 +6151,7 @@ Partial Class sdgPlots
         Me.ucrInputColorType.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ucrInputColorType.GetSetSelectedIndex = -1
         Me.ucrInputColorType.IsReadOnly = False
-        Me.ucrInputColorType.Location = New System.Drawing.Point(379, 13)
+        Me.ucrInputColorType.Location = New System.Drawing.Point(461, 13)
         Me.ucrInputColorType.Name = "ucrInputColorType"
         Me.ucrInputColorType.Size = New System.Drawing.Size(167, 24)
         Me.ucrInputColorType.TabIndex = 11
@@ -6456,7 +6456,7 @@ Partial Class sdgPlots
         Me.tbpAnnotation.Location = New System.Drawing.Point(4, 22)
         Me.tbpAnnotation.Name = "tbpAnnotation"
         Me.tbpAnnotation.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbpAnnotation.Size = New System.Drawing.Size(544, 710)
+        Me.tbpAnnotation.Size = New System.Drawing.Size(666, 710)
         Me.tbpAnnotation.TabIndex = 9
         Me.tbpAnnotation.Text = "Annotation"
         Me.tbpAnnotation.UseVisualStyleBackColor = True
@@ -7054,6 +7054,10 @@ Partial Class sdgPlots
         Me.grpPolarCordinates.PerformLayout()
         Me.tbpColour.ResumeLayout(False)
         Me.tbpColour.PerformLayout()
+        Me.grpScalefillhc.ResumeLayout(False)
+        Me.grpScalefillhc.PerformLayout()
+        Me.grpScaleFillfiv.ResumeLayout(False)
+        Me.grpScaleFillfiv.PerformLayout()
         Me.grpScaleColorw.ResumeLayout(False)
         Me.grpScaleColorw.PerformLayout()
         Me.grpScaleColorfiv.ResumeLayout(False)
@@ -7100,14 +7104,10 @@ Partial Class sdgPlots
         Me.grpScalefillEcon.PerformLayout()
         Me.grpScalefillExn.ResumeLayout(False)
         Me.grpScalefillExn.PerformLayout()
-        Me.grpScalefillhc.ResumeLayout(False)
-        Me.grpScalefillhc.PerformLayout()
         Me.grpScalefillsol.ResumeLayout(False)
         Me.grpScalefillsol.PerformLayout()
         Me.grpFillScaleggthemes.ResumeLayout(False)
         Me.grpFillScaleggthemes.PerformLayout()
-        Me.grpScaleFillfiv.ResumeLayout(False)
-        Me.grpScaleFillfiv.PerformLayout()
         Me.grpScalefillfew.ResumeLayout(False)
         Me.grpScalefillfew.PerformLayout()
         Me.grpColourScale.ResumeLayout(False)

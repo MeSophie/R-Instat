@@ -2456,7 +2456,6 @@ Public Class sdgPlots
         'axis controls
         ucrXAxis.SetRCodeForControl(bIsXAxis:=True, strNewAxisType:=GetAxisType(True), clsNewXYlabTitleFunction:=clsXLabFunction, clsNewXYScaleContinuousFunction:=clsXScalecontinuousFunction, clsNewXYScaleDateFunction:=clsXScaleDateFunction, clsNewBaseOperator:=clsBaseOperator, bReset:=bReset, bCloneIfNeeded:=True)
         ucrYAxis.SetRCodeForControl(bIsXAxis:=False, strNewAxisType:=GetAxisType(False), clsNewXYlabTitleFunction:=clsYLabFunction, clsNewXYScaleContinuousFunction:=clsYScalecontinuousFunction, clsNewBaseOperator:=clsBaseOperator, clsNewXYScaleDateFunction:=clsYScaleDateFunction, bReset:=bReset, bCloneIfNeeded:=True)
-
         'Themes tab
         SetRcodeForCommonThemesControls(bReset)
         'coordinates tab
@@ -2475,7 +2474,6 @@ Public Class sdgPlots
         ucrNudFillScaleMapBegins.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudFillScaleMapEnds.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrChkFillScaleReverseColourOrder.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
-        ' ucrChkAddFillScale.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
         ucrInputColourScalePalette.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudColourScaleTransparency.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrNudColourScaleMapBegins.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
@@ -2483,7 +2481,6 @@ Public Class sdgPlots
         ucrChkColourScaleReverseOrder.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrChkFillDiscrete.SetRCode(clsScaleFillViridisFunction, bReset, bCloneIfNeeded:=True)
         ucrChkColourDiscrete.SetRCode(clsScaleColourViridisFunction, bReset, bCloneIfNeeded:=True)
-        'ucrChkAddColour.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
         If bReset Then
             ucrChkUseColor.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
             ucrChkUseFill.SetRCode(clsBaseOperator, bReset, bCloneIfNeeded:=True)
