@@ -104,7 +104,7 @@ Public Class sdgPlots
     Private dctSequatailPairsContinuous As New Dictionary(Of String, String)
     Private dctDivergingPairsContinuous As New Dictionary(Of String, String)
     Private dctQualititivePairsContinuous As New Dictionary(Of String, String)
-    Public strAxisType As String
+    'Public strAxisType As String
 
     Private Sub sdgPlots_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         autoTranslate(Me)
@@ -2215,8 +2215,8 @@ Public Class sdgPlots
         clsDummyFunction.AddParameter("scale_colour", "False", iPosition:=1)
         clsDummyFunction.AddParameter("scale_fill", "False", iPosition:=2)
 
-        strAxisType = strNewAxisType
-        ucrInputColorType.SetName(strAxisType)
+        'strAxisType = strNewAxisType
+        'ucrInputColorType.SetName(strAxisType)
 
         If Not IsNothing(clsCoordPolarStartOperator) Then
             clsCoordPolarFunc.AddParameter("start", clsROperatorParameter:=clsCoordPolarStartOperator, iPosition:=1)
