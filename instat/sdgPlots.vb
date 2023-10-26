@@ -727,6 +727,7 @@ Public Class sdgPlots
 
         ucrInputColorType.SetItems({"continuous", "discrete"})
         ucrInputColorType.SetDropDownStyleAsNonEditable()
+        ucrInputColorType.SetRDefault("continuous")
 
         ucrChkPositionColor.SetText("Position")
         ucrChkPositionColor.AddToLinkedControls(ucrInputPositionColor, {True}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="Left")
