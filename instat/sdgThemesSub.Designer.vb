@@ -55,7 +55,7 @@ Partial Class sdgThemesSub
         Me.UcrNud1 = New instat.ucrNud()
         Me.ucRdoCoordinated = New instat.ucrRadio()
         Me.ucrrdoSpecific = New instat.ucrRadio()
-        Me.UcrInputComboBox1 = New instat.ucrInputComboBox()
+        Me.ucrInputLegendPosition = New instat.ucrInputComboBox()
         Me.lblLegendPosition = New System.Windows.Forms.Label()
         Me.ucrChkRemoveLegend = New instat.ucrCheck()
         Me.ucrBaseSubdialog = New instat.ucrButtonsSubdialogue()
@@ -323,7 +323,7 @@ Partial Class sdgThemesSub
         Me.grpLegendPosition.Controls.Add(Me.UcrNud1)
         Me.grpLegendPosition.Controls.Add(Me.ucRdoCoordinated)
         Me.grpLegendPosition.Controls.Add(Me.ucrrdoSpecific)
-        Me.grpLegendPosition.Controls.Add(Me.UcrInputComboBox1)
+        Me.grpLegendPosition.Controls.Add(Me.ucrInputLegendPosition)
         Me.grpLegendPosition.Controls.Add(Me.lblLegendPosition)
         Me.grpLegendPosition.Location = New System.Drawing.Point(6, 36)
         Me.grpLegendPosition.Name = "grpLegendPosition"
@@ -392,16 +392,16 @@ Partial Class sdgThemesSub
         Me.ucrrdoSpecific.Size = New System.Drawing.Size(100, 20)
         Me.ucrrdoSpecific.TabIndex = 4
         '
-        'UcrInputComboBox1
+        'ucrInputLegendPosition
         '
-        Me.UcrInputComboBox1.AddQuotesIfUnrecognised = True
-        Me.UcrInputComboBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.UcrInputComboBox1.GetSetSelectedIndex = -1
-        Me.UcrInputComboBox1.IsReadOnly = False
-        Me.UcrInputComboBox1.Location = New System.Drawing.Point(59, 51)
-        Me.UcrInputComboBox1.Name = "UcrInputComboBox1"
-        Me.UcrInputComboBox1.Size = New System.Drawing.Size(137, 21)
-        Me.UcrInputComboBox1.TabIndex = 0
+        Me.ucrInputLegendPosition.AddQuotesIfUnrecognised = True
+        Me.ucrInputLegendPosition.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ucrInputLegendPosition.GetSetSelectedIndex = -1
+        Me.ucrInputLegendPosition.IsReadOnly = False
+        Me.ucrInputLegendPosition.Location = New System.Drawing.Point(59, 51)
+        Me.ucrInputLegendPosition.Name = "ucrInputLegendPosition"
+        Me.ucrInputLegendPosition.Size = New System.Drawing.Size(137, 21)
+        Me.ucrInputLegendPosition.TabIndex = 0
         '
         'lblLegendPosition
         '
@@ -497,7 +497,7 @@ Partial Class sdgThemesSub
     Friend WithEvents UcrNud1 As ucrNud
     Friend WithEvents ucRdoCoordinated As ucrRadio
     Friend WithEvents ucrrdoSpecific As ucrRadio
-    Friend WithEvents UcrInputComboBox1 As ucrInputComboBox
+    Friend WithEvents ucrInputLegendPosition As ucrInputComboBox
     Friend WithEvents lblLegendPosition As Label
     Friend WithEvents ucrChkRemoveLegend As ucrCheck
     Friend WithEvents GroupBox1 As GroupBox

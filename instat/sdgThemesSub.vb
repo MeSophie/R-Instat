@@ -28,11 +28,13 @@ Public Class sdgThemesSub
     Private Sub sdgThemesSub_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         autoTranslate(Me)
         'temp hidden as not yet implemented
-        tbLegend.Visible = False
-        tbLegend.Enabled = False
+        'tbLegend.Visible = False
+        'tbLegend.Enabled = False
     End Sub
 
     Public Sub InitialiseControls()
+        Dim dctLegendPosition As New Dictionary(Of String, String)
+
         ucrPlotTitle.SetLabel("Plot Title")
         ucrThemeTitleXAxis.SetLabel("X-Axis Title")
         ucrThemeTitleYAxis.SetLabel("Y-Axis Title")
@@ -56,6 +58,16 @@ Public Class sdgThemesSub
         ucrChkRemoveLegend.SetText("Remove Legend")
         ucRdoCoordinated.SetText("Coordinates")
         ucrrdoSpecific.SetText("Specific")
+
+        ucrInputLegendPosition.SetDropDownStyleAsNonEditable()
+        ucrInputLegendPosition.SetParameter(New RParameter("legend.position"))
+        dctLegendPosition.Add("None", Chr(34) & "none" & Chr(34))
+        dctLegendPosition.Add("Left", Chr(34) & "left" & Chr(34))
+        dctLegendPosition.Add("Right", Chr(34) & "right" & Chr(34))
+        dctLegendPosition.Add("Top", Chr(34) & "top" & Chr(34))
+        dctLegendPosition.Add("Bottom", Chr(34) & "bottom" & Chr(34))
+        ucrInputLegendPosition.SetItems(dctLegendPosition)
+        ucrInputLegendPosition.SetRDefault(Chr(34) & "none" & Chr(34))
 
         bControlsInitialised = True
     End Sub
@@ -114,6 +126,18 @@ Public Class sdgThemesSub
 
         ucrPanelBorder.SetRCodeForControl("panel.border", clsThemesSubFunctions.clsElementBorder, clsNewThemeFunction:=clsThemesFunction, clsNewBaseOperator:=clsBaseOperator, bReset:=bReset)
         ucrPanelBackground.SetRCodeForControl("panel.background", clsThemesSubFunctions.clsElementPanelBackGround, clsNewThemeFunction:=clsThemesFunction, clsNewBaseOperator:=clsBaseOperator, bReset:=bReset)
+
+        If bReset Then
+            ucrInputLegendPosition.SetRCode(clsThemesFunction, bReset)
+        End If
+    End Sub
+
+    Private Sub ucrInputLegendPosition_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputLegendPosition.ControlValueChanged
+        If Not ucrInputLegendPosition.IsEmpty Then
+            clsThemesFunction.AddParameter("legend.position", Chr(34) & ucrInputLegendPosition.GetText() & Chr(34), iPosition:=0)
+        Else
+            clsThemesFunction.RemoveParameterByName("legend.position")
+        End If
     End Sub
 End Class
 
