@@ -3197,7 +3197,7 @@ Public Class sdgPlots
 
     Private Sub SetRcodeForCommonThemesControls(bReset As Boolean)
         ucrChkLegendPosition.SetRCode(clsThemeFunction, bReset, bCloneIfNeeded:=True)
-        ucrInputLegendPosition.SetRCode(clsThemeFunction, bReset, bCloneIfNeeded:=True)
+        ' ucrInputLegendPosition.SetRCode(clsThemeFunction, bReset, bCloneIfNeeded:=True)
 
         ucrChkXaxisAngle.SetRCode(clsXElementText, bReset, bCloneIfNeeded:=True)
         ucrNudXAngle.SetRCode(clsXElementText, bReset, bCloneIfNeeded:=True)
@@ -5637,5 +5637,13 @@ Public Class sdgPlots
         SetComboBoxItems()
         SetComboBoxItemsContinuous()
         GroupeColorScale()
+    End Sub
+
+    Private Sub ucrInputLegendPosition_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputLegendPosition.ControlValueChanged
+        If Not ucrInputLegendPosition.IsEmpty Then
+            clsThemeFunction.AddParameter("legend.position", Chr(34) & ucrInputLegendPosition.GetText().ToLower() & Chr(34), iPosition:=0)
+        Else
+            clsThemeFunction.RemoveParameterByName("legend.position")
+        End If
     End Sub
 End Class

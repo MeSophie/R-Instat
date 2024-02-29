@@ -20,7 +20,7 @@ Imports instat.Translations
 Public Class sdgThemesSub
     Public bControlsInitialised As Boolean = False
     Private clsThemesFunction, clsElementPlotTitle, clsAxesTitles, clsElementPanelGridMinor, clsElementPanelGridMajor, clsXElementTitle, clsYElementTitle, clsAllLabels, clsXAxisLables, clsYAxisLabels, clsAllTickMarks, clsXAxisTickMarks, clsYAxisTickMarks, clsUnitAxisTickLength, clsAllAxisLines, clsXAxisLine, clsYAxisLine, clsElementLineXAxis, clsElementLineYAxis As New RFunction
-    Private clsAllPanelGrid, clsPanelGridMajor, clsPanelGridMinor, clsPanelBackground, clsPanelBorder As New RFunction
+    Private clsAllPanelGrid, clsPanelGridMajor, clsPanelGridMinor, clsDummyFunction, clsPanelBackground, clsPanelBorder As New RFunction
     Private clsBaseOperator As New ROperator
     Private dctThemeFunctions As New Dictionary(Of String, RFunction)
     Private clsThemesSubFunctions As New clsThemeSubFunctions
@@ -55,9 +55,17 @@ Public Class sdgThemesSub
         ucrPanelGridMinor.SetLabel("Minor Grid Lines")
         ucrPanelBorder.SetLabel("Panel Border")
         ucrPanelBackground.SetLabel("Panel Background")
+
         ucrChkRemoveLegend.SetText("Remove Legend")
-        ucRdoCoordinated.SetText("Coordinates")
-        ucrrdoSpecific.SetText("Specific")
+        ucrChkRemoveLegend.AddParameterPresentCondition(True, "legend", True)
+        ucrChkRemoveLegend.AddParameterPresentCondition(False, "legend", False)
+
+        ucrPnlOptions.AddRadioButton(rdoCoordinated)
+        ucrPnlOptions.AddRadioButton(rdoSpecific)
+        ucrPnlOptions.AddParameterValuesCondition(rdoCoordinated, "legend", "coordinated")
+        ucrPnlOptions.AddParameterValuesCondition(rdoSpecific, "legend", "specific")
+        ucrPnlOptions.AddToLinkedControls({ucrNudX, ucrNudY}, {rdoCoordinated}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True, bNewLinkedChangeToDefaultState:=True, objNewDefaultState:="0")
+        ucrPnlOptions.AddToLinkedControls(ucrInputLegendPosition, {rdoSpecific}, bNewLinkedAddRemoveParameter:=True, bNewLinkedHideIfParameterMissing:=True)
 
         ucrInputLegendPosition.SetDropDownStyleAsNonEditable()
         ucrInputLegendPosition.SetParameter(New RParameter("legend.position"))
@@ -67,7 +75,18 @@ Public Class sdgThemesSub
         dctLegendPosition.Add("Top", Chr(34) & "top" & Chr(34))
         dctLegendPosition.Add("Bottom", Chr(34) & "bottom" & Chr(34))
         ucrInputLegendPosition.SetItems(dctLegendPosition)
-        ucrInputLegendPosition.SetRDefault(Chr(34) & "none" & Chr(34))
+
+        ucrNudX.SetParameter(New RParameter("legend.position", 3))
+        ucrNudX.SetMinMax(0, 1)
+        ucrNudX.DecimalPlaces = 1
+        ucrNudX.Increment = 0.1
+        ucrNudX.SetLinkedDisplayControl(lblXCoord)
+
+        ucrNudY.SetParameter(New RParameter("legend.position", 4))
+        ucrNudY.SetMinMax(0, 1)
+        ucrNudY.DecimalPlaces = 1
+        ucrNudY.Increment = 0.1
+        ucrNudY.SetLinkedDisplayControl(lblYCoord)
 
         bControlsInitialised = True
     End Sub
@@ -77,6 +96,10 @@ Public Class sdgThemesSub
         If Not bControlsInitialised Then
             InitialiseControls()
         End If
+        ucrInputLegendPosition.SetName("None")
+
+        clsDummyFunction = New RFunction
+        clsDummyFunction.AddParameter("legend", "specific", iPosition:=0)
 
         clsThemesFunction = clsNewThemesFunction
         ' The position MUST be larger than the position of the theme_* argument
@@ -128,16 +151,30 @@ Public Class sdgThemesSub
         ucrPanelBackground.SetRCodeForControl("panel.background", clsThemesSubFunctions.clsElementPanelBackGround, clsNewThemeFunction:=clsThemesFunction, clsNewBaseOperator:=clsBaseOperator, bReset:=bReset)
 
         If bReset Then
-            ucrInputLegendPosition.SetRCode(clsThemesFunction, bReset)
+            ucrInputLegendPosition.SetRCode(clsThemesFunction, bReset, bCloneIfNeeded:=True)
+            ucrChkRemoveLegend.SetRCode(clsThemesFunction, bReset, bCloneIfNeeded:=True)
+            ucrPnlOptions.SetRCode(clsDummyFunction, bReset, bCloneIfNeeded:=True)
         End If
     End Sub
 
-    Private Sub ucrInputLegendPosition_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputLegendPosition.ControlValueChanged
-        If Not ucrInputLegendPosition.IsEmpty Then
-            clsThemesFunction.AddParameter("legend.position", Chr(34) & ucrInputLegendPosition.GetText() & Chr(34), iPosition:=0)
-        Else
+    Private Sub LegendOptions()
+        Dim clsCFunction As New RFunction
+        clsCFunction.SetRCommand("c")
+        clsCFunction.AddParameter("x", ucrNudX.GetText(), iPosition:=0, bIncludeArgumentName:=False)
+        clsCFunction.AddParameter("y", ucrNudY.GetText(), iPosition:=1, bIncludeArgumentName:=False)
+        If ucrChkRemoveLegend.Checked Then
             clsThemesFunction.RemoveParameterByName("legend.position")
+        Else
+            If rdoSpecific.Checked Then
+                clsThemesFunction.AddParameter("legend.position", Chr(34) & ucrInputLegendPosition.GetText().ToLower() & Chr(34), iPosition:=0)
+            Else
+                clsThemesFunction.AddParameter("legend.position", clsRFunctionParameter:=clsCFunction, iPosition:=0)
+            End If
         End If
+    End Sub
+
+    Private Sub ucrPnlOptions_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrPnlOptions.ControlValueChanged, ucrInputLegendPosition.ControlValueChanged, ucrNudX.ControlValueChanged, ucrNudY.ControlValueChanged, ucrChkRemoveLegend.ControlValueChanged
+        LegendOptions()
     End Sub
 End Class
 
