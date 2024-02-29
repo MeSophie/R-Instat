@@ -303,7 +303,7 @@ Partial Class sdgThemesSub
         Me.grpLegendText.Enabled = False
         Me.grpLegendText.Location = New System.Drawing.Point(6, 126)
         Me.grpLegendText.Name = "grpLegendText"
-        Me.grpLegendText.Size = New System.Drawing.Size(413, 100)
+        Me.grpLegendText.Size = New System.Drawing.Size(413, 129)
         Me.grpLegendText.TabIndex = 4
         Me.grpLegendText.TabStop = False
         Me.grpLegendText.Text = "Legend Text"
