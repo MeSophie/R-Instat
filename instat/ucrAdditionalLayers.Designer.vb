@@ -66,6 +66,7 @@ Partial Class ucrAdditionalLayers
         Me.toolStripMenuItemGeomTextRepel = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripMenuItemGeomtile = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdEdit = New System.Windows.Forms.Button()
+        Me.cmdReorder = New System.Windows.Forms.Button()
         Me.grpGeoms.SuspendLayout()
         Me.contextMenuStripAdd.SuspendLayout()
         Me.SuspendLayout()
@@ -92,12 +93,13 @@ Partial Class ucrAdditionalLayers
         '
         'grpGeoms
         '
+        Me.grpGeoms.Controls.Add(Me.cmdReorder)
         Me.grpGeoms.Controls.Add(Me.cmdDelete)
         Me.grpGeoms.Controls.Add(Me.cmdAdd)
         Me.grpGeoms.Controls.Add(Me.cmdEdit)
-        Me.grpGeoms.Location = New System.Drawing.Point(134, 53)
+        Me.grpGeoms.Location = New System.Drawing.Point(134, 35)
         Me.grpGeoms.Name = "grpGeoms"
-        Me.grpGeoms.Size = New System.Drawing.Size(106, 100)
+        Me.grpGeoms.Size = New System.Drawing.Size(106, 135)
         Me.grpGeoms.TabIndex = 9
         Me.grpGeoms.TabStop = False
         Me.grpGeoms.Text = "Geoms:"
@@ -129,7 +131,7 @@ Partial Class ucrAdditionalLayers
         Me.contextMenuStripAdd.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.contextMenuStripAdd.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripMenuItemGeomBar, Me.toolStripMenuItemGeomBoxPlot, Me.toolStripMenuItemGeomcategoricalmodel, Me.toolStripMenuItemGeomCol, Me.toolStripMenuItemGeomcontour, Me.toolStripMenuItemGeomCount, Me.toolStripMenuItemGeomDensity, Me.toolStripMenuItemGeomDensityRidges, Me.toolStripMenuItemGeomhistogram, Me.toolStripMenuItemGeomJitter, Me.toolStripMenuItemGeomLabel, Me.toolStripMenuItemGeomLabelRepel, Me.toolStripMenuItemGeomLine, Me.toolStripMenuItemGeomparallelslopes, Me.toolStripMenuItemGeomPoint, Me.toolStripMenuItemGeomRug, Me.toolStripMenuItemGeomsmooth, Me.toolStripMenuItemGeomText, Me.toolStripMenuItemGeomTextRepel, Me.toolStripMenuItemGeomtile})
         Me.contextMenuStripAdd.Name = "contextMenuStripOk"
-        Me.contextMenuStripAdd.Size = New System.Drawing.Size(208, 466)
+        Me.contextMenuStripAdd.Size = New System.Drawing.Size(208, 444)
         '
         'toolStripMenuItemGeomBar
         '
@@ -260,6 +262,15 @@ Partial Class ucrAdditionalLayers
         Me.cmdEdit.Text = "Edit"
         Me.cmdEdit.UseVisualStyleBackColor = True
         '
+        'cmdReorder
+        '
+        Me.cmdReorder.Location = New System.Drawing.Point(16, 102)
+        Me.cmdReorder.Name = "cmdReorder"
+        Me.cmdReorder.Size = New System.Drawing.Size(75, 23)
+        Me.cmdReorder.TabIndex = 12
+        Me.cmdReorder.Text = "Reorder"
+        Me.cmdReorder.UseVisualStyleBackColor = True
+        '
         'ucrAdditionalLayers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -304,4 +315,5 @@ Partial Class ucrAdditionalLayers
     Friend WithEvents toolStripMenuItemGeomparallelslopes As ToolStripMenuItem
     Friend WithEvents toolStripMenuItemGeomsmooth As ToolStripMenuItem
     Friend WithEvents toolStripMenuItemGeomtile As ToolStripMenuItem
+    Friend WithEvents cmdReorder As Button
 End Class

@@ -187,9 +187,11 @@ Public Class ucrAdditionalLayers
         If lstLayers.Items.Count > 0 AndAlso lstLayers.SelectedItems.Count = 1 Then
             cmdDelete.Enabled = True
             cmdEdit.Enabled = True
+            cmdReorder.Enabled = True
         Else
             cmdDelete.Enabled = False
             cmdEdit.Enabled = False
+            cmdReorder.Enabled = False
         End If
     End Sub
 
@@ -209,6 +211,11 @@ Public Class ucrAdditionalLayers
                 MsgBox("You cannot delete a layer that was created on the main dialog.", MsgBoxStyle.Information, "Cannot delete layer")
             End If
         End If
+    End Sub
+
+    Private Sub cmdReorder_Click(sender As Object, e As EventArgs) Handles cmdReorder.Click
+
+        sdgReorderGeoms.ShowDialog()
     End Sub
 
     Private Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
