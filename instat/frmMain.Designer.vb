@@ -449,7 +449,6 @@ Partial Class frmMain
         Me.mnuPrepareDataFrameInsertColumnsRows = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPrepareDataFrameDeleteColumnsRows = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPrepareDataFrameProtectColumn = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuPrepareDataFrameHideColumns = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPrepareDataFrameFreezeColumns = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPrepareDataframeColourByProperty = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPrepareCheckData = New System.Windows.Forms.ToolStripMenuItem()
@@ -665,7 +664,7 @@ Partial Class frmMain
         Me.mnuToolsClearOutputWindow = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuToolsSaveCurrentOptions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuToolsLoadOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuToolsRestoreBackup = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuToolsInstallRPackage = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuToolsOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -2929,8 +2928,8 @@ Partial Class frmMain
         'mnuEditPasteNew
         '
         Me.mnuEditPasteNew.Name = "mnuEditPasteNew"
-        Me.mnuEditPasteNew.Size = New System.Drawing.Size(192, 22)
-        Me.mnuEditPasteNew.Text = "Paste New Data Frame"
+        Me.mnuEditPasteNew.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditPasteNew.Text = "Paste New"
         '
         'mnuEditWordwrap
         '
@@ -3399,7 +3398,7 @@ Partial Class frmMain
         '
         'mnuPrepareDataFrame
         '
-        Me.mnuPrepareDataFrame.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuPrepareDataFrameViewData, Me.mnuPrepareDataFrameRenameColumn, Me.mnuPrepareDataFrameDuplicateColumn, Me.mnuPrepareDataFrameRowNumbersNames, Me.ToolStripSeparator1, Me.mnuPrepareDataFrameSort, Me.mnuPrepareDataFrameFilterRows, Me.mnuPrepareDataFrameSelectColumns, Me.mnuPrepareDataFrameReplaceValues, Me.mnuPrepareDataFrameConvertColumns, Me.ToolStripSeparator2, Me.mnuPrepareDataFrameReorderColumns, Me.mnuPrepareDataFrameAddMergeColumns, Me.mnuPrepareDataFrameInsertColumnsRows, Me.mnuPrepareDataFrameDeleteColumnsRows, Me.mnuPrepareDataFrameProtectColumn, Me.mnuPrepareDataFrameHideColumns, Me.mnuPrepareDataFrameFreezeColumns, Me.mnuPrepareDataframeColourByProperty})
+        Me.mnuPrepareDataFrame.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuPrepareDataFrameViewData, Me.mnuPrepareDataFrameRenameColumn, Me.mnuPrepareDataFrameDuplicateColumn, Me.mnuPrepareDataFrameRowNumbersNames, Me.ToolStripSeparator1, Me.mnuPrepareDataFrameSort, Me.mnuPrepareDataFrameFilterRows, Me.mnuPrepareDataFrameSelectColumns, Me.mnuPrepareDataFrameReplaceValues, Me.mnuPrepareDataFrameConvertColumns, Me.ToolStripSeparator2, Me.mnuPrepareDataFrameReorderColumns, Me.mnuPrepareDataFrameAddMergeColumns, Me.mnuPrepareDataFrameInsertColumnsRows, Me.mnuPrepareDataFrameDeleteColumnsRows, Me.mnuPrepareDataFrameProtectColumn, Me.mnuPrepareDataFrameFreezeColumns, Me.mnuPrepareDataframeColourByProperty})
         Me.mnuPrepareDataFrame.Name = "mnuPrepareDataFrame"
         Me.mnuPrepareDataFrame.Size = New System.Drawing.Size(186, 22)
         Me.mnuPrepareDataFrame.Tag = "Data_Frame"
@@ -3511,13 +3510,6 @@ Partial Class frmMain
         Me.mnuPrepareDataFrameProtectColumn.Tag = "..."
         Me.mnuPrepareDataFrameProtectColumn.Text = "Protect Column..."
         Me.mnuPrepareDataFrameProtectColumn.Visible = False
-        '
-        'mnuPrepareDataFrameHideColumns
-        '
-        Me.mnuPrepareDataFrameHideColumns.Name = "mnuPrepareDataFrameHideColumns"
-        Me.mnuPrepareDataFrameHideColumns.Size = New System.Drawing.Size(201, 22)
-        Me.mnuPrepareDataFrameHideColumns.Tag = "Hide_Columns..."
-        Me.mnuPrepareDataFrameHideColumns.Text = "Hide/Show Columns..."
         '
         'mnuPrepareDataFrameFreezeColumns
         '
@@ -4852,7 +4844,7 @@ Partial Class frmMain
         '
         'mnuTools
         '
-        Me.mnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuToolsRunRCode, Me.mnuToolsRestartR, Me.mnuToolsCheckForUpdates, Me.mnuToolsClearOutputWindow, Me.ToolStripSeparator5, Me.mnuToolsSaveCurrentOptions, Me.mnuToolsLoadOptions, Me.mnuToolsInstallRPackage, Me.mnuToolsOptions})
+        Me.mnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuToolsRunRCode, Me.mnuToolsRestartR, Me.mnuToolsCheckForUpdates, Me.mnuToolsClearOutputWindow, Me.ToolStripSeparator5, Me.mnuToolsSaveCurrentOptions, Me.mnuToolsRestoreBackup, Me.mnuToolsInstallRPackage, Me.mnuToolsOptions})
         Me.mnuTools.Name = "mnuTools"
         Me.mnuTools.Size = New System.Drawing.Size(46, 22)
         Me.mnuTools.Text = "Tools"
@@ -4900,13 +4892,13 @@ Partial Class frmMain
         Me.mnuToolsSaveCurrentOptions.Tag = "Save_Current_Options..."
         Me.mnuToolsSaveCurrentOptions.Text = "Save Current Options..."
         '
-        'mnuToolsLoadOptions
+        'mnuToolsRestoreBackup
         '
-        Me.mnuToolsLoadOptions.Enabled = False
-        Me.mnuToolsLoadOptions.Name = "mnuToolsLoadOptions"
-        Me.mnuToolsLoadOptions.Size = New System.Drawing.Size(198, 22)
-        Me.mnuToolsLoadOptions.Tag = "Load_Options..."
-        Me.mnuToolsLoadOptions.Text = "Load Options..."
+
+        Me.mnuToolsRestoreBackup.Name = "mnuToolsRestoreBackup"
+        Me.mnuToolsRestoreBackup.Size = New System.Drawing.Size(198, 22)
+        Me.mnuToolsRestoreBackup.Tag = "Load_Options..."
+        Me.mnuToolsRestoreBackup.Text = "Restore Backup..."
         '
         'mnuToolsInstallRPackage
         '
@@ -5119,9 +5111,7 @@ Partial Class frmMain
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.mnuBar
         Me.Name = "frmMain"
-        Me.Text = "R-Instat " + My.Application.Info.Version.Major.ToString + "." +
-                My.Application.Info.Version.Minor.ToString + "." +
-                My.Application.Info.Version.Build.ToString
+        Me.Text = "R-Instat .."
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.stsStrip.ResumeLayout(False)
         Me.stsStrip.PerformLayout()
@@ -5267,7 +5257,6 @@ Partial Class frmMain
     Friend WithEvents mnuPrepareDataFrameInsertColumnsRows As ToolStripMenuItem
     Friend WithEvents mnuPrepareDataFrameDeleteColumnsRows As ToolStripMenuItem
     Friend WithEvents mnuPrepareDataFrameProtectColumn As ToolStripMenuItem
-    Friend WithEvents mnuPrepareDataFrameHideColumns As ToolStripMenuItem
     Friend WithEvents mnuPrepareDataFrameFreezeColumns As ToolStripMenuItem
     Friend WithEvents mnuPrepareColumnNumericRegularSequence As ToolStripMenuItem
     Friend WithEvents mnuPrepareColumnNumericRandomSamples As ToolStripMenuItem
@@ -5314,7 +5303,7 @@ Partial Class frmMain
     Friend WithEvents mnuToolsClearOutputWindow As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents mnuToolsSaveCurrentOptions As ToolStripMenuItem
-    Friend WithEvents mnuToolsLoadOptions As ToolStripMenuItem
+    Friend WithEvents mnuToolsRestoreBackup As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator22 As ToolStripSeparator
     Friend WithEvents mnuModelOtherOneVariableGoodnessofFit As ToolStripMenuItem
     Friend WithEvents mnuHelpLicence As ToolStripMenuItem
@@ -5805,6 +5794,9 @@ Partial Class frmMain
     Friend WithEvents mnuViewSwapDataAndScript As ToolStripMenuItem
     Friend WithEvents mnuClimaticExamineEditDataVisualiseData As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator27 As ToolStripSeparator
+
     Friend WithEvents mnuClimaticPICSAGeneralGrap As ToolStripMenuItem
+
     Friend WithEvents mnuClimaticFileExportToGoogleBucketsToolStrip As ToolStripMenuItem
+
 End Class
