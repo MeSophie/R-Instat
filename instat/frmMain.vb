@@ -479,9 +479,9 @@ Public Class frmMain
 
         '---------------------------------------
         'delete the recovery files
-        If strAutoSavedLogFilePaths.Length > 1 Then
+        If strAutoSavedLogFilePaths.Length > 0 Then
             Try
-                File.Delete(strAutoSavedLogFilePaths(1))
+                File.Delete(strAutoSavedLogFilePaths(0))
             Catch ex As Exception
                 MsgBox("Could not delete backup log file" & Environment.NewLine, "Error deleting file")
             End Try
@@ -500,13 +500,13 @@ Public Class frmMain
             End Try
         End If
 
-        'If strAutoSavedDataFilePaths.Length > 1 Then
-        '    Try
-        '        ' File.Delete(strAutoSavedDataFilePaths(1))
-        '    Catch ex As Exception
-        '        MsgBox("Could not delete back data file." & Environment.NewLine & ex.Message, "Error deleting file")
-        '    End Try
-        'End If
+        If strAutoSavedDataFilePaths.Length > 0 Then
+            Try
+                File.Delete(strAutoSavedDataFilePaths(0))
+            Catch ex As Exception
+                MsgBox("Could not delete back data file." & Environment.NewLine & ex.Message, "Error deleting file")
+            End Try
+        End If
         '---------------------------------------
 
     End Sub
@@ -1065,9 +1065,7 @@ Public Class frmMain
                     If clsInstatOptions IsNot Nothing Then
                         SaveInstatOptions(Path.Combine(strAppDataPath, strInstatOptionsFile))
                     End If
-                    DeleteAutoSaveData()
-                    DeleteAutoSaveLog()
-                    DeleteAutoSaveDebugLog()
+                    DeleteAutoSaveFiles()
                     clsRLink.CloseREngine()
                 End If
 
@@ -1115,83 +1113,62 @@ Public Class frmMain
         autoTranslate(Me)
     End Sub
 
-    Public Sub DeleteAutoSaveData()
+    Public Sub DeleteAutoSaveFiles()
         Try
-            If Directory.Exists(strAutoSaveDataFolderPath) Then
+            If Directory.Exists(strAutoSaveDataFolderPath) OrElse Directory.Exists(strAutoSaveLogFolderPath) OrElse Directory.Exists(strAutoSaveInternalLogFolderPath) Then
                 ' Define the retention policy (keep last N autosaves)
                 Dim retentionCount As Integer = 5 ' Example: Keep the last 5 autosaves
 
                 ' Retrieve autosaved files
-                Dim autoSaveDirectory As New DirectoryInfo(strAutoSaveDataFolderPath)
-                Dim files As FileInfo() = autoSaveDirectory.GetFiles("data_*.rds") ' Adjust pattern to match actual filenames
+                If Directory.Exists(strAutoSaveDataFolderPath) Then
+                    Dim autoSaveDirectory As New DirectoryInfo(strAutoSaveDataFolderPath)
+                    Dim files As FileInfo() = autoSaveDirectory.GetFiles("data_*.rds") ' Adjust pattern to match actual filenames
 
-                ' Sort files by last write time in descending order
-                Dim sortedFiles = files.OrderByDescending(Function(f) f.LastWriteTime)
+                    ' Sort files by last write time in descending order
+                    Dim sortedFiles As IOrderedEnumerable(Of FileInfo) = files.OrderByDescending(Function(f) f.LastWriteTime)
 
-                ' Determine files to delete based on retention policy
-                Dim filesToDelete = sortedFiles.Skip(retentionCount)
+                    ' Determine files to delete based on retention policy
+                    Dim filesToDelete As IEnumerable(Of FileInfo) = sortedFiles.Skip(retentionCount)
 
-                ' Delete older autosaved files
-                For Each file In filesToDelete
-                    file.Delete()
-                Next
+                    ' Delete older autosaved files
+                    For Each file In filesToDelete
+                        file.Delete()
+                    Next
+                ElseIf Directory.Exists(strAutoSaveLogFolderPath) Then
+                    Dim autoSaveDirectory As New DirectoryInfo(strAutoSaveLogFolderPath)
+                    Dim files As FileInfo() = autoSaveDirectory.GetFiles("log*.R") ' Adjust pattern to match actual filenames
+
+                    ' Sort files by last write time in descending order
+                    Dim sortedFiles As IOrderedEnumerable(Of FileInfo) = files.OrderByDescending(Function(f) f.LastWriteTime)
+
+                    ' Determine files to delete based on retention policy
+                    Dim filesToDelete As IEnumerable(Of FileInfo) = sortedFiles.Skip(retentionCount)
+
+                    ' Delete older autosaved files
+                    For Each file In filesToDelete
+                        file.Delete()
+                    Next
+                ElseIf Directory.Exists(strAutoSaveInternalLogFolderPath) Then
+                    Dim autoSaveDirectory As New DirectoryInfo(strAutoSaveInternalLogFolderPath)
+                    Dim files As FileInfo() = autoSaveDirectory.GetFiles("debug_log*.R") ' Adjust pattern to match actual filenames
+
+                    ' Sort files by last write time in descending order
+                    Dim sortedFiles As IOrderedEnumerable(Of FileInfo) = files.OrderByDescending(Function(f) f.LastWriteTime)
+
+                    ' Determine files to delete based on retention policy
+                    Dim filesToDelete As IEnumerable(Of FileInfo) = sortedFiles.Skip(retentionCount)
+
+                    ' Delete older autosaved files
+                    For Each file In filesToDelete
+                        file.Delete()
+                    Next
+                End If
             End If
         Catch ex As Exception
             MsgBox("Could not delete auto save data file at: " & strCurrentAutoSaveDataFilePath & Environment.NewLine & ex.Message)
         End Try
     End Sub
 
-    Public Sub DeleteAutoSaveLog()
-        Try
-            If Directory.Exists(strAutoSaveLogFolderPath) Then
-                ' Define the retention policy (keep last N autosaves)
-                Dim retentionCount As Integer = 5 ' Example: Keep the last 5 autosaves
-
-                ' Retrieve autosaved files
-                Dim autoSaveDirectory As New DirectoryInfo(strAutoSaveLogFolderPath)
-                Dim files As FileInfo() = autoSaveDirectory.GetFiles("log*.R") ' Adjust pattern to match actual filenames
-
-                ' Sort files by last write time in descending order
-                Dim sortedFiles = files.OrderByDescending(Function(f) f.LastWriteTime)
-
-                ' Determine files to delete based on retention policy
-                Dim filesToDelete = sortedFiles.Skip(retentionCount)
-
-                ' Delete older autosaved files
-                For Each file In filesToDelete
-                    file.Delete()
-                Next
-            End If
-        Catch ex As Exception
-            MsgBox("Could not delete auto save data file at: " & strCurrentAutoSaveDataFilePath & Environment.NewLine & ex.Message)
-        End Try
-    End Sub
-
-    Public Sub DeleteAutoSaveDebugLog()
-        Try
-            If Directory.Exists(strAutoSaveInternalLogFolderPath) Then
-                ' Define the retention policy (keep last N autosaves)
-                Dim retentionCount As Integer = 5 ' Example: Keep the last 5 autosaves
-
-                ' Retrieve autosaved files
-                Dim autoSaveDirectory As New DirectoryInfo(strAutoSaveInternalLogFolderPath)
-                Dim files As FileInfo() = autoSaveDirectory.GetFiles("debug_log*.R") ' Adjust pattern to match actual filenames
-
-                ' Sort files by last write time in descending order
-                Dim sortedFiles = files.OrderByDescending(Function(f) f.LastWriteTime)
-
-                ' Determine files to delete based on retention policy
-                Dim filesToDelete = sortedFiles.Skip(retentionCount)
-
-                ' Delete older autosaved files
-                For Each file In filesToDelete
-                    file.Delete()
-                Next
-            End If
-        Catch ex As Exception
-            MsgBox("Could not delete auto save data file at: " & strCurrentAutoSaveDataFilePath & Environment.NewLine & ex.Message)
-        End Try
-    End Sub
 
     Private Sub mnuOrganiseDataObjectHideDataframes_Click(sender As Object, e As EventArgs) Handles mnuPrepareDataObjectHideDataframes.Click
         dlgHideDataframes.ShowDialog()
@@ -1362,10 +1339,6 @@ Public Class frmMain
 
     Private Sub mnuHelpR_Click(sender As Object, e As EventArgs) Handles mnuHelpAboutR.Click
         Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "133")
-    End Sub
-
-    Private Sub mnuHelpMenus_Click(sender As Object, e As EventArgs) Handles mnuHelpMenus.Click
-        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "12")
     End Sub
 
     Private Sub mnuHelpLicence_Click(sender As Object, e As EventArgs) Handles mnuHelpLicence.Click
@@ -2784,5 +2757,53 @@ Public Class frmMain
 
     Private Sub mnuClimaticFileExportToGoogleBucketsToolStrip_Click(sender As Object, e As EventArgs) Handles mnuClimaticFileExportToGoogleBucketsToolStrip.Click
         dlgExportClimaticDefinitions.ShowDialog()
+    End Sub
+
+    Private Sub FileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FileToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "13")
+    End Sub
+
+    Private Sub EditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "7")
+    End Sub
+
+    Private Sub PrepareToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrepareToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "9")
+    End Sub
+
+    Private Sub DescribeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DescribeToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "18")
+    End Sub
+
+    Private Sub ModelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModelToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "17")
+    End Sub
+
+    Private Sub StructuredToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StructuredToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "454")
+    End Sub
+
+    Private Sub ClimaticToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClimaticToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "19")
+    End Sub
+
+    Private Sub ProcurementToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProcurementToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "498")
+    End Sub
+
+    Private Sub ExperimentsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExperimentsToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "570")
+    End Sub
+
+    Private Sub ToolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToolsToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "8")
+    End Sub
+
+    Private Sub ViewToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles ViewToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "21")
+    End Sub
+
+    Private Sub MenusAndDialogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenusAndDialogsToolStripMenuItem.Click
+        Help.ShowHelp(Me, strStaticPath & "\" & strHelpFilePath, HelpNavigator.TopicId, "12")
     End Sub
 End Class

@@ -27,9 +27,9 @@ Public Class dlgRestoreBackup
     Private strLoadDateFilePath As String
     Private bUserClose As Boolean = True
     Private clsDummyFunction As New RFunction
-    Private strAutoSaveDataFolderPath As String = Path.Combine(Path.GetTempPath, "R-Instat_data_auto_save")
-    Private strAutoSaveLogFolderPath As String = Path.Combine(Path.GetTempPath, "R-Instat_log_auto_save")
-    Private strAutoSaveInternalLogFolderPath As String = Path.Combine(Path.GetTempPath, "R-Instat_debug_log_auto_save")
+    Public strAutoSaveDataFolderPath = frmMain.strAutoSaveDataFolderPath
+    Public strAutoSaveLogFolderPath = frmMain.strAutoSaveLogFolderPath
+    Public strAutoSaveInternalLogFolderPath = frmMain.strAutoSaveInternalLogFolderPath
     Private bReset As Boolean = True
     Private bFirstload As Boolean = True
 
@@ -171,18 +171,6 @@ Public Class dlgRestoreBackup
         ucrInputSavedPathInternalLog.Visible = ucrChkShowInternalLogFile.Checked
     End Sub
 
-    Private Sub Controls_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrPnlRecoveryOption.ControlContentsChanged
-        strScript = ""
-        strLoadDateFilePath = ""
-
-        If rdoRunBackupLog.Checked Then
-            GetBackupFromLastSession(strAutoSaveLogFolderPath, "log*.R", True)
-        ElseIf rdoLoadBackupData.Checked Then
-            GetBackupFromLastSession(strAutoSaveDataFolderPath, "data_*.rds", False)
-        End If
-        TestOKEnabled()
-    End Sub
-
     Private Sub SetLogControlsDisable(bEnable As Boolean)
         ucrChkShowLogFile.Enabled = Not bEnable
         ucrChkShowInternalLogFile.Enabled = Not bEnable
@@ -253,6 +241,15 @@ Public Class dlgRestoreBackup
     End Sub
 
     Private Sub ucrBase_ClickOk(sender As Object, e As EventArgs) Handles ucrBase.ClickOk
+        strScript = ""
+        strLoadDateFilePath = ""
+
+        If rdoRunBackupLog.Checked Then
+            GetBackupFromLastSession(strAutoSaveLogFolderPath, "log*.R", True)
+        ElseIf rdoLoadBackupData.Checked Then
+            GetBackupFromLastSession(strAutoSaveDataFolderPath, "data_*.rds", False)
+        End If
+
         GetRecoveryFiles(strScript, strLoadDateFilePath)
         SaveFiles()
     End Sub
