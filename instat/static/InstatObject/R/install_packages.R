@@ -1,5 +1,5 @@
 require("miniCRAN")
-r_version <- "4.1"
+r_version <- "4.4.1"
 # Specify list of packages to download
 pkgs <-
   c(
@@ -177,6 +177,7 @@ pkgs <-
     # Data and Code Behind the Stories and Interactives at 'FiveThirtyEight'
     "fivethirtyeight",
     "CGPfunctions",
+    "ggside",
     "collapse"
  )
 pkgList <- pkgDep(pkgs, type="win.binary", repos = "https://cran.rstudio.com/", suggests = FALSE, includeBasePkgs = FALSE, Rversion = r_version)

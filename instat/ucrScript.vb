@@ -19,12 +19,14 @@ Imports System.IO
 Imports System.Windows.Controls
 Imports RInsightF461
 Imports ScintillaNET
+Imports RDotNet
 
 Public Class ucrScript
 
     Private bIsTextChanged = False
     Private iMaxLineNumberCharLength As Integer = 0
     Private Const iTabIndexLog As Integer = 0
+    Private clsRScript As RScript = Nothing
     Private strRInstatLogFilesFolderPath As String = Path.Combine(Path.GetFullPath(FileIO.SpecialDirectories.MyDocuments), "R-Instat_Log_files")
 
     Friend WithEvents clsScriptActive As Scintilla
@@ -213,12 +215,10 @@ Public Class ucrScript
 
         Using dlgSave As New SaveFileDialog
             dlgSave.Title = "Save " & If(bIsLog, "Log", "Script") & " To File"
-            dlgSave.Filter = "R Script File (*.R)|*.R|Text File (*.txt)|*.txt"
+            dlgSave.Filter = "R Script File (*.R)|*.R|Text File (*.txt)|*.txt|JSON File (*.json)|*.json"
             dlgSave.FileName = Path.GetFileName(TabControl.SelectedTab.Text)
 
-            'Ensure that dialog opens in correct folder.
-            'In theory, we should be able to use `dlgLoad.RestoreDirectory = True` but this does
-            'not work (I think a bug in WinForms).So we need to use static variables instead.
+            ' Ensure that dialog opens in the correct folder.
             Static strInitialDirectory As String = frmMain.clsInstatOptions.strWorkingDirectory
             Static strInitialDirectoryLog As String = frmMain.clsInstatOptions.strWorkingDirectory
             dlgSave.InitialDirectory = If(bIsLog, strInitialDirectoryLog, strInitialDirectory)
@@ -226,10 +226,12 @@ Public Class ucrScript
             If dlgSave.ShowDialog() = DialogResult.OK Then
                 Try
                     File.WriteAllText(dlgSave.FileName, If(bIsLog, clsScriptLog.Text, clsScriptActive.Text))
+                    strInitialDirectory = Path.GetDirectoryName(dlgSave.FileName)
                     bIsTextChanged = False
                     TabControl.SelectedTab.Text = System.IO.Path.GetFileNameWithoutExtension(dlgSave.FileName)
-                    frmMain.clsRecentItems.addToMenu(Replace(Path.Combine(Path.GetFullPath(FileIO.SpecialDirectories.MyDocuments), System.IO.Path.GetFileName(dlgSave.FileName)), "\", "/"))
+                    frmMain.clsRecentItems.addToMenu(Replace(Path.Combine(Path.GetFullPath(strInitialDirectory), System.IO.Path.GetFileName(dlgSave.FileName)), "\", "/"))
                     frmMain.bDataSaved = True
+
                     If bIsLog Then
                         strInitialDirectoryLog = Path.GetDirectoryName(dlgSave.FileName)
                     Else
@@ -237,8 +239,8 @@ Public Class ucrScript
                     End If
                 Catch
                     MsgBox("Could not save the " & If(bIsLog, "Log", "Script") & " file." & Environment.NewLine &
-                           "The file may be in use by another program or you may not have access to write to the specified location.",
-                           vbExclamation, "Save " & If(bIsLog, "Log", "Script"))
+                   "The file may be in use by another program or you may not have access to write to the specified location.",
+                   vbExclamation, "Save " & If(bIsLog, "Log", "Script"))
                 End Try
             End If
         End Using
@@ -298,6 +300,7 @@ Public Class ucrScript
 
         TabControl.SelectedTab = tabPageAdded
         bIsTextChanged = False
+        clsRScript = Nothing
         EnableDisableButtons()
     End Sub
 
@@ -527,9 +530,9 @@ Public Class ucrScript
 
         Using dlgLoad As New OpenFileDialog
             dlgLoad.Title = "Load Script From Text File"
-            dlgLoad.Filter = "Text & R Script Files (*.txt,*.R)|*.txt;*.R|R Script File (*.R)|*.R|Text File (*.txt)|*.txt"
+            dlgLoad.Filter = "Text & R Script Files (*.txt, *.R, *.json)|*.txt;*.R;*.json|R Script File (*.R)|*.R|Text File (*.txt)|*.txt|JSON File (*.json)|*.json"
 
-            'Ensure that dialog opens in correct folder.
+            ' Ensure that dialog opens in the correct folder.
             'In theory, we should be able to use `dlgLoad.RestoreDirectory = True` but this does
             'not work (I think a bug in WinForms).So we need to use a static variable instead.
             Static strInitialDirectory As String = frmMain.clsInstatOptions.strWorkingDirectory
@@ -544,7 +547,8 @@ Public Class ucrScript
                 TabControl.SelectedTab.Text = System.IO.Path.GetFileNameWithoutExtension(dlgLoad.FileName)
                 strInitialDirectory = Path.GetDirectoryName(dlgLoad.FileName)
                 bIsTextChanged = False
-                frmMain.clsRecentItems.addToMenu(Replace(Path.Combine(Path.GetFullPath(FileIO.SpecialDirectories.MyDocuments), System.IO.Path.GetFileName(dlgLoad.FileName)), "\", "/"))
+                clsRScript = Nothing
+                frmMain.clsRecentItems.addToMenu(Replace(Path.Combine(Path.GetFullPath(strInitialDirectory), System.IO.Path.GetFileName(dlgLoad.FileName)), "\", "/"))
                 frmMain.bDataSaved = True
             Catch
                 MsgBox("Could not load the script from file." & Environment.NewLine &
@@ -643,7 +647,10 @@ Public Class ucrScript
         Try
             Dim dctRStatements As OrderedDictionary
             Try
-                dctRStatements = New RScript(clsScriptActive.Text).statements
+                If clsRScript Is Nothing Then
+                    clsRScript = New RScript(clsScriptActive.Text)
+                End If
+                dctRStatements = clsRScript.statements
             Catch ex As Exception
                 MsgBox("R script parsing failed with message:" & Environment.NewLine _
                    & Environment.NewLine & ex.Message & Environment.NewLine & Environment.NewLine _
@@ -763,6 +770,7 @@ Public Class ucrScript
 
     Private Sub clsScriptActive_TextChanged(sender As Object, e As EventArgs) Handles clsScriptActive.TextChanged
         bIsTextChanged = True
+        clsRScript = Nothing
         EnableDisableButtons()
         SetLineNumberMarginWidth(clsScriptActive.Lines.Count.ToString().Length)
     End Sub
@@ -980,7 +988,7 @@ Public Class ucrScript
                 'This is just to be on the safe side. It is not worth the extra complexity of
                 'checking if the script is the same as the associated file name
                 bIsTextChanged = clsScriptActive.TextLength > 0
-
+                clsRScript = Nothing
                 EnableDisableButtons()
                 Exit Sub
             End If
@@ -1016,6 +1024,30 @@ Public Class ucrScript
     Private Sub RenameTextboxLeave(sender As Object, e As EventArgs)
         TabControl.SelectedTab.Text = sender.text
         sender.Dispose()
+    End Sub
+    Private Sub mnuReformatCode_Click(sender As Object, e As EventArgs) Handles mnuReformatCode.Click
+        ' Exit early if no text is selected
+        If clsScriptActive.SelectionStart = clsScriptActive.SelectionEnd Then
+            Exit Sub
+        End If
+
+        ' Your R script text from Scintilla
+        Dim scriptText As String = clsScriptActive.SelectedText.Replace("""", "\""")
+        Dim clsStylerFunction As New RFunction
+
+        clsStylerFunction.SetPackageName("styler")
+        clsStylerFunction.SetRCommand("style_text")
+        clsStylerFunction.AddParameter("text", Chr(34) & scriptText & Chr(34), bIncludeArgumentName:=False)
+
+        Dim expTemp As SymbolicExpression = frmMain.clsRLink.RunInternalScriptGetValue(clsStylerFunction.ToScript(), bSilent:=True)
+
+        ' Check if the result from R is valid
+        If expTemp IsNot Nothing AndAlso expTemp.Type <> Internals.SymbolicExpressionType.Null Then
+            ' If valid, format and replace the selected text
+            Dim formattedCode As String() = expTemp.AsCharacter().ToArray
+            Dim formattedText As String = String.Join(Environment.NewLine, formattedCode)
+            clsScriptActive.ReplaceSelection(formattedText)
+        End If
     End Sub
 
 End Class
