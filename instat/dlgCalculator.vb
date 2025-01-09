@@ -36,18 +36,25 @@ Public Class dlgCalculator
     Private strDefaultKeyboard As String
     ' Note: This list needs to be updated when a new keyboard is added.
     Private strKeyboards() As String = {"Basic", "Maths", "Logical and Symbols", "Transform", "Summary", "Probability", "Factor", "Text/Strings (Character Columns)", "Dates/Times", "Circular", "Wakefield", "Goodness of Fit", "List", "Complex", "Integer", "Functions"}
+    Private Shared ReadOnly Logger As NLog.Logger = NLog.LogManager.GetCurrentClassLogger()
+
 
     Private Sub dlgCalculator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim start = DateTime.Now
         If bFirstLoad Then
             InitialiseDialog()
             iBasicWidth = Me.Width
             SetDefaults()
             bFirstLoad = False
         End If
-        SetHelpOptions()
+        SetStructuredMenu()
         ReopenDialog()
         TestOKEnabled()
         autoTranslate(Me)
+
+        Logger.Debug("This is in the load")
+        Logger.Debug(Process.GetCurrentProcess().WorkingSet64)
+        Logger.Debug("Time", DateTime.Now - start)
     End Sub
 
     Private Sub TestOKEnabled()
@@ -75,7 +82,7 @@ Public Class dlgCalculator
                                            bInsertColumnBefore:=ucrBase.clsRsyntax.clsBaseCommandString.bInsertColumnBefore,
                                            bRequireCorrectLength:=ucrBase.clsRsyntax.clsBaseCommandString.bRequireCorrectLength)
         ucrBase.Visible = True
-        SetHelpOptions()
+        SetStructuredMenu()
     End Sub
 
     Private Sub ReopenDialog()
@@ -85,6 +92,8 @@ Public Class dlgCalculator
     End Sub
 
     Private Sub InitialiseDialog()
+        ucrBase.iHelpTopicID = 14
+
         ucrCalc.ucrReceiverForCalculation.SetMeAsReceiver()
         ucrCalc.ucrTryCalculator.SetIsCommand()
         ucrCalc.ucrTryCalculator.SetReceiver(ucrCalc.ucrReceiverForCalculation)
@@ -259,11 +268,8 @@ Public Class dlgCalculator
         End If
     End Sub
 
-    Private Sub SetHelpOptions()
+    Private Sub SetStructuredMenu()
         Select Case enumCalculatorMode
-            Case CalculatorMode.Prepare
-                ucrCalc.ucrInputCalOptions.SetName("Basic")
-                ucrBase.iHelpTopicID = 14
             Case CalculatorMode.Structured
                 ucrCalc.ucrInputCalOptions.SetName("Circular")
                 ucrBase.iHelpTopicID = 677
@@ -323,7 +329,7 @@ Public Class dlgCalculator
             Case "Symbols"
                 Me.Width = iBasicWidth * 2.56
             Case "Goodness of Fit"
-                Me.Width = iBasicWidth * 1.27
+                Me.Width = iBasicWidth * 1.25
                 ucrBase.iHelpTopicID = 717
             Case "Integer"
                 Me.Width = iBasicWidth * 1.5
@@ -336,6 +342,7 @@ Public Class dlgCalculator
                 ucrBase.iHelpTopicID = 439
             Case Else
                 Me.Width = iBasicWidth
+                ucrBase.iHelpTopicID = 14
         End Select
     End Sub
 End Class
