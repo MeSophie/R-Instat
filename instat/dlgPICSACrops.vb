@@ -46,6 +46,10 @@ Public Class dlgPICSACrops
         ucrSelectorForCrops.SetParameter(New RParameter("data_name", 0))
         ucrSelectorForCrops.SetParameterIsString()
 
+
+        ucrSelectorSummary.SetParameter(New RParameter("season_data_name", 8))
+        ucrSelectorSummary.SetParameterIsString()
+
         'Year Receiver
         ucrReceiverYear.Selector = ucrSelectorForCrops
         ucrReceiverYear.SetParameter(New RParameter("year", 1))
@@ -78,15 +82,15 @@ Public Class dlgPICSACrops
         ucrReceiverStart.SetParameter(New RParameter("start_day", 8))
         ucrReceiverStart.SetParameterIsString()
         ucrReceiverStart.SetDataType("numeric")
-        ucrReceiverStart.Selector = ucrSelectorForCrops
-        ucrReceiverStart.bAttachedToPrimaryDataFrame = False
+        ucrReceiverStart.Selector = ucrSelectorSummary
+        'ucrReceiverStart.bAttachedToPrimaryDataFrame = False
 
         'End Receiver
-        ucrReceiverEnd.Selector = ucrSelectorForCrops
+        ucrReceiverEnd.Selector = ucrSelectorSummary
         ucrReceiverEnd.SetParameter(New RParameter("end_day", 9))
         ucrReceiverEnd.SetParameterIsString()
         ucrReceiverEnd.SetDataType("numeric")
-        ucrReceiverEnd.bAttachedToPrimaryDataFrame = False
+        'ucrReceiverEnd.bAttachedToPrimaryDataFrame = False
 
         ucrPnlStartCheck.AddRadioButton(rdoYes)
         ucrPnlStartCheck.AddRadioButton(rdoNo)
@@ -190,7 +194,9 @@ Public Class dlgPICSACrops
         'Currently this must come before reset to ensure autofilling is done correctly
         'Once autofilling is being triggered correctly this can go after Reset.
         ucrSelectorForCrops.Reset()
+        ucrSelectorSummary.Reset()
         ucrReceiverRainfall.SetMeAsReceiver()
+        ucrReceiverStart.SetMeAsReceiver()
 
         clsDummyFunction.AddParameter("check", "both", iPosition:=0)
 
@@ -218,15 +224,16 @@ Public Class dlgPICSACrops
         'TODO This should be done further done.
         ' This ensures the correct data frame is set before attempting to fill the receiver
         'ucrReceiverYear.SetMeAsReceiver()
-        ucrSelectorForCrops.SetDataframe(ucrReceiverYear.GetDataName())
+        'ucrSelectorForCrops.SetDataframe(ucrReceiverYear.GetDataName())
         'Disabled as selector cannot yet auto set when multiple data frame are selected.
-        'ucrSelectorForCrops.SetRCode(clsCropsFunction, bReset)
+        ucrSelectorForCrops.SetRCode(clsCropsFunction, bReset)
+        ucrSelectorSummary.SetRCode(clsCropsFunction, bReset)
         ucrReceiverYear.SetRCode(clsCropsFunction, bReset)
         ucrReceiverStation.SetRCode(clsCropsFunction, bReset)
         ucrReceiverRainfall.SetRCode(clsCropsFunction, bReset)
         ucrReceiverDay.SetRCode(clsCropsFunction, bReset)
         'ucrReceiverStart.SetMeAsReceiver()
-        ucrSelectorForCrops.SetDataframe(ucrReceiverStart.GetDataName())
+        ' ucrSelectorForCrops.SetDataframe(ucrReceiverStart.GetDataName())
         ucrReceiverStart.SetRCode(clsCropsFunction, bReset)
         ucrReceiverEnd.SetRCode(clsCropsFunction, bReset)
 
@@ -262,7 +269,7 @@ Public Class dlgPICSACrops
         If ucrSelectorForCrops.CurrentReceiver Is Nothing OrElse ucrSelectorForCrops.CurrentReceiver.bAttachedToPrimaryDataFrame Then
             clsCropsFunction.AddParameter("data_name", Chr(34) & ucrSelectorForCrops.ucrAvailableDataFrames.cboAvailableDataFrames.Text & Chr(34), iPosition:=0)
         Else
-            clsCropsFunction.AddParameter("season_data_name", Chr(34) & ucrSelectorForCrops.ucrAvailableDataFrames.cboAvailableDataFrames.Text & Chr(34), iPosition:=8)
+            clsCropsFunction.AddParameter("season_data_name", Chr(34) & ucrSelectorSummary.ucrAvailableDataFrames.cboAvailableDataFrames.Text & Chr(34), iPosition:=8)
         End If
     End Sub
 
