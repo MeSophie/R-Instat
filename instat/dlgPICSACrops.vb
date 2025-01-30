@@ -15,6 +15,8 @@
 ' along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Imports instat.Translations
+Imports System.Text.RegularExpressions
+
 
 Public Class dlgPICSACrops
     Private clsCropsFunction As New RFunction
@@ -23,6 +25,11 @@ Public Class dlgPICSACrops
     Public bFirstLoad As Boolean = True
     Private bReset As Boolean = True
     Private strCurrDataName As String = ""
+    Private lstEndReceivers As New List(Of ucrReceiverSingle)
+    Private lstStartReceivers As New List(Of ucrReceiverSingle)
+    Private isFilling As Boolean = False
+
+    Dim lstRecognisedTypes As New List(Of KeyValuePair(Of String, List(Of String)))
 
     Private Sub dlgPICSACrops_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If bFirstLoad Then
@@ -36,12 +43,23 @@ Public Class dlgPICSACrops
         bReset = False
         TestOkEnabled()
         autoTranslate(Me)
+        AutoFillReceivers(lstEndReceivers)
+        AutoFillReceivers(lstStartReceivers)
     End Sub
 
     Private Sub InitialiseDialog()
         ucrBase.iHelpTopicID = 480
         ' Sub dialog not yet created.
         cmdOptions.Visible = False
+
+        Dim kvpEnd As KeyValuePair(Of String, List(Of String)) = New KeyValuePair(Of String, List(Of String))("end_rain", {"end_rain", "end_season", "end_rain_filled", "end_season_filled"}.ToList())
+        Dim kvpStart As KeyValuePair(Of String, List(Of String)) = New KeyValuePair(Of String, List(Of String))("start_rain", {"start_rain"}.ToList())
+
+        lstRecognisedTypes.AddRange({kvpEnd, kvpStart})
+
+        lstEndReceivers.AddRange({ucrReceiverEnd})
+
+        lstStartReceivers.AddRange({ucrReceiverStart})
 
         ucrSelectorForCrops.SetParameter(New RParameter("data_name", 0))
         ucrSelectorForCrops.SetParameterIsString()
@@ -83,6 +101,7 @@ Public Class dlgPICSACrops
         ucrReceiverStart.SetParameterIsString()
         ucrReceiverStart.SetDataType("numeric")
         ucrReceiverStart.Selector = ucrSelectorSummary
+        ucrReceiverStart.Tag = "start_rain"
         'ucrReceiverStart.bAttachedToPrimaryDataFrame = False
 
         'End Receiver
@@ -90,6 +109,7 @@ Public Class dlgPICSACrops
         ucrReceiverEnd.SetParameter(New RParameter("end_day", 9))
         ucrReceiverEnd.SetParameterIsString()
         ucrReceiverEnd.SetDataType("numeric")
+        ucrReceiverEnd.Tag = "end_rain"
         'ucrReceiverEnd.bAttachedToPrimaryDataFrame = False
 
         ucrPnlStartCheck.AddRadioButton(rdoYes)
@@ -378,4 +398,61 @@ Public Class dlgPICSACrops
         End If
     End Sub
 
+    Private Sub AutoFillReceivers(lstReceivers As List(Of ucrReceiverSingle))
+
+        If isFilling OrElse lstReceivers Is Nothing Then
+            Exit Sub
+        End If
+
+        isFilling = True
+
+        ' Change the event handler to the new method
+        'RemoveHandler ucrSelectorClimograph.ControlValueChanged, AddressOf OnControlValueChanged
+
+        Dim lstRecognisedValues As List(Of String)
+        Dim ucrCurrentReceiver As ucrReceiver = ucrSelectorSummary.CurrentReceiver
+        Dim bFound As Boolean = False
+
+        For Each ucrTempReceiver As ucrReceiver In lstReceivers
+            ucrTempReceiver.SetMeAsReceiver()
+            lstRecognisedValues = GetRecognisedValues(ucrTempReceiver.Tag)
+
+            If lstRecognisedValues.Count > 0 Then
+                For Each lviTempVariable As ListViewItem In ucrSelectorSummary.lstAvailableVariable.Items
+                    For Each strValue As String In lstRecognisedValues
+                        If Regex.Replace(lviTempVariable.Text.ToLower(), "[^\w]", String.Empty).Equals(strValue) Then
+                            ucrTempReceiver.Add(lviTempVariable.Text, ucrSelectorSummary.ucrAvailableDataFrames.cboAvailableDataFrames.Text)
+                            bFound = True
+                            Exit For
+                        End If
+                    Next
+                    If bFound Then
+                        bFound = False
+                        Exit For
+                    End If
+                Next
+            End If
+        Next
+
+        If ucrCurrentReceiver IsNot Nothing Then
+            ucrCurrentReceiver.SetMeAsReceiver()
+        End If
+
+        ' Re-enable the event handler
+        'AddHandler ucrSelectorClimograph.ControlValueChanged, AddressOf OnControlValueChanged
+
+        isFilling = False
+    End Sub
+
+    Private Function GetRecognisedValues(strVariable As String) As List(Of String)
+        Dim lstValues As New List(Of String)
+
+        For Each kvpTemp As KeyValuePair(Of String, List(Of String)) In lstRecognisedTypes
+            If kvpTemp.Key = strVariable Then
+                lstValues = kvpTemp.Value
+                Exit For
+            End If
+        Next
+        Return lstValues
+    End Function
 End Class
