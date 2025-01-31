@@ -103,7 +103,6 @@ Public Class dlgPICSACrops
         ucrReceiverStart.SetDataType("numeric")
         ucrReceiverStart.Selector = ucrSelectorSummary
         ucrReceiverStart.Tag = "start_rain"
-        'ucrReceiverStart.bAttachedToPrimaryDataFrame = False
 
         'End Receiver
         ucrReceiverEnd.Selector = ucrSelectorSummary
@@ -111,7 +110,6 @@ Public Class dlgPICSACrops
         ucrReceiverEnd.SetParameterIsString()
         ucrReceiverEnd.SetDataType("numeric")
         ucrReceiverEnd.Tag = "end_rains"
-        'ucrReceiverEnd.bAttachedToPrimaryDataFrame = False
 
         ucrPnlStartCheck.AddRadioButton(rdoYes)
         ucrPnlStartCheck.AddRadioButton(rdoNo)
