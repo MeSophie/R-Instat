@@ -196,7 +196,7 @@ Partial Class dlgPICSACrops
         Me.grpCropDefinitions.Controls.Add(Me.lblCropLengthDays)
         Me.grpCropDefinitions.Controls.Add(Me.lblWaterAmounts)
         Me.grpCropDefinitions.Controls.Add(Me.ucrPnlStartCheck)
-        Me.grpCropDefinitions.Location = New System.Drawing.Point(240, 194)
+        Me.grpCropDefinitions.Location = New System.Drawing.Point(240, 209)
         Me.grpCropDefinitions.Name = "grpCropDefinitions"
         Me.grpCropDefinitions.Size = New System.Drawing.Size(295, 158)
         Me.grpCropDefinitions.TabIndex = 39

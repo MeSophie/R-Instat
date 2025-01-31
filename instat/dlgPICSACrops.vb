@@ -52,7 +52,7 @@ Public Class dlgPICSACrops
         ' Sub dialog not yet created.
         cmdOptions.Visible = False
 
-        Dim kvpEnd As KeyValuePair(Of String, List(Of String)) = New KeyValuePair(Of String, List(Of String))("end_rain", {"end_rain", "end_season", "end_rain_filled", "end_season_filled"}.ToList())
+        Dim kvpEnd As KeyValuePair(Of String, List(Of String)) = New KeyValuePair(Of String, List(Of String))("end_rains", {"end_rains", "end_season", "end_rain_filled", "end_season_filled"}.ToList())
         Dim kvpStart As KeyValuePair(Of String, List(Of String)) = New KeyValuePair(Of String, List(Of String))("start_rain", {"start_rain"}.ToList())
 
         lstRecognisedTypes.AddRange({kvpEnd, kvpStart})
@@ -61,10 +61,11 @@ Public Class dlgPICSACrops
 
         lstStartReceivers.AddRange({ucrReceiverStart})
 
+        ucrSelectorForCrops.SetLabelText("Data Frame (Daily):")
         ucrSelectorForCrops.SetParameter(New RParameter("data_name", 0))
         ucrSelectorForCrops.SetParameterIsString()
 
-
+        ucrSelectorSummary.SetLabelText("Data Frame (Summary):")
         ucrSelectorSummary.SetParameter(New RParameter("season_data_name", 8))
         ucrSelectorSummary.SetParameterIsString()
 
@@ -109,7 +110,7 @@ Public Class dlgPICSACrops
         ucrReceiverEnd.SetParameter(New RParameter("end_day", 9))
         ucrReceiverEnd.SetParameterIsString()
         ucrReceiverEnd.SetDataType("numeric")
-        ucrReceiverEnd.Tag = "end_rain"
+        ucrReceiverEnd.Tag = "end_rains"
         'ucrReceiverEnd.bAttachedToPrimaryDataFrame = False
 
         ucrPnlStartCheck.AddRadioButton(rdoYes)
@@ -285,7 +286,7 @@ Public Class dlgPICSACrops
         TestOkEnabled()
     End Sub
 
-    Private Sub ucrSelectorForCrops_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrSelectorForCrops.ControlValueChanged
+    Private Sub ucrSelectorForCrops_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrSelectorForCrops.ControlValueChanged, ucrSelectorSummary.ControlValueChanged
         If ucrSelectorForCrops.CurrentReceiver Is Nothing OrElse ucrSelectorForCrops.CurrentReceiver.bAttachedToPrimaryDataFrame Then
             clsCropsFunction.AddParameter("data_name", Chr(34) & ucrSelectorForCrops.ucrAvailableDataFrames.cboAvailableDataFrames.Text & Chr(34), iPosition:=0)
         Else
