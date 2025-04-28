@@ -403,6 +403,10 @@
     <Compile Include="sdgDefineAnnualRainfall.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="sdgDisplayModelOptions.Designer.vb">
+      <DependentUpon>sdgDisplayModelOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="sdgDisplayModelOptions.vb">
     <Compile Include="sdgDefineTricotData.Designer.vb">
       <DependentUpon>sdgDefineTricotData.vb</DependentUpon>
     </Compile>
@@ -3543,6 +3547,8 @@
     <EmbeddedResource Include="sdgDefineAnnualRainfall.resx">
       <DependentUpon>sdgDefineAnnualRainfall.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="sdgDisplayModelOptions.resx">
+      <DependentUpon>sdgDisplayModelOptions.vb</DependentUpon>
     <EmbeddedResource Include="sdgDefineTricotData.resx">
       <DependentUpon>sdgDefineTricotData.vb</DependentUpon>
     </EmbeddedResource>
