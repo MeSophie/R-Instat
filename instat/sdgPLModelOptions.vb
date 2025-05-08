@@ -33,6 +33,8 @@ Public Class sdgPLModelOptions
     End Sub
 
     Private Sub InitialiseDialog()
+        ucrBase.iHelpTopicID = 721
+
         ucrChkMultivariateNormal.SetParameter(New RParameter("normal"))
         ucrChkMultivariateNormal.SetText("Normal")
         ucrChkMultivariateNormal.AddRSyntaxContainsFunctionNamesCondition(True, {"confint"}, True)

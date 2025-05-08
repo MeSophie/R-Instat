@@ -30,6 +30,8 @@ Public Class sdgDisplayModelOptions
     End Sub
 
     Private Sub InitialiseDialog()
+        ucrSdgButtons.iHelpTopicID = 722
+
         ucrChkModel.SetText("Summary")
         ucrChkModel.AddParameterValuesCondition(True, "summary", "True")
         ucrChkModel.AddParameterValuesCondition(False, "summary", "False")
