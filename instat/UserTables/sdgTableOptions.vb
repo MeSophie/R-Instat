@@ -48,7 +48,7 @@ Public Class sdgTableOptions
     ''' </summary>
     ''' <param name="strDataFrameName">Name of the data frame contained in the data book</param>
     ''' <param name="clsNewOperator">R operator that has a 'gt' parameter that produces a 'gt' object.</param>
-    Public Sub Setup(strDataFrameName As String, clsNewOperator As ROperator)
+    Public Sub Setup(strDataFrameName As String, clsNewOperator As ROperator, Optional bReset As Boolean = False)
         clsOperator = clsNewOperator
 
         ucrHeader.Setup(clsOperator)
@@ -58,13 +58,14 @@ Public Class sdgTableOptions
         ucrCells.Setup(strDataFrameName, clsOperator)
         ucrSourceNotes.Setup(clsOperator)
         ucrOtherStyles.Setup(clsOperator)
-
-        ucrHeader.ucrInputTitle.SetText(dlgGeneralTable.ucrInputTitle.GetText)
-        ucrHeader.ucrInputTitleFooter.SetText(dlgGeneralTable.ucrInputTitleFooter.GetText)
-        ucrCboSelectThemes.SetText(dlgGeneralTable.ucrCboSelectThemes.GetText)
-        ucrChkSelectTheme.Checked = dlgGeneralTable.ucrChkSelectTheme.Checked
-        sdgTableStyles.GetNewUserInputAsRFunction()
-        SetupTheme(clsOperator)
+        If bReset Then
+            ucrHeader.ucrInputTitle.SetText(dlgGeneralTable.ucrInputTitle.GetText)
+            ucrHeader.ucrInputTitleFooter.SetText(dlgGeneralTable.ucrInputTitleFooter.GetText)
+            ucrCboSelectThemes.SetText(dlgGeneralTable.ucrCboSelectThemes.GetText)
+            ucrChkSelectTheme.Checked = dlgGeneralTable.ucrChkSelectTheme.Checked
+            sdgTableStyles.GetNewUserInputAsRFunction()
+            SetupTheme(clsOperator)
+        End If
     End Sub
 
     Private Sub ucrSdgBaseButtons_ClickReturn(sender As Object, e As EventArgs) Handles ucrSdgBaseButtons.ClickReturn
