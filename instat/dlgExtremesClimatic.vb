@@ -581,7 +581,7 @@ Public Class dlgExtremesClimatic
         End If
     End Sub
 
-    Private Sub ucrBase_ClickReset(sender As Object, e As EventArgs) Handles ucrBase.ClickReset
+    Private Sub ucrBase_ClickReset(sender As Object, e As EventArgs)
         SetDefaults()
         SetRCodeForControls(True)
         TestOkEnabled()
@@ -652,7 +652,7 @@ Public Class dlgExtremesClimatic
         clsPeaksFilterFunction.AddParameter("calculated_from", "list(" & strCurrDataName & "=" & ucrReceiverElement.GetVariableNames() & ")", iPosition:=2)
     End Sub
 
-    Private Sub ucrPnlMinMaxPeaks_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrPnlExtremesType.ControlValueChanged, ucrPnlMaxMin.ControlValueChanged
+    Private Sub ucrPnlMinMaxPeaks_ControlValueChanged(ucrChangedControl As ucrCore)
         SetCalculationValues()
         SetAssignName()
         SetThresholdBaseFunction()
@@ -668,7 +668,7 @@ Public Class dlgExtremesClimatic
         End If
     End Sub
 
-    Private Sub cmdDoyRange_Click(sender As Object, e As EventArgs) Handles cmdDoyRange.Click
+    Private Sub cmdDoyRange_Click(sender As Object, e As EventArgs)
         sdgDoyRange.Setup(clsNewDoyFilterCalc:=clsDayFromAndTo, clsNewIfElseFirstDoyFilledFunction:=clsIfElseFirstDoyFilledFunction, clsNewDayFromOperator:=clsDayFromOperator, clsNewDayToOperator:=clsDayToOperator, clsNewCalcFromList:=clsDayFilterCalcFromList, strNewMainDataFrame:=ucrSelectorClimaticExtremes.ucrAvailableDataFrames.cboAvailableDataFrames.Text, strNewDoyColumn:=ucrReceiverDOY.GetVariableNames(False), bSetUseDateVisible:=False, bReset:=bResetSubdialog)
         sdgDoyRange.ShowDialog()
         sdgDoyRange.SetUseDateVisibility(True)
@@ -686,7 +686,7 @@ Public Class dlgExtremesClimatic
         SetDateCalcFrom()
     End Sub
 
-    Private Sub ucrReceiverElement_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverElement.ControlValueChanged
+    Private Sub ucrReceiverElement_ControlValueChanged(ucrChangedControl As ucrCore)
         Dim exprMin As SymbolicExpression
         Dim exprMax As SymbolicExpression
         Dim minCharVector As CharacterVector
@@ -733,7 +733,7 @@ Public Class dlgExtremesClimatic
         PeaksFunction()
     End Sub
 
-    Private Sub ucrReceiverStation_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverStation.ControlValueChanged, ucrSelectorClimaticExtremes.ControlValueChanged, ucrReceiverDOY.ControlContentsChanged
+    Private Sub ucrReceiverStation_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrSelectorClimaticExtremes.ControlValueChanged
         GroupByOptions()
 
         If Not ucrReceiverDOY.IsEmpty Then
@@ -745,7 +745,7 @@ Public Class dlgExtremesClimatic
         AddDateDoy()
     End Sub
 
-    Private Sub ucrReceiverYear_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverYear.ControlValueChanged
+    Private Sub ucrReceiverYear_ControlValueChanged(ucrChangedControl As ucrCore)
         GroupByOptions()
     End Sub
 
@@ -770,7 +770,7 @@ Public Class dlgExtremesClimatic
         AddDateDoy()
     End Sub
 
-    Private Sub ucrChkFirstDate_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkFirstDate.ControlValueChanged
+    Private Sub ucrChkFirstDate_ControlValueChanged(ucrChangedControl As ucrCore)
         If ucrChkFirstDate.Checked Then
             clsCombinationSubCalcs.AddParameter("sub1", clsRFunctionParameter:=clsFirstDateSummary, iPosition:=0, bIncludeArgumentName:=False)
         Else
@@ -779,7 +779,7 @@ Public Class dlgExtremesClimatic
         SetCalculationValues()
     End Sub
 
-    Private Sub ucrChkNDates_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkNDates.ControlValueChanged
+    Private Sub ucrChkNDates_ControlValueChanged(ucrChangedControl As ucrCore)
         If ucrChkNDates.Checked Then
             clsCombinationSubCalcs.AddParameter("sub2", clsRFunctionParameter:=clsNSummary, iPosition:=1, bIncludeArgumentName:=False)
         Else
@@ -788,7 +788,7 @@ Public Class dlgExtremesClimatic
         SetCalculationValues()
     End Sub
 
-    Private Sub ucrChkLastDate_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkLastDate.ControlValueChanged
+    Private Sub ucrChkLastDate_ControlValueChanged(ucrChangedControl As ucrCore)
         If ucrChkLastDate.Checked Then
             clsCombinationSubCalcs.AddParameter("sub3", clsRFunctionParameter:=clsLastDateSummary, iPosition:=2, bIncludeArgumentName:=False)
         Else
@@ -797,7 +797,7 @@ Public Class dlgExtremesClimatic
         SetCalculationValues()
     End Sub
 
-    Private Sub ucrReceiverDate_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrReceiverDate.ControlValueChanged
+    Private Sub ucrReceiverDate_ControlValueChanged(ucrChangedControl As ucrCore)
         SetDateCalcFrom()
         AddDateDoy()
         UpdateDayFilterPreview()
@@ -832,12 +832,12 @@ Public Class dlgExtremesClimatic
         clsNSummary.AddParameter("result_name", Chr(34) & "n_" & ucrInputSave.GetText() & Chr(34), iPosition:=3)
     End Sub
 
-    Private Sub ucrInputSave_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrInputSave.ControlValueChanged
+    Private Sub ucrInputSave_ControlValueChanged(ucrChangedControl As ucrCore)
         SetResultNameCarryColumns()
         clsFilterExtremeExp.AddParameter("right", ucrInputSave.GetText(), iPosition:=1)
     End Sub
 
-    Private Sub ucrInputMax_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrInputMax.ControlContentsChanged
+    Private Sub ucrInputMax_ControlContentsChanged(ucrChangedControl As ucrCore)
         If ucrInputMax.GetValue <> "" Then
             clsPlotMrlFunction.AddParameter("umax", ucrInputMax.GetValue, iPosition:=5)
         Else
@@ -845,7 +845,7 @@ Public Class dlgExtremesClimatic
         End If
     End Sub
 
-    Private Sub ucrInputMin_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrInputMin.ControlContentsChanged
+    Private Sub ucrInputMin_ControlContentsChanged(ucrChangedControl As ucrCore)
         If ucrInputMin.GetValue <> "" Then
             clsPlotMrlFunction.AddParameter("umin", ucrInputMin.GetValue, iPosition:=4)
         Else
@@ -865,11 +865,11 @@ Public Class dlgExtremesClimatic
         End If
     End Sub
 
-    Private Sub ucrPnlPlots_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrPnlPlots.ControlValueChanged
+    Private Sub ucrPnlPlots_ControlValueChanged(ucrChangedControl As ucrCore)
         SetThresholdBaseFunction()
     End Sub
 
-    Private Sub ucrChkPrintSummary_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkPrintSummary.ControlValueChanged
+    Private Sub ucrChkPrintSummary_ControlValueChanged(ucrChangedControl As ucrCore)
         If ucrChkPrintSummary.Checked Then
             clsDeclusteringFunction.iCallType = 2
         Else
@@ -877,11 +877,11 @@ Public Class dlgExtremesClimatic
         End If
     End Sub
 
-    Private Sub CoreControls_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrReceiverDate.ControlContentsChanged, ucrReceiverElement.ControlContentsChanged, ucrReceiverDOY.ControlContentsChanged, ucrReceiverYear.ControlContentsChanged, ucrInputSave.ControlContentsChanged, ucrInputThresholdValue.ControlContentsChanged, ucrPnlPlots.ControlContentsChanged, ucrSaveMrlPlot.ControlContentsChanged, ucrSaveThresholdPlot.ControlContentsChanged, ucrNudColumns.ControlContentsChanged, ucrNudThresholds.ControlContentsChanged, ucrNudThresholdColumns.ControlContentsChanged, ucrNudAlpha.ControlContentsChanged, ucrNudDeclusterColumns.ControlContentsChanged, ucrNudRunLength.ControlContentsChanged, ucrSaveDeclusteredPlot.ControlContentsChanged, ucrReceiverStation.ControlContentsChanged
+    Private Sub CoreControls_ControlContentsChanged(ucrChangedControl As ucrCore) Handles ucrReceiverDOY.ControlContentsChanged, ucrSaveMrlPlot.ControlContentsChanged, ucrSaveThresholdPlot.ControlContentsChanged, ucrNudColumns.ControlContentsChanged, ucrNudThresholds.ControlContentsChanged, ucrNudThresholdColumns.ControlContentsChanged, ucrNudAlpha.ControlContentsChanged, ucrNudDeclusterColumns.ControlContentsChanged, ucrNudRunLength.ControlContentsChanged, ucrSaveDeclusteredPlot.ControlContentsChanged
         TestOkEnabled()
     End Sub
 
-    Private Sub ucrChkDeclustering_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkDeclustering.ControlValueChanged
+    Private Sub ucrChkDeclustering_ControlValueChanged(ucrChangedControl As ucrCore)
         If ucrChkDeclustering.Checked Then
             clsDeclusteringFunction.iCallType = 3
             clsDeclusteringFunction.bExcludeAssignedFunctionOutput = False
@@ -907,7 +907,7 @@ Public Class dlgExtremesClimatic
         End If
     End Sub
 
-    Private Sub ucrChkDayRange_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkDayRange.ControlValueChanged
+    Private Sub ucrChkDayRange_ControlValueChanged(ucrChangedControl As ucrCore)
         AddDayRange()
     End Sub
 End Class
