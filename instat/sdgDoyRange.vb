@@ -281,6 +281,8 @@ Public Class sdgDoyRange
 
     Private Sub ucrChkUseDate_ControlValueChanged(ucrChangedControl As ucrCore) Handles ucrChkUseDate.ControlValueChanged
         dlgClimaticSummary.AddDateDoy()
+        dlgExtremesClimatic.AddDateDoy()
+        dlgSpells.AddDateDoy()
     End Sub
 
     Public ReadOnly Property UseDateChecked As Boolean

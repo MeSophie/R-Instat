@@ -61,7 +61,6 @@ Partial Class dlgSpells
         Me.ucrReceiverYear = New instat.ucrReceiverSingle()
         Me.ucrReceiverDate = New instat.ucrReceiverSingle()
         Me.ucrReceiverElement = New instat.ucrReceiverSingle()
-        Me.ucrSelectorForSpells = New instat.ucrSelectorByDataFrameAddRemove()
         Me.ucrBase = New instat.ucrButtons()
         Me.rdoStation = New System.Windows.Forms.RadioButton()
         Me.grpRainParameters.SuspendLayout()
@@ -124,7 +123,7 @@ Partial Class dlgSpells
         Me.grpRainParameters.Controls.Add(Me.lblAnd)
         Me.grpRainParameters.Location = New System.Drawing.Point(10, 263)
         Me.grpRainParameters.Name = "grpRainParameters"
-        Me.grpRainParameters.Size = New System.Drawing.Size(417, 86)
+        Me.grpRainParameters.Size = New System.Drawing.Size(434, 86)
         Me.grpRainParameters.TabIndex = 14
         Me.grpRainParameters.TabStop = False
         Me.grpRainParameters.Text = "Options"
@@ -133,7 +132,7 @@ Partial Class dlgSpells
         '
         Me.ucrChkDayRange.AutoSize = True
         Me.ucrChkDayRange.Checked = False
-        Me.ucrChkDayRange.Location = New System.Drawing.Point(335, 29)
+        Me.ucrChkDayRange.Location = New System.Drawing.Point(347, 29)
         Me.ucrChkDayRange.Margin = New System.Windows.Forms.Padding(4)
         Me.ucrChkDayRange.Name = "ucrChkDayRange"
         Me.ucrChkDayRange.Size = New System.Drawing.Size(80, 23)
@@ -145,10 +144,10 @@ Partial Class dlgSpells
         Me.ucrInputFilterPreview.AutoSize = True
         Me.ucrInputFilterPreview.IsMultiline = False
         Me.ucrInputFilterPreview.IsReadOnly = True
-        Me.ucrInputFilterPreview.Location = New System.Drawing.Point(90, 25)
+        Me.ucrInputFilterPreview.Location = New System.Drawing.Point(116, 25)
         Me.ucrInputFilterPreview.Margin = New System.Windows.Forms.Padding(9)
         Me.ucrInputFilterPreview.Name = "ucrInputFilterPreview"
-        Me.ucrInputFilterPreview.Size = New System.Drawing.Size(242, 22)
+        Me.ucrInputFilterPreview.Size = New System.Drawing.Size(223, 22)
         Me.ucrInputFilterPreview.TabIndex = 16
         '
         'cmdDoyRange
@@ -156,7 +155,7 @@ Partial Class dlgSpells
         Me.cmdDoyRange.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cmdDoyRange.Location = New System.Drawing.Point(8, 23)
         Me.cmdDoyRange.Name = "cmdDoyRange"
-        Me.cmdDoyRange.Size = New System.Drawing.Size(83, 26)
+        Me.cmdDoyRange.Size = New System.Drawing.Size(105, 26)
         Me.cmdDoyRange.TabIndex = 15
         Me.cmdDoyRange.Tag = ""
         Me.cmdDoyRange.Text = "Day Range"
@@ -338,18 +337,6 @@ Partial Class dlgSpells
         Me.ucrReceiverElement.TabIndex = 13
         Me.ucrReceiverElement.ucrSelector = Nothing
         '
-        'ucrSelectorForSpells
-        '
-        Me.ucrSelectorForSpells.AutoSize = True
-        Me.ucrSelectorForSpells.bDropUnusedFilterLevels = False
-        Me.ucrSelectorForSpells.bShowHiddenColumns = False
-        Me.ucrSelectorForSpells.bUseCurrentFilter = True
-        Me.ucrSelectorForSpells.Location = New System.Drawing.Point(10, 49)
-        Me.ucrSelectorForSpells.Margin = New System.Windows.Forms.Padding(0)
-        Me.ucrSelectorForSpells.Name = "ucrSelectorForSpells"
-        Me.ucrSelectorForSpells.Size = New System.Drawing.Size(213, 183)
-        Me.ucrSelectorForSpells.TabIndex = 3
-        '
         'ucrBase
         '
         Me.ucrBase.AutoSize = True
@@ -401,7 +388,6 @@ Partial Class dlgSpells
         Me.Controls.Add(Me.grpRainParameters)
         Me.Controls.Add(Me.lblElement)
         Me.Controls.Add(Me.ucrReceiverElement)
-        Me.Controls.Add(Me.ucrSelectorForSpells)
         Me.Controls.Add(Me.ucrBase)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
@@ -418,7 +404,6 @@ Partial Class dlgSpells
     End Sub
 
     Friend WithEvents ucrBase As ucrButtons
-    Friend WithEvents ucrSelectorForSpells As ucrSelectorByDataFrameAddRemove
     Friend WithEvents ucrReceiverElement As ucrReceiverSingle
     Friend WithEvents lblElement As Label
     Friend WithEvents lblDate As Label
