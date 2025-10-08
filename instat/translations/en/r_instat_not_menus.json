@@ -5946,5 +5946,13 @@
   "zoo": "zoo",
   "Add Percentages": "Add Percentages",
   "Store Test to": "Store Test to",
-  "Store Train to:": "Store Train to:"
+  "Store Train to:": "Store Train to:",
+  "Labels With": "Labels With",
+  "To NA": "To NA",
+  "From NA": "From NA",
+  "Store Filter": "Store Filter",
+  "Filter Preview:": "Filter Preview:",
+  "As Filter": "As Filter",
+  "Select:": "Select:",
+  "Table Options...": "Table Options..."
 }
