@@ -234,7 +234,7 @@ Public Class ucrDataView
     End Sub
 
     Private Sub mnuDeleteRows_Click(sender As Object, e As EventArgs) Handles mnuDeleteRows.Click
-        Dim Delete = MsgBox("Are you sure you want to delete these row(s)?" & Environment.NewLine & "This action cannot be undone.", MessageBoxButtons.YesNo, "Delete Row(s)")
+    Dim Delete = Translations.MsgBoxTranslate("Are you sure you want to delete these row(s)?" & Environment.NewLine & "This action cannot be undone.", MessageBoxButtons.YesNo, "Delete Row(s)")
         If Delete = DialogResult.Yes Then
             StartWait()
             GetCurrentDataFrameFocus().clsPrepareFunctions.DeleteRows(GetSelectedRows())
