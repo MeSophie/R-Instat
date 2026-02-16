@@ -417,6 +417,8 @@ Public Class ucrReceiver
                 strItemsParameterNameInRFunction = "link_name"
             Case "calculation"
                 strItemsParameterNameInRFunction = "calculation_name"
+            Case "scalar"
+                strItemsParameterNameInRFunction = "scalar_name"
         End Select
         If IsCurrentReceiver() Then
             Selector.LoadList()
@@ -473,9 +475,9 @@ Public Class ucrReceiver
                 End If
                 Clear()
                 If lstCurrentVariables IsNot Nothing Then
-                    If Selector IsNot Nothing Then
-                        strTempDataName = Selector.strCurrentDataFrame
-                    End If
+
+                    strTempDataName = If(Selector?.strCurrentDataFrame?.Trim() <> "", Selector.strCurrentDataFrame, "data_names")
+
                     If TypeOf Me Is ucrReceiverMultiple Then
 
                         'TODO This only works if the selector is updated before receivers and dialog only uses one data frame!
@@ -565,6 +567,13 @@ Public Class ucrReceiver
         Next
         dctTemp.Add("Climatic_Type", arrTypes)
         SetIncludedAutoFillProperties(dctTemp)
+    End Sub
+
+    Public Sub SetTricotType(strInclude As String())
+        If strInclude Is Nothing OrElse strInclude.Length = 0 Then Exit Sub
+
+        Dim strTypes As String() = strInclude.Select(Function(s) $"""{s}""").ToArray()
+        AddIncludedMetadataProperty("Tricot_Type", strTypes)
     End Sub
 
     Public Sub SetOptionsByContextType(strSingleType As String, Optional strQuotes As String = Chr(34))

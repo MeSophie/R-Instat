@@ -200,7 +200,7 @@ Public Class dlgClimaticBoxPlot
 
         ucrSavePlot.SetPrefix("box_plot")
         ucrSavePlot.SetIsComboBox()
-        ucrSavePlot.SetCheckBoxText("Save Graph")
+        ucrSavePlot.SetCheckBoxText("Store Graph")
         ucrSavePlot.SetSaveTypeAsGraph()
         ucrSavePlot.SetDataFrameSelector(ucrSelectorClimaticBoxPlot.ucrAvailableDataFrames)
         ucrSavePlot.SetAssignToIfUncheckedValue("last_graph")
@@ -269,6 +269,7 @@ Public Class dlgClimaticBoxPlot
         clsRaesFunction.SetRCommand("aes")
         clsRaesFunction.AddParameter("x", Chr(34) & Chr(34))
 
+        clsAsFactorFunction.SetPackageName("instatExtras")
         clsAsFactorFunction.SetRCommand("make_factor")
         clsAsFactorFunction.AddParameter("x", Chr(34) & Chr(34), bIncludeArgumentName:=False)
 

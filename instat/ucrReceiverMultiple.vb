@@ -47,10 +47,18 @@ Public Class ucrReceiverMultiple
         'first eliminate all items that already exist
         'this improves perfomance significantly for wide data sets
         For Each kvpTempItem As KeyValuePair(Of String, String) In lstItems
-            If lstSelectedVariables.FindItemWithText(kvpTempItem.Value) Is Nothing Then
+            Dim isMatchFound As Boolean = False
+            For Each item As ListViewItem In lstSelectedVariables.Items
+                If item.Text.Equals(kvpTempItem.Value, StringComparison.Ordinal) Then
+                    isMatchFound = True
+                    Exit For
+                End If
+            Next
+            If Not isMatchFound Then
                 lstActualItemsToAdd.Add(kvpTempItem)
             End If
         Next
+        lstSelectedVariables.Columns(0).Width = -2 ' Auto-resize to fit content
 
         If lstActualItemsToAdd.Count = 0 Then
             Exit Sub
@@ -75,6 +83,13 @@ Public Class ucrReceiverMultiple
 
         OnSelectionChanged()
     End Sub
+
+    Private Sub lstSelectedVariables_Resize(sender As Object, e As EventArgs) Handles lstSelectedVariables.Resize
+        If lstSelectedVariables.Columns.Count > 0 Then
+            lstSelectedVariables.Columns(0).Width = lstSelectedVariables.ClientSize.Width
+        End If
+    End Sub
+
 
     'add new group if it exist and return it
     'support of multiple groups assumes that the receiver may have variables from more than one data frame
@@ -411,7 +426,7 @@ Public Class ucrReceiverMultiple
                 If bIsCategoricalNumeric Then
                     ' logical can be considered as both categorical or numeric so should be dealt with on individual dialogs
                     For i As Integer = 0 To strDataTypes.Count - 1
-                        If strDataTypes(i).Contains("factor") OrElse strDataTypes(i).Contains("character") Then
+                        If strDataTypes(i).Contains("factor") OrElse strDataTypes(i).Contains("character") OrElse strDataTypes(i).Contains("ordered") Then
                             strDataTypes(i) = "categorical"
                         ElseIf Not strDataTypes(i).Contains("logical") Then
                             strDataTypes(i) = "numeric"
@@ -514,12 +529,6 @@ Public Class ucrReceiverMultiple
         bSingleType = bIsSingleType
         bCategoricalNumeric = bIsCategoricalNumeric
         CheckSingleType()
-    End Sub
-
-    Private Sub lstSelectedVariables_ClientSizeChanged(ByVal sender As Object, ByVal e As EventArgs) Handles lstSelectedVariables.ClientSizeChanged
-        If lstSelectedVariables.Columns.Count > 0 Then
-            lstSelectedVariables.Columns(0).Width = lstSelectedVariables.ClientSize.Width
-        End If
     End Sub
 
     Private Sub ucrReceiverMultiple_SelectionChanged(sender As Object, e As EventArgs) Handles Me.SelectionChanged

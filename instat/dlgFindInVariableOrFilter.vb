@@ -77,12 +77,16 @@ Public Class dlgFindInVariableOrFilter
         ucrChkIncludeRegularExpressions.SetParameter(New RParameter("use_regex", 4))
         ucrChkIncludeRegularExpressions.SetValuesCheckedAndUnchecked("TRUE", "FALSE")
 
-        ucrPnlOptions.AddToLinkedControls({ucrInputPattern, ucrPnlSelect, ucrChkIgnoreCase, ucrChkIncludeRegularExpressions}, {rdoVariable}, bNewLinkedHideIfParameterMissing:=True)
+        ucrWholeValue.SetText("Whole Value")
+        ucrWholeValue.SetParameter(New RParameter("match_entire_cell", 5))
+        ucrWholeValue.SetValuesCheckedAndUnchecked("TRUE", "FALSE")
+
+        ucrPnlOptions.AddToLinkedControls({ucrInputPattern, ucrPnlSelect, ucrChkIgnoreCase, ucrChkIncludeRegularExpressions, ucrWholeValue}, {rdoVariable}, bNewLinkedHideIfParameterMissing:=True)
         ucrInputPattern.SetLinkedDisplayControl(lblPattern)
         ucrPnlSelect.SetLinkedDisplayControl(grpSelect)
 
         ucrBase.OKEnabled(False)
-        ucrBase.cmdReset.Enabled = False
+        ucrBase.cmdReset.Enabled = True
     End Sub
 
     Private Sub SetDefaults()
@@ -109,10 +113,12 @@ Public Class dlgFindInVariableOrFilter
 
         clsGetDataFrameFunction.SetRCommand(frmMain.clsRLink.strInstatDataObject & "$get_data_frame")
 
+        clsGetRowHeadersFunction.SetPackageName("instatExtras")
         clsGetRowHeadersFunction.SetRCommand("getRowHeadersWithText")
         clsGetRowHeadersFunction.AddParameter("data", clsRFunctionParameter:=clsGetDataFrameFunction, iPosition:=0)
         clsGetRowHeadersFunction.AddParameter("ignore_case", "TRUE", iPosition:=3)
         clsGetRowHeadersFunction.AddParameter("use_regex", "FALSE", iPosition:=4)
+        clsGetRowHeadersFunction.AddParameter("match_entire_cell", "FALSE", iPosition:=5)
 
         ucrReceiverVariable.SetMeAsReceiver()
         cmdFindNext.Enabled = False
@@ -126,6 +132,7 @@ Public Class dlgFindInVariableOrFilter
         ucrSelectorFind.SetRCode(clsGetDataFrameFunction, bReset)
         ucrReceiverVariable.SetRCode(clsGetRowHeadersFunction, bReset)
         ucrChkIgnoreCase.SetRCode(clsGetRowHeadersFunction, bReset)
+        ucrWholeValue.SetRCode(clsGetRowHeadersFunction, bReset)
         ucrChkIncludeRegularExpressions.SetRCode(clsGetRowHeadersFunction, bReset)
         ucrPnlOptions.SetRCode(clsDummyFunction, bReset)
         ucrPnlSelect.SetRCode(clsDummyFunction, bReset)
@@ -154,6 +161,15 @@ Public Class dlgFindInVariableOrFilter
             Return strName
         End If
     End Function
+
+    Private Sub ucrBase_ClickReset(sender As Object, e As EventArgs) Handles ucrBase.ClickReset
+        ucrSelectorFind.Reset()
+        rdoVariable.Checked = True
+        rdoCell.Checked = True
+        ucrReceiverVariable.Clear()
+        ucrInputPattern.cboInput.ResetText()
+        frmMain.ucrDataViewer.RemoveAllBackgroundColors()
+    End Sub
 
     Private Sub cmdFind_Click(sender As Object, e As EventArgs) Handles cmdFind.Click
         Try
@@ -202,10 +218,16 @@ Public Class dlgFindInVariableOrFilter
                 Dim bApplyToRows As Boolean = (rdoVariable.Checked AndAlso rdoRow.Checked) OrElse rdoInFilter.Checked
                 frmMain.ucrDataViewer.SearchRowInGrid(rowNumbers:=lstRowNumbers, strColumn:=strColumn,
                                                        iRow:=iRow, bApplyToRows:=bApplyToRows)
+                lblFoundRow.Visible = True
                 lblFoundRow.Text = "Found Row: " & iRow
                 lblFoundRow.Visible = True
                 iCountRowClick += 1
                 SetControlsVisible(False)
+                If iRow = -2147483648 Then
+                    lblFoundRow.Text = "No cell rows found"
+                Else
+                    lblFoundRow.Text = "Found Row: " & iRow
+                End If
             Else
                 Dim lstColumnNames As New List(Of String)
                 lstColumnNames = frmMain.clsRLink.RunInternalScriptGetValue(clsGetRowsFunction.ToScript()).AsCharacter.ToList

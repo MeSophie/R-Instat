@@ -132,13 +132,13 @@ Public Class RLink
     Private strRVersionMajorRequired As String = "4"
 
     ''' <summary>   The R version minor required. </summary>
-    Private strRVersionMinorRequired As String = "1"
+    Private strRVersionMinorRequired As String = "4"
 
     ''' <summary>   The R version required. </summary>
-    Private strRVersionRequired As String = strRVersionMajorRequired & "." & strRVersionMinorRequired & ".0"
+    Private strRVersionRequired As String = strRVersionMajorRequired & "." & strRVersionMinorRequired & ".1"
 
     ''' <summary>   The R bundled version. </summary>
-    Private strRBundledVersion As String = "4.1.3"
+    Private strRBundledVersion As String = "4.4.1"
 
     Private clsOutputLogger As clsOutputLogger
 
@@ -200,9 +200,9 @@ Public Class RLink
         Catch ex As Exception
             MsgBox(ex.Message & Environment.NewLine & "Could not establish connection to R." & Environment.NewLine &
                    "R-Instat requires version " & strRVersionRequired & " of R." & Environment.NewLine &
-                   "Note that R-Instat does not work with R below 3.5.0. We recommend using R " & strRBundledVersion &
-                   ".  Try reruning the installation to install R " & strRBundledVersion & " or download R " &
-                   strRBundledVersion & " from https://cran.r-project.org/bin/windows/base/old/" & strRBundledVersion & "/ and restart R-Instat.",
+                   "Note that R-Instat does not work with R below 4.4.1. We recommend using R " & strRBundledVersion &
+                   ".  Try rerunning the installation to install R " & strRBundledVersion & " or download R " &
+                   strRBundledVersion & " from https://cran.r-project.org/bin/windows/base/old/" & strRBundledVersion & "/  and restart R-Instat.",
                    MsgBoxStyle.Critical, "Cannot initialise R connection.")
         End Try
 
@@ -228,7 +228,7 @@ Public Class RLink
                 MsgBox("Could not determine version of R installed on your machine. R-Instat requires version: " & strRVersionRequired & vbNewLine &
                                        "Try uninstalling any versions of R and rerun the installation to install R " & strRVersionRequired & " or download R " &
                                        strRVersionRequired & "From https://cran.r-project.org/bin/windows/base/old/" & strRVersionRequired &
-                                       "And restart R-Instat.",
+                                       " and restart R-Instat.",
                                        MsgBoxStyle.Critical, "R Version error.")
             ElseIf strMajor <> strRVersionMajorRequired OrElse strMinor.Substring(0, 1) < strRVersionMinorRequired Then
                 MsgBox("Your current version of R is outdated. You are currently running R version: " & strMajor & "." & strMinor & Environment.NewLine &
@@ -254,14 +254,23 @@ Public Class RLink
     Public Function GetRSetupScript() As String
         Dim clsSetWd As New RFunction
         Dim clsSource As New RFunction
+        Dim clsSetLibPaths As New RFunction
         Dim strScript As String = ""
 
         clsSetWd.SetRCommand("setwd")
         clsSetWd.AddParameter("dir", Chr(34) & Path.Combine(frmMain.strStaticPath.Replace("\", "/") & strInstatObjectPath) & Chr(34)) 'This is bad the wd should be flexible and not automatically set to the instat object directory 
+
         clsSource.SetRCommand("source")
         clsSource.AddParameter("file", Chr(34) & "Rsetup.R" & Chr(34))
 
+        clsSetLibPaths.SetPackageName("instatExtras")
+        clsSetLibPaths.SetRCommand("set_library_paths")
+        clsSetLibPaths.AddParameter("version", Chr(34) & frmMain.GetVersionNumber & Chr(34))
+
         strScript = strScript & clsSetWd.ToScript() & Environment.NewLine
+#If Not DEBUG Then
+        strScript = strScript & clsSetLibPaths.ToScript() & Environment.NewLine
+#End If
         strScript = strScript & clsSource.ToScript() & Environment.NewLine
         strScript = strScript & GetCreateNewDatabookObjectRScript() & Environment.NewLine
 
@@ -625,6 +634,7 @@ Public Class RLink
         Dim strExistingNames As String
         Dim expPrefix As SymbolicExpression
 
+        clsGetDefault.SetPackageName("instatExtras")
         clsGetDefault.SetRCommand("next_default_item")
         clsGetDefault.AddParameter("prefix", Chr(34) & strPrefix & Chr(34))
         strExistingNames = GetListAsRString(lstItems)
@@ -740,7 +750,7 @@ Public Class RLink
                                       bSeparateThread:=False, bShowWaitDialogOverride:=Nothing)
             ElseIf Not clsRStatement.IsAssignment _
                 AndAlso Not String.IsNullOrWhiteSpace(clsRStatement.TextNoFormatting) Then
-                strOutput = GetFileOutput("view_object_data(object = " _
+                strOutput = GetFileOutput("instatExtras::view_object_data(object = " _
                                           & clsRStatement.TextNoFormatting _
                                           & " , object_format = 'text' )", bSilent:=False,
                                           bSeparateThread:=False, bShowWaitDialogOverride:=Nothing)
@@ -751,7 +761,7 @@ Public Class RLink
 
             ' Add output to logger
             clsOutputLogger.AddOutput(clsRStatement.Text, strOutput, bAsFile:=True,
-                        bDisplayOutputInExternalViewer:=clsRStatement.TextNoFormatting.StartsWith("view_object_data"))
+                        bDisplayOutputInExternalViewer:=clsRStatement.TextNoFormatting.StartsWith("instatExtras::view_object_data"))
 
             ' Log the script
             LogScript(clsRStatement.Text.TrimEnd(vbCr, vbLf))
@@ -850,7 +860,7 @@ Public Class RLink
                     Dim strRStatementAsSingleLine As String = strRStatement.Replace(vbCr, String.Empty)
                     strRStatementAsSingleLine = strRStatementAsSingleLine.Replace(vbLf, String.Empty)
                     'wrap final command inside view_object_data just in case there is an output object
-                    strOutput = GetFileOutput("view_object_data(object = " & strRStatementAsSingleLine & " , object_format = 'text' )", False, False, Nothing)
+                    strOutput = GetFileOutput("instatExtras::view_object_data(object = " & strRStatementAsSingleLine & " , object_format = 'text' )", False, False, Nothing)
                 Else
                     Evaluate(strRStatement, bSilent:=False, bSeparateThread:=False, bShowWaitDialogOverride:=Nothing)
                 End If
@@ -926,7 +936,8 @@ Public Class RLink
                          Optional bSeparateThread As Boolean = True,
                          Optional bShowWaitDialogOverride As Nullable(Of Boolean) = Nothing,
                          Optional bUpdateGrids As Boolean = True,
-                         Optional bSilent As Boolean = False)
+                         Optional bSilent As Boolean = False,
+                         Optional bSkipScriptAndOutput As Boolean = False)
 
         'if there is no script to run then just ignore and exit sub
         If String.IsNullOrWhiteSpace(strScript) Then
@@ -992,15 +1003,17 @@ Public Class RLink
                         End If
 
                         If bSuccess Then
-                            strOutput = GetFileOutput("view_object_data(object = " & arrExecutableRScriptLines.Last() & " , object_format = 'text' )", bSilent, bSeparateThread, bShowWaitDialogOverride)
+                            strOutput = GetFileOutput("instatExtras::view_object_data(object = " & arrExecutableRScriptLines.Last() & " , object_format = 'text' )", bSilent, bSeparateThread, bShowWaitDialogOverride)
                         End If
                     End If
 
                 End If
             End If
 
-            ' If strOutput is empty or does not contain valid HTML files, add strOutput itself as an output
-            clsOutputLogger.AddOutput(strScriptWithComment, strOutput, bAsFile, bDisplayOutputInExternalViewer)
+            If Not bSkipScriptAndOutput Then
+                ' If strOutput is empty or does not contain valid HTML files, add strOutput itself as an output
+                clsOutputLogger.AddOutput(strScriptWithComment, strOutput, bAsFile, bDisplayOutputInExternalViewer)
+            End If
 
 
         Catch e As Exception
@@ -1420,6 +1433,8 @@ Public Class RLink
                     clsGetItems.SetRCommand(strInstatDataObject & "$get_link_names")
                 Case "key"
                     clsGetItems.SetRCommand(strInstatDataObject & "$get_key_names")
+                Case "scalar"
+                    clsGetItems.SetRCommand(strInstatDataObject & "$get_scalar_names")
                 Case "database_variables"
                     clsGetItems.SetRCommand(strInstatDataObject & "$get_database_variable_names")
                     clsGetItems.AddParameter("query", Chr(34) & strDatabaseQuery & Chr(34))
@@ -2108,6 +2123,7 @@ Public Class RLink
         clsGetColumn.SetRCommand(strInstatDataObject & "$get_columns_from_data")
         clsGetColumn.AddParameter("data_name", Chr(34) & strDataName & Chr(34))
         clsGetColumn.AddParameter("col_names", Chr(34) & strColumn & Chr(34))
+        clsIsBinary.SetPackageName("instatExtras")
         clsIsBinary.SetRCommand("is.binary")
         clsIsBinary.AddParameter("x", clsRFunctionParameter:=clsGetColumn)
         expBinary = RunInternalScriptGetValue(clsIsBinary.ToScript())
@@ -2211,7 +2227,7 @@ Public Class RLink
         Dim strRStatementTrimmed As String = TrimStartRStatement(strRStatement)
         Return strRStatementTrimmed.StartsWith(strInstatDataObject & "$get_object_data") _
                OrElse strRStatementTrimmed.StartsWith(strInstatDataObject & "$get_last_object_data") _
-               OrElse strRStatementTrimmed.StartsWith("view_object_data")
+               OrElse strRStatementTrimmed.StartsWith("instatExtras::view_object_data")
     End Function
 
     Private Function TrimStartRStatement(strRStatement As String) As String
